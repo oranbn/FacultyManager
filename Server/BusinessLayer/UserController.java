@@ -57,7 +57,7 @@ public class UserController {
         return false;
     }
 
-    public boolean login(String email, String password) {
+    public boolean login(String email, String password, int connectionId) {
         return false;
     }
 
@@ -65,7 +65,7 @@ public class UserController {
         return false;
     }
 
-    private boolean privateMessage(String sender, String recipient)
+    public boolean sendPrivateMessage(String sender, String recipient, String content, String dateAndTime)
     {
         return false;
     }
