@@ -4,9 +4,9 @@ import DataAccessLayer.DalController;
 
 public class DUser extends DTO {
     private boolean persisted;
-    public final String EmailColumnName="Email";
-    public final String PasswordColumnName="Password";
-    public final String BirthdayColumnName="Birthday";
+    public static final String EmailColumnName="Email";
+    public static final String PasswordColumnName="Password";
+    public static final String BirthdayColumnName="Birthday";
 
     private String email;
     private String password;
