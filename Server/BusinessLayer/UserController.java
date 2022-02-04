@@ -1,5 +1,6 @@
 package BusinessLayer;
 
+import DataAccessLayer.DTOs.DUser;
 import DataAccessLayer.DUserController;
 
 import java.util.List;
@@ -11,7 +12,7 @@ public class UserController {
     private int id = 0;
     private final LoggedInUsers loggedInUsers;
     private final int maxPasswordLength = 20;
-    private final int minPasswrodLength = 8;
+    private final int minPasswordLength = 8;
     private List<String> forbiddenPassword;
 
     public UserController(LoggedInUsers loggedInUsers) {
@@ -30,6 +31,7 @@ public class UserController {
         // id++;
     }
 
+
     private boolean isLegalPassword(String password) {
         return false;
     }
@@ -47,6 +49,11 @@ public class UserController {
     }
 
     public boolean register(String email, String password, String birthday) {
+        if(isLegalEmail(email) && isUniqueEmail(email) && isLegalPassword(password)) {
+            users.put(email, new User(email, password, birthday, new DUser(id++, email, password, birthday)));
+            return true;
+        }
+
         return false;
     }
 

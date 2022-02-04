@@ -19,11 +19,11 @@ public class DUser extends DTO {
         this.password = password;
         this.birthday = birthday;
     }
-    public void Insert()
+    public void insert()
     {
         if(!persisted)
         {
-            // controller.insert(this);
+            ((DUserController)controller).insert(this);
             persisted = true;
         }
     }
