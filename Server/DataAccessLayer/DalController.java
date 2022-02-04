@@ -28,12 +28,42 @@ public abstract class DalController {
     // update table row when value is string
     public boolean update(int id, String attributeName, String attributeValue)
     {
-        return false;
+        String sql = "UPDATE "+tableName+" SET "+attributeName+" = ? "
+                + "WHERE id = ?";
+
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            // set the corresponding param
+            pstmt.setString(1, attributeValue);
+            pstmt.setInt(2, id);
+            // update
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+        return true;
     }
     // update table row when value is int
     public boolean update(int id, String attributeName, int attributeValue)
     {
-        return false;
+        String sql = "UPDATE "+tableName+" SET "+attributeName+" = ? "
+                + "WHERE id = ?";
+
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            // set the corresponding param
+            pstmt.setInt(1, attributeValue);
+            pstmt.setInt(2, id);
+            // update
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+        return true;
     }
     // get all objects of specific table - each row is a object
     protected List<DTO> select()
