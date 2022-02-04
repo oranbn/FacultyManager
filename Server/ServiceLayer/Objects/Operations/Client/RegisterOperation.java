@@ -5,6 +5,10 @@ import ServiceLayer.Objects.ClientOperation;
 public class RegisterOperation extends ClientOperation {
     private String userName;
     private String password;
+    private String firstName;
+    private String lastName;
+    private String idNumber;
+    private String phoneNumber;
     private String birthday;
 
     public RegisterOperation(short opCode) {
@@ -26,6 +30,18 @@ public class RegisterOperation extends ClientOperation {
             else if(password.equals("")){
                 this.password = bytesToString();
             }
+            else if(firstName.equals("")){
+                this.firstName = bytesToString();
+            }
+            else if(lastName.equals("")){
+                this.lastName = bytesToString();
+            }
+            else if(idNumber.equals("")){
+                this.idNumber = bytesToString();
+            }
+            else if(phoneNumber.equals("")){
+                this.phoneNumber = bytesToString();
+            }
             else if(birthday.equals("")){
                 this.birthday = bytesToString();
             }
@@ -45,6 +61,21 @@ public class RegisterOperation extends ClientOperation {
 
     public String getBirthday() {
         return birthday;
+    }
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getIdNumber() {
+        return idNumber;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
 }

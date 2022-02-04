@@ -68,6 +68,25 @@ public abstract class DalController {
         }
         return true;
     }
+    public boolean update(int id, String attributeName, boolean attributeValue)
+    {
+        String sql = "UPDATE "+tableName+" SET "+attributeName+" = ? "
+                + "WHERE id = ?";
+
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            // set the corresponding param
+            pstmt.setBoolean(1, attributeValue);
+            pstmt.setInt(2, id);
+            // update
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+        return true;
+    }
     protected abstract DTO ConvertReaderToObject(ResultSet reader);
     // get all objects of specific table - each row is a object
     protected List<DTO> select()

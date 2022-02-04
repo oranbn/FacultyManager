@@ -14,7 +14,7 @@ public class DUserController extends DalController {
     }
     // get all users from database
     public List<DUser> selectAllUsers(){
-        return null;
+        return (List<DUser>)(List<?>)select();
     }
     // insert new user to database
     public boolean insert(DUser user)
@@ -39,7 +39,7 @@ public class DUserController extends DalController {
     protected DTO ConvertReaderToObject(ResultSet reader) {
         DUser result = null;
         try {
-            result = new DUser(reader.getInt(1), reader.getString(2), reader.getString(3),reader.getString(4));
+            result = new DUser(reader.getInt(1), reader.getString(2), reader.getString(3),reader.getString(4),reader.getString(5), reader.getString(6),reader.getString(7), reader.getInt(8),reader.getBoolean(9), reader.getString(10));
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }

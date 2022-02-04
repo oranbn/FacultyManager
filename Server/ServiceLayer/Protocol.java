@@ -27,27 +27,32 @@ public class Protocol implements MessagingProtocol<Operation>{
     public void process(Operation operation) {
         switch(operation.getOpCode()) {
             case 1:
-                if (userController.register(((RegisterOperation) operation).getUserName(), ((RegisterOperation) operation).getPassword(), ((RegisterOperation) operation).getBirthday()))
+                if (userController.register(((RegisterOperation) operation).getUserName(),((RegisterOperation) operation).getFirstName(),((RegisterOperation) operation).getLastName(),((RegisterOperation) operation).getIdNumber(),((RegisterOperation) operation).getPhoneNumber(), ((RegisterOperation) operation).getPassword(), ((RegisterOperation) operation).getBirthday()))
                     connections.send(connectionId, new Response((short) 10, (short) 1, "Registered Successfully"));
                 else
                     connections.send(connectionId, new Response((short) 11, (short) 1, "Registered Faild!"));
                 break;
             case 2:
-                if(userName=="")
-                    if (userController.login(((LoginOperation) operation).getUserName(), ((LoginOperation) operation).getPassword(), connectionId)) {
+                if(userName=="") {
+                    try {
+                        userController.login(((LoginOperation) operation).getUserName(), ((LoginOperation) operation).getPassword(), connectionId);
                         connections.send(connectionId, new Response((short) 10, (short) 2, "Logged in Successfully"));
                         this.userName = ((LoginOperation) operation).getUserName();
+
+                    } catch (Exception e) {
+                        connections.send(connectionId, new Response((short) 11, (short) 2, e.getMessage()));
                     }
-                    else
-                        connections.send(connectionId, new Response((short) 11, (short) 2, ""));
+                }
                 else
                     connections.send(connectionId, new Response((short) 11, (short) 2, ""));
                 break;
             case 3:
-                if (userController.logout(userName))
+                try {
+                    userController.logout(userName);
                     connections.send(connectionId, new Response((short) 10, (short) 3, "Logged out Successfully"));
-                else
-                    connections.send(connectionId, new Response((short) 11, (short) 3, ""));
+                } catch (Exception e) {
+                    connections.send(connectionId, new Response((short) 11, (short) 3, e.getMessage()));
+                }
                 break;
             case 6:
                 if(userController.sendPrivateMessage(userName, (((PrivateMessageOperation)operation).getUserName()), (((PrivateMessageOperation)operation).getContent()), (((PrivateMessageOperation)operation).getDateAndTime())))
@@ -59,34 +64,9 @@ public class Protocol implements MessagingProtocol<Operation>{
         }
     }
 
-
     @Override
     public boolean shouldTerminate() {
         return false;
     }
 
-    /*private byte[] getLogStat(byte[] ackByte, byte[] logStatByte, byte[] ageByte, byte[] numberOfPostsByte, byte[] numberOfFollowingByte, byte[] numberOfFollowersByte) {
-        byte[] logStat = new byte[12];
-        logStat[0] = ackByte[0];
-        logStat[1] = ackByte[1];
-        logStat[2] = logStatByte[0];
-        logStat[3] = logStatByte[1];
-        logStat[4] = ageByte[0];
-        logStat[5] = ageByte[1];
-        logStat[6] = numberOfPostsByte[0];
-        logStat[7] = numberOfPostsByte[1];
-        logStat[8] = numberOfFollowingByte[0];
-        logStat[9] = numberOfFollowingByte[1];
-        logStat[10] = numberOfFollowersByte[0];
-        logStat[11] = numberOfFollowersByte[1];
-        return logStat;
-    }
-
-    public byte[] shortToBytes(short num)
-    {
-        byte[] bytesArr = new byte[2];
-        bytesArr[0] = (byte)((num >> 8) & 0xFF);
-        bytesArr[1] = (byte)(num & 0xFF);
-        return bytesArr;
-    }*/
 }
