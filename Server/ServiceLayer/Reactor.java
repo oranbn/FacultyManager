@@ -1,3 +1,5 @@
+package ServiceLayer;
+
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.channels.ClosedSelectorException;
@@ -8,7 +10,7 @@ import java.nio.channels.SocketChannel;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.function.Supplier;
 
-public class Reactor<T> implements bgu.spl.net.srv.Server<T> {
+public class Reactor<T> implements Server<T> {
 
     private final int port;
     private final Supplier<MessagingProtocol<T>> protocolFactory;

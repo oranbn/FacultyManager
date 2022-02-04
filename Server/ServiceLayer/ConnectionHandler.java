@@ -1,4 +1,4 @@
-package bgu.spl.net.srv.bidi;
+package ServiceLayer;
 
 import java.io.Closeable;
 import java.io.IOException;
