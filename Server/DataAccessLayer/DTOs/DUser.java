@@ -1,5 +1,6 @@
 package DataAccessLayer.DTOs;
 
+import DataAccessLayer.DUserController;
 import DataAccessLayer.DalController;
 
 public class DUser extends DTO {
@@ -12,8 +13,8 @@ public class DUser extends DTO {
     private String password;
     private String birthday;
 
-    public DUser(DalController controller, int id, String email, String password, String birthday) {
-        super(controller, id);
+    public DUser(int id, String email, String password, String birthday) {
+        super(new DUserController(), id);
         this.email = email;
         this.password = password;
         this.birthday = birthday;

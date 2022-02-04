@@ -6,6 +6,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class DalController {
@@ -65,9 +68,26 @@ public abstract class DalController {
         }
         return true;
     }
+    protected abstract DTO ConvertReaderToObject(ResultSet reader);
     // get all objects of specific table - each row is a object
     protected List<DTO> select()
     {
-        return null;
+        List<DTO> results = new ArrayList<>();
+        String sql = "SELECT * FROM "+tableName;
+
+        try (Connection conn = this.connect();
+             Statement stmt  = conn.createStatement();
+             ResultSet rs    = stmt.executeQuery(sql)){
+
+            // loop through the result set
+            while (rs.next()) {
+                results.add(ConvertReaderToObject(rs));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+        return results;
     }
+
 }

@@ -2,10 +2,8 @@ package DataAccessLayer;
 
 import DataAccessLayer.DTOs.DTO;
 import DataAccessLayer.DTOs.DUser;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+
+import java.sql.*;
 import java.util.List;
 
 public class DUserController extends DalController {
@@ -35,5 +33,16 @@ public class DUserController extends DalController {
             return false;
         }
         return true;
+    }
+
+    @Override
+    protected DTO ConvertReaderToObject(ResultSet reader) {
+        DUser result = null;
+        try {
+            result = new DUser(reader.getInt(1), reader.getString(2), reader.getString(3),reader.getString(4));
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return result;
     }
 }
