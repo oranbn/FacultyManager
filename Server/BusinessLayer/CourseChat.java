@@ -1,21 +1,23 @@
 package BusinessLayer;
 
-import DataAccessLayer.DTOs.DChatMessage;
 import DataAccessLayer.DTOs.DCourseChat;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class CourseChat {
-    private int courseId;
+    private final int courseId;
     private String chatName;
     private final List<ChatMessage> messages;
-    private DCourseChat courseChat;
+    private String pinMessage;
+    private DCourseChat dCourseChat;
+
     public CourseChat(int courseId, String chatName, DCourseChat courseChat) {
         this.courseId = courseId;
         this.messages = new ArrayList<>();
         this.chatName = chatName;
-        this.courseChat = courseChat;
+        this.dCourseChat = courseChat;
+        this.pinMessage = null;
         courseChat.insert();
     }
 
@@ -47,13 +49,21 @@ public class CourseChat {
         return courseId;
     }
 
+    public String getPinMessage() {
+        return pinMessage;
+    }
     public String getChatName() {
         return chatName;
     }
     public void changeChatName(String chatName)
     {
         this.chatName = chatName;
-        courseChat.setChatName(chatName);
+        dCourseChat.setChatName(chatName);
+    }
+    public void pinMessage(String pinMessage)
+    {
+        this.pinMessage = pinMessage;
+        dCourseChat.setPinMessage(pinMessage);
     }
 
 }

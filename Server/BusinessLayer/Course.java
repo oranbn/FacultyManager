@@ -15,8 +15,8 @@ public class Course {
     private final ConcurrentHashMap<Integer, Homework> homeworks;
     private final ConcurrentHashMap<String, User> students;
     private final ConcurrentHashMap<Integer, CourseChat> chats;
-
-    public Course(int id, String name, String generalInfo) {
+    private final DCourse dCourse;
+    public Course(int id, String name, String generalInfo, DCourse dCourse) {
         this.id = id;
         this.name = name;
         this.generalInfo = generalInfo;
@@ -25,9 +25,11 @@ public class Course {
         this.homeworks = new ConcurrentHashMap<>();
         this.students = new ConcurrentHashMap<>();
         this.chats = new ConcurrentHashMap<>();
+        this.dCourse = dCourse;
     }
     public Course(DCourse dCourse)
     {
+        this.dCourse = dCourse;
         this.id = dCourse.getId();
         this.name = dCourse.getName();
         this.generalInfo = dCourse.getGeneralInfo();
@@ -109,5 +111,15 @@ public class Course {
 
     public ConcurrentHashMap<Integer, CourseChat> getChats() {
         return chats;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+        dCourse.setName(name);
+    }
+
+    public void setGeneralInfo(String generalInfo) {
+        this.generalInfo = generalInfo;
+        dCourse.setGeneralInfo(generalInfo);
     }
 }
