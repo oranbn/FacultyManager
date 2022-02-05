@@ -1,4 +1,4 @@
 package DataAccessLayer.DTOs;
 
-public class DChat {
+public class DGeneralChat {
 }

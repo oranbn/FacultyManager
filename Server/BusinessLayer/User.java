@@ -79,4 +79,39 @@ public class User {
         isEmailApproved = true;
         dUser.approveEmail();
     }
+    public String getEmail() {
+        return email;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getIdNumber() {
+        return idNumber;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public String getBirthday() {
+        return birthday;
+    }
+
+    public int getPermissionLevel() {
+        return permissionLevel;
+    }
+
+    public boolean isEmailApproved() {
+        return isEmailApproved;
+    }
+
+    public int getConnectionId() {
+        return connectionId;
+    }
 }
