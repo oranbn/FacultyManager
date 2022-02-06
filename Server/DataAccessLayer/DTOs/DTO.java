@@ -11,6 +11,7 @@ public abstract class DTO {
         this.controller = controller;
         this.id = id;
     }
+    public abstract void insert();
     public int getId() {
         return id;
     }
