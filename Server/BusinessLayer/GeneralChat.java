@@ -1,29 +1,58 @@
 package BusinessLayer;
 
+import DataAccessLayer.DTOs.DChatMessage;
+import DataAccessLayer.DTOs.DGeneralChat;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class GeneralChat {
-    private List<ChatMessage> messages;
-    private String pinMessage;
+    private final ConcurrentHashMap<Integer, ChatMessage> messages;
+    List<String> forbiddenWords;
+    private int messageId = 0;
+    private ChatMessage pinMessage;
     private boolean blockChat;
 
     public GeneralChat() {
-        this.messages = new ArrayList<>();
+        this.messages = new ConcurrentHashMap<>();
+        forbiddenWords = new ArrayList<>();
         blockChat = false;
-
     }
-
-    public void addMessage(ChatMessage message)
+    public GeneralChat(DGeneralChat dGeneralChat)
     {
-        messages.add(message);
+        this.messages = new ConcurrentHashMap<>();
     }
-    public void removeMessage(ChatMessage message) {messages.remove(message);}
+
+    public void addMessage(String userSender, String time, String content)
+    {
+        messages.put(messageId, new ChatMessage(0,0,messageId,userSender,time, content, forbiddenWords, new DChatMessage(0, 0,messageId++, userSender, time, content, false)));
+    }
+    public void removeMessage(int messageId) {
+    ChatMessage message = messages.get(messageId);
+    if(message!=null)
+    {
+        message.deleteMessage();
+        messages.remove(messageId);
+    }
+    }
     public void blockChat(){
         blockChat = true;
     }
     public void unBlockChat()
     {
         blockChat = false;
+    }
+    public ChatMessage getPinMessage()
+    {
+        return pinMessage;
+    }
+    public void setPinMessage(int messageId)
+    {
+        if(messages.containsKey(messageId)) {
+            pinMessage = messages.get(messageId);
+            // update db
+            // update client
+        }
     }
 }

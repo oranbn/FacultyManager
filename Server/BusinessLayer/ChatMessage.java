@@ -5,7 +5,9 @@ import DataAccessLayer.DTOs.DChatMessage;
 import java.util.List;
 
 public class ChatMessage {
+    private final int courseId;
     private final int chatId;
+    private final int messageId;
     private final String userSender;
     private final String time;
     private final String content;
@@ -13,8 +15,10 @@ public class ChatMessage {
     private final List<String> forbiddenWords;
     private final DChatMessage dChatMessage;
 
-    public ChatMessage(int chatId, String userSender, String time, String content, List<String> forbiddenWords, DChatMessage dChatMessage) {
+    public ChatMessage(int courseId, int chatId,int messageId, String userSender, String time, String content, List<String> forbiddenWords, DChatMessage dChatMessage) {
+        this.courseId = courseId;
         this.chatId = chatId;
+        this.messageId = messageId;
         this.userSender = userSender;
         this.time = time;
         for(int i=0; i<forbiddenWords.size();i++)
@@ -27,7 +31,9 @@ public class ChatMessage {
     }
     public ChatMessage(DChatMessage dChatMessage, List<String> forbiddenWords)
     {
+        courseId = dChatMessage.getCourseId();;
         chatId = dChatMessage.getId();
+        messageId = dChatMessage.getMessageId();
         userSender = dChatMessage.getUserSender();
         time = dChatMessage.getTime();
         content = dChatMessage.getContent();
@@ -61,5 +67,10 @@ public class ChatMessage {
 
     public String getContent() {
         return content;
+    }
+
+    public void deleteMessage()
+    {
+        dChatMessage.delete();
     }
 }

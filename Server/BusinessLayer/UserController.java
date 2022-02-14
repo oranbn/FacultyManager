@@ -119,7 +119,15 @@ public class UserController {
     public void sendFriendRequest(String sender, String recipient){
 
     }
+    public void cancelFriendRequest(String sender, String recipient)
+    {
+
+    }
     public void acceptFriendRequest(String sender, String recipient)
+    {
+
+    }
+    public void cancelFriendship(String sender, String recipient)
     {
 
     }
