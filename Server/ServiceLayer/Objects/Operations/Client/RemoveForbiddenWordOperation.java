@@ -3,12 +3,12 @@ package ServiceLayer.Objects.Operations.Client;
 import ServiceLayer.Objects.ClientOperation;
 import ServiceLayer.Protocol;
 
-public class SendFriendRequestOperation extends ClientOperation {
-    private String username;
+public class RemoveForbiddenWordOperation extends ClientOperation {
+    private String forbiddenWord;
 
-    public SendFriendRequestOperation(short opCode) {
+    public RemoveForbiddenWordOperation(short opCode) {
         super(opCode);
-        this.username = "";
+        this.forbiddenWord = "";
     }
 
     @Override
@@ -17,19 +17,19 @@ public class SendFriendRequestOperation extends ClientOperation {
             return true;
         if(nextByte=='\0')
         {
-            username = bytesToString();
+            forbiddenWord = bytesToString();
         }
         else
             pushNextByte(nextByte);
         return false;
     }
 
-    public String getUsername() {
-        return username;
+    public String getForbiddenWord() {
+        return forbiddenWord;
     }
 
     @Override
     public void execute(Protocol protocol) {
-        protocol.sendFriendRequest(this);
+        protocol.removeForbiddenWord(this);
     }
 }

@@ -26,7 +26,7 @@ public class GeneralChat {
 
     public void addMessage(String userSender, String time, String content)
     {
-        messages.put(messageId, new ChatMessage(0,0,messageId,userSender,time, content, forbiddenWords, new DChatMessage(0, 0,messageId++, userSender, time, content, false)));
+        messages.put(messageId, new ChatMessage(0,0,messageId,userSender,time, content, new DChatMessage(0, 0,messageId++, userSender, time, content, false)));
     }
     public void removeMessage(int messageId) {
     ChatMessage message = messages.get(messageId);

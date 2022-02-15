@@ -1,5 +1,6 @@
 package DataAccessLayer.DTOs;
 
+import DataAccessLayer.DChatMessageController;
 import DataAccessLayer.DCourseChatController;
 import DataAccessLayer.DUserController;
 import DataAccessLayer.DalController;
@@ -51,6 +52,12 @@ public class DCourseChat extends DTO{
         if(persisted)
         {
             controller.update(getId(), PinMessageColumnName, pinMessage);
+        }
+    }
+    public void delete() {
+        if(persisted)
+        {
+            ((DCourseChatController)controller).delete(this);
         }
     }
 }

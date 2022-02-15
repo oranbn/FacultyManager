@@ -1,5 +1,6 @@
 package DataAccessLayer;
 
+import DataAccessLayer.DTOs.DChatMessage;
 import DataAccessLayer.DTOs.DCourseChat;
 import DataAccessLayer.DTOs.DTO;
 import java.sql.Connection;
@@ -21,6 +22,19 @@ public class DCourseChatController extends DalController{
             pstmt.setInt(2, courseChat.getCourseId());
             pstmt.setString(3, courseChat.getChatName());
             pstmt.setString(4, courseChat.getPinMessage());
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+        return true;
+    }
+    public boolean delete(DCourseChat courseChat)
+    {
+        String sql = "DELETE FROM CourseChat WHERE ID = ?";
+        try (Connection conn = connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, courseChat.getId());
             pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());

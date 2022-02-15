@@ -1,6 +1,7 @@
 package ServiceLayer.Objects.Operations.Client;
 
 import ServiceLayer.Objects.ClientOperation;
+import ServiceLayer.Protocol;
 
 public class RegisterOperation extends ClientOperation {
     private String userName;
@@ -78,4 +79,8 @@ public class RegisterOperation extends ClientOperation {
         return phoneNumber;
     }
 
+    @Override
+    public void execute(Protocol protocol) {
+        protocol.register(this);
+    }
 }

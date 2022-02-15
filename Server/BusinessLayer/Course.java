@@ -1,6 +1,7 @@
 package BusinessLayer;
 
 import DataAccessLayer.DTOs.DCourse;
+import DataAccessLayer.DTOs.DCourseChat;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,6 +9,8 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class Course {
     private int id;
+    private int courseChatCounter;
+    private int examCounter;
     private String name;
     private String generalInfo;
     private final List<String> teachers;
@@ -25,6 +28,8 @@ public class Course {
         this.homeworks = new ConcurrentHashMap<>();
         this.students = new ConcurrentHashMap<>();
         this.chats = new ConcurrentHashMap<>();
+        this.courseChatCounter = 0;
+        this.examCounter = 0;
         this.dCourse = dCourse;
     }
     public Course(DCourse dCourse)
@@ -40,11 +45,13 @@ public class Course {
         this.chats = new ConcurrentHashMap<>();
         //todo
         // load teachers, exams, students and chats:
+        // load course chat counter and exam counter
     }
     public void addTeacher(String teacher)
     {
         teachers.add(teacher);
     }
+    public void addMessage(){}
     public void removeTeacher(String teacher)
     {
         teachers.remove(teacher);
@@ -73,13 +80,19 @@ public class Course {
     {
         students.remove(email);
     }
-    public void addChat(CourseChat courseChat, int chatId)
+    public void addChat(String chatName)
     {
-        chats.put(chatId, courseChat);
+        chats.put(courseChatCounter, new CourseChat(courseChatCounter, id, chatName, new DCourseChat(courseChatCounter++, id, chatName, "")));
     }
     public void removeChat(int chatId)
     {
-        chats.remove(chatId);
+        CourseChat chat = chats.get(chatId);
+        if(chat!=null)
+        {
+            chat.deleteChat();
+        }
+        else
+            throw new IllegalArgumentException("Invalid chat!");
     }
     public int getId() {
         return id;

@@ -1,6 +1,7 @@
 package ServiceLayer.Objects.Operations.Client;
 
 import ServiceLayer.Objects.ClientOperation;
+import ServiceLayer.Protocol;
 
 public class PrivateMessageOperation extends ClientOperation {
     private String userName;
@@ -41,5 +42,10 @@ public class PrivateMessageOperation extends ClientOperation {
     }
     public String getDateAndTime() {
         return dateAndTime;
+    }
+
+    @Override
+    public void execute(Protocol protocol) {
+        protocol.privateMessage(this);
     }
 }

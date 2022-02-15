@@ -12,24 +12,23 @@ public class ChatMessage {
     private final String time;
     private final String content;
     private boolean mark;
-    private final List<String> forbiddenWords;
     private final DChatMessage dChatMessage;
 
-    public ChatMessage(int courseId, int chatId,int messageId, String userSender, String time, String content, List<String> forbiddenWords, DChatMessage dChatMessage) {
+    public ChatMessage(int courseId, int chatId,int messageId, String userSender, String time, String content, DChatMessage dChatMessage) {
         this.courseId = courseId;
         this.chatId = chatId;
         this.messageId = messageId;
         this.userSender = userSender;
         this.time = time;
+        List<String> forbiddenWords = ForbiddenWords.getInstance().getForbiddenWords();
         for(int i=0; i<forbiddenWords.size();i++)
             content = content.replaceAll(forbiddenWords.get(i), "<filtered>");
         this.content = content;
         this.mark = false;
-        this.forbiddenWords = forbiddenWords;
         this.dChatMessage = dChatMessage;
         dChatMessage.insert();
     }
-    public ChatMessage(DChatMessage dChatMessage, List<String> forbiddenWords)
+    public ChatMessage(DChatMessage dChatMessage)
     {
         courseId = dChatMessage.getCourseId();;
         chatId = dChatMessage.getId();
@@ -37,7 +36,6 @@ public class ChatMessage {
         userSender = dChatMessage.getUserSender();
         time = dChatMessage.getTime();
         content = dChatMessage.getContent();
-        this.forbiddenWords = forbiddenWords;
         this.dChatMessage = dChatMessage;
     }
     public void markMessage()

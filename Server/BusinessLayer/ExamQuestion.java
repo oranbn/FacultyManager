@@ -3,18 +3,24 @@ package BusinessLayer;
 import java.util.List;
 
 public class ExamQuestion {
+    private final int questionId;
     private final int examId;
+    private final int coureId;
     private int points;
     private String title;
     private final List<ExamAnswer> answers;
 
-    public ExamQuestion(int examId, int points, String title, List<ExamAnswer> answers) {
+    public ExamQuestion(int questionId, int examId,int coureId, int points, String title, List<ExamAnswer> answers) {
+        this.questionId = questionId;
         this.examId = examId;
+        this.coureId = coureId;
         this.points = points;
         this.title = title;
         this.answers = answers;
     }
-
+    public int getQuestionId() {
+        return questionId;
+    }
     public int getPoints() {
         return points;
     }

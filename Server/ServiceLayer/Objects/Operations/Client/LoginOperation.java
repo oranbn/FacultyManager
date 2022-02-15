@@ -1,6 +1,7 @@
 package ServiceLayer.Objects.Operations.Client;
 
 import ServiceLayer.Objects.ClientOperation;
+import ServiceLayer.Protocol;
 
 public class LoginOperation extends ClientOperation {
     private String userName;
@@ -38,4 +39,8 @@ public class LoginOperation extends ClientOperation {
         return password;
     }
 
+    @Override
+    public void execute(Protocol protocol) {
+        protocol.login(this);
+    }
 }

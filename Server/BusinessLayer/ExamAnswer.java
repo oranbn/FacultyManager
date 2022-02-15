@@ -1,18 +1,34 @@
 package BusinessLayer;
 
+import DataAccessLayer.DTOs.DExamAnswer;
+
 public class ExamAnswer {
     private final int questionId;
     private int answerId;
+    private final int examId;
+    private final int courseId;
     private String content;
     private boolean correct;
-
-    public ExamAnswer(int questionId, int answerId, String content, boolean correct) {
+    private final DExamAnswer dExamAnswer;
+    public ExamAnswer(int questionId, int answerId, int examId, int courseId, String content, boolean correct, DExamAnswer dExamAnswer) {
         this.questionId = questionId;
         this.answerId = answerId;
+        this.examId = examId;
+        this.courseId = courseId;
         this.content = content;
         this.correct = correct;
+        this.dExamAnswer = dExamAnswer;
+        //todo:
+        //dExamAnswer.insert();
     }
+    //todo:
+/*    public ExamAnswer(DExamAnswer dExamAnswer)
+    {
 
+    }*/
+    public int getExamId() { return examId; }
+
+    public int getCourseId() { return courseId; }
     public String getContent() {
         return content;
     }

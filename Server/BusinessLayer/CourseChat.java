@@ -1,34 +1,45 @@
 package BusinessLayer;
 
+import DataAccessLayer.DTOs.DChatMessage;
 import DataAccessLayer.DTOs.DCourseChat;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class CourseChat {
+    private final int chatId;
     private final int courseId;
+    private int messageCounter;
     private String chatName;
-    private final List<ChatMessage> messages;
+    private final ConcurrentHashMap<Integer, ChatMessage> messages;
     private String pinMessage;
     private DCourseChat dCourseChat;
 
-    public CourseChat(int courseId, String chatName, DCourseChat courseChat) {
+    public CourseChat(int chatId, int courseId, String chatName, DCourseChat courseChat) {
+        this.chatId = chatId;
         this.courseId = courseId;
-        this.messages = new ArrayList<>();
+        this.messages = new ConcurrentHashMap<>();
         this.chatName = chatName;
         this.dCourseChat = courseChat;
         this.pinMessage = null;
+        this.messageCounter = 0;
         courseChat.insert();
     }
 
    public CourseChat(DCourseChat courseChat) {
-       this.messages = new ArrayList<>();
+       this.messages = new ConcurrentHashMap<>();
+       this.chatId = courseChat.getId();
        this.courseId = courseChat.getCourseId();
        this.chatName = courseChat.getChatName();
+       this.pinMessage = courseChat.getPinMessage();
+       //todo:
+       //load messages
+       // set message counter
    }
-    public void addMessage(ChatMessage message)
+    public void addMessage(String userSender, String time, String content)
     {
-        messages.add(message);
+        messages.put(messageCounter, new ChatMessage(courseId, chatId, messageCounter, userSender, time, content, new DChatMessage(chatId,courseId,messageCounter++,userSender,time,content,false)));
     }
     public void removeMessage(int messageId)
     {
@@ -42,13 +53,12 @@ public class CourseChat {
     {
         messages.get(messageId).unMarkMessage();
     }
-    public List<ChatMessage> getMessages() {
-        return messages;
-    }
     public int getCourseId() {
         return courseId;
     }
-
+    public ConcurrentHashMap<Integer, ChatMessage> getMessages() {
+        return messages;
+    }
     public String getPinMessage() {
         return pinMessage;
     }
@@ -66,4 +76,11 @@ public class CourseChat {
         dCourseChat.setPinMessage(pinMessage);
     }
 
+    public void deleteChat() {
+        dCourseChat.delete();
+        for(ChatMessage chatMessage : messages.values())
+        {
+            chatMessage.deleteMessage();
+        }
+    }
 }

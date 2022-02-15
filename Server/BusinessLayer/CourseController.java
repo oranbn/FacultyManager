@@ -26,13 +26,21 @@ public class CourseController {
     {
 
     }
-    public void addChat()
+    public void addChat(String chatName, int courseId)
     {
-
+        Course course = courses.get(courseId);
+        if(course != null)
+            course.addChat(chatName);
+        else
+            throw new IllegalArgumentException("Invalid Course!");
     }
-    public void removeChat()
+    public void removeChat(int courseId)
     {
-
+        Course course = courses.get(courseId);
+        if(course != null)
+            course.removeChat(courseId);
+        else
+            throw new IllegalArgumentException("Invalid Course!");
     }
     public void addChatMessage()
     {

@@ -1,6 +1,7 @@
 package ServiceLayer.Objects.Operations.Client;
 
 import ServiceLayer.Objects.ClientOperation;
+import ServiceLayer.Protocol;
 
 public class LogoutOperation extends ClientOperation {
 
@@ -13,5 +14,10 @@ public class LogoutOperation extends ClientOperation {
         if(nextByte == ';')
             return true;
         return false;
+    }
+
+    @Override
+    public void execute(Protocol protocol) {
+        protocol.logout(this);
     }
 }

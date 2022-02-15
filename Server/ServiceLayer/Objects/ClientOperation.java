@@ -1,4 +1,5 @@
 package ServiceLayer.Objects;
+import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 
@@ -32,6 +33,17 @@ public abstract class ClientOperation implements Operation {
         bArr = new byte[size];
         length = 0;
         return output;
+    }
+    public int bytesToInt(){
+        int output = ByteBuffer.wrap(bArr).getInt();
+        bArr = new byte[size];
+        length = 0;
+        return output;
+    }
+    public boolean bytesToBoolean(){
+        if(bArr.length>1 || bArr[0] == 1)
+            return false;
+        return true;
     }
     public int getLength() {
         return length;
