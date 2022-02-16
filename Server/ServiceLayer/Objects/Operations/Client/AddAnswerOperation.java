@@ -5,7 +5,6 @@ import ServiceLayer.Protocol;
 
 public class AddAnswerOperation extends ClientOperation {
     private int questionId;
-    private int answerId;
     private int examId;
     private int courseId;
     private String content;
@@ -14,7 +13,6 @@ public class AddAnswerOperation extends ClientOperation {
     public AddAnswerOperation(short opCode) {
         super(opCode);
         this.questionId = -1;
-        this.answerId = -1;
         this.examId = -1;
         this.courseId = -1;
         this.content = "";
@@ -29,8 +27,6 @@ public class AddAnswerOperation extends ClientOperation {
         {
             if(questionId==-1)
                 questionId = bytesToInt();
-            else if(answerId==-1)
-                answerId = bytesToInt();
             else if(examId==-1)
                 examId = bytesToInt();
             else if(courseId==-1)
@@ -46,7 +42,6 @@ public class AddAnswerOperation extends ClientOperation {
     }
 
     public int getCourseId(){ return courseId;}
-    public int getAnswerId(){ return answerId;}
     public int getQuestionId(){return questionId;}
     public int getExamId(){return  examId;}
     public String getContent(){ return content;}

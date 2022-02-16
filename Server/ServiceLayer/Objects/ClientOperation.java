@@ -40,6 +40,12 @@ public abstract class ClientOperation implements Operation {
         length = 0;
         return output;
     }
+    public double bytesToDouble(){
+        double output = ByteBuffer.wrap(bArr).getDouble();
+        bArr = new byte[size];
+        length = 0;
+        return output;
+    }
     public boolean bytesToBoolean(){
         if(bArr.length>1 || bArr[0] == 1)
             return false;

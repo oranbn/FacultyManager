@@ -135,4 +135,13 @@ public class Course {
         this.generalInfo = generalInfo;
         dCourse.setGeneralInfo(generalInfo);
     }
+
+    public void addAnswer(int examId, int questionId, String content, boolean correct) {
+    }
+
+    public void addQuestion( int examId, double points, String title) {
+        Exam exam = exams.get(examId);
+        if(exam!=null)
+            exam.addQuestion(points,title);
+    }
 }

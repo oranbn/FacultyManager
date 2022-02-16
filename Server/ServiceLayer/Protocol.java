@@ -1,7 +1,9 @@
 package ServiceLayer;
 
 
-import BusinessLayer.ChatMessage;
+import BusinessLayer.CourseChat;
+import BusinessLayer.CourseController;
+import BusinessLayer.User;
 import BusinessLayer.UserController;
 import ServiceLayer.Objects.Operation;
 import ServiceLayer.Objects.Operations.Client.*;
@@ -9,13 +11,16 @@ import ServiceLayer.Objects.Operations.Server.Response;
 
 public class Protocol implements MessagingProtocol<Operation>{
     private final UserController userController;
-    private String userName;
+    private final CourseController courseController;
+    private User user;
     private int connectionId;
     private Connections<Operation> connections;
 
-    public Protocol(UserController userController) {
+    public Protocol(UserController userController, CourseController courseController) {
         this.userController = userController;
-        this.userName = "";
+        this.courseController = courseController;
+        userController.loadData();
+        courseController.loadData();
     }
 
     @Override
@@ -35,18 +40,23 @@ public class Protocol implements MessagingProtocol<Operation>{
     }
     public void register(RegisterOperation registerOperation)
     {
-        if (userController.register(registerOperation.getUserName(),registerOperation.getFirstName(),registerOperation.getLastName(),registerOperation.getIdNumber(),registerOperation.getPhoneNumber(), registerOperation.getPassword(), registerOperation.getBirthday()))
+        try{userController.register(registerOperation.getUserName(),registerOperation.getFirstName(),registerOperation.getLastName(),registerOperation.getIdNumber(),registerOperation.getPhoneNumber(), registerOperation.getPassword(), registerOperation.getBirthday());
             connections.send(connectionId, new Response((short) 10, (short) 1, "Registered Successfully"));
-        else
-            connections.send(connectionId, new Response((short) 11, (short) 1, "Registered Failed!"));
-
+        }
+        catch (Exception e) {
+            connections.send(connectionId, new Response((short) 11, (short) 1, e.getMessage()));
+        }
+    }
+    public void isConnected()
+    {
+        if(user==null)
+            throw new IllegalArgumentException("Illegal operation");
     }
     public void login(LoginOperation loginOperation) {
-        if(userName=="") {
+        if(user==null) {
             try {
-                userController.login(loginOperation.getUserName(), loginOperation.getPassword(), connectionId);
+                this.user = userController.login(loginOperation.getUserName(), loginOperation.getPassword(), connectionId);
                 connections.send(connectionId, new Response((short) 10, (short) 2, "Logged in Successfully"));
-                this.userName = loginOperation.getUserName();
 
             } catch (Exception e) {
                 connections.send(connectionId, new Response((short) 11, (short) 2, e.getMessage()));
@@ -57,35 +67,71 @@ public class Protocol implements MessagingProtocol<Operation>{
     }
     public void logout(LogoutOperation logoutOperation)
     {
+        if(user!=null)
+            try{
+                userController.logout(user.getEmail());
+                user = null;
+                connections.send(connectionId, new Response((short)10, (short)3, "Logged out successfully"));
+            }
+            catch(Exception e) {
 
+            }
     }
     public void privateMessage(PrivateMessageOperation privateMessageOperation)
     {
-        if(userController.sendPrivateMessage(userName, (privateMessageOperation.getUserName()), (privateMessageOperation.getContent()), (privateMessageOperation.getDateAndTime())))
+        try {
+            userController.sendPrivateMessage(user.getEmail(), (privateMessageOperation.getUserName()), (privateMessageOperation.getContent()), (privateMessageOperation.getDateAndTime()));
             connections.send(connectionId, new Response((short) 10, (short) 6, "Message has been posted Successfully"));
-        else
+        }
+        catch (Exception e) {
             connections.send(connectionId, new Response((short) 11, (short) 6, ""));
+        }
     }
     public void acceptFriendRequest(AcceptFriendRequestOperation acceptFriendRequestOperation){
 
     }
     public void addAnswer(AddAnswerOperation addAnswerOperation)
     {
-
+        try {
+            isConnected();
+            courseController.addAnswer(user,addAnswerOperation.getCourseId(), addAnswerOperation.getExamId(), addAnswerOperation.getQuestionId(), addAnswerOperation.getContent(), addAnswerOperation.isCorrect());
+            connections.send(connectionId, new Response((short) 10, (short) 7, "Answer added Successfully"));
+        }
+        catch (Exception e) {
+            connections.send(connectionId, new Response((short) 11, (short) 7,e.getMessage()));
+        }
     }
     public void addChat(AddChatOperation addChatOperation)
     {
-
+        try {
+            isConnected();
+            courseController.addChat(addChatOperation.getChatName(), addChatOperation.getCourseId());
+            connections.send(connectionId, new Response((short) 10, (short) 8, "Chat added Successfully"));
+        }
+        catch (Exception e) {
+            connections.send(connectionId, new Response((short) 11, (short) 8,e.getMessage()));
+        }
     }
     public void addQuestion(AddQuestionOperation addQuestionOperation)
     {
-
+        try {
+            isConnected();
+            courseController.addQuestion(user, addQuestionOperation.getExamId(), addQuestionOperation.getCourseId(), addQuestionOperation.getPoints(), addQuestionOperation.getTitle());
+            connections.send(connectionId, new Response((short) 10, (short) 8, "Chat added Successfully"));
+        }
+        catch (Exception e) {
+            connections.send(connectionId, new Response((short) 11, (short) 8,e.getMessage()));
+        }
     }
     public void cancelFriendship(CancelFriendshipOperation cancelFriendshipOperation)
     {
 
     }
-    public void changeAnswer(ChangeAnswerOperation changeAnswerOperation)
+    public void changeAnswerContent(ChangeAnswerContentOperation changeAnswerOperation)
+    {
+
+    }
+    public void changeAnswerCorrect(ChangeAnswerCorrectOperation changeAnswerOperation)
     {
 
     }
@@ -93,7 +139,7 @@ public class Protocol implements MessagingProtocol<Operation>{
     {
 
     }
-    public void changeCourse(ChangeCourseOperation changeCourseOperation)
+    public void changeCourse(ChangeCourseNameOperation changeCourseOperation)
     {
 
     }

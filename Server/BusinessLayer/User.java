@@ -17,6 +17,7 @@ public class User {
     private int permissionLevel;
     private boolean isEmailApproved;
     private int connectionId;
+    private int activationCode;
     private final List<String> oldPasswords;
     private DUser dUser;
     // user constructor for client register request:
@@ -79,6 +80,7 @@ public class User {
         isEmailApproved = true;
         dUser.approveEmail();
     }
+    public void setActivationCode(int activationCode){ this.activationCode = activationCode; }
     public String getEmail() {
         return email;
     }
@@ -113,5 +115,8 @@ public class User {
 
     public int getConnectionId() {
         return connectionId;
+    }
+    public int getActivationCode() {
+        return activationCode;
     }
 }

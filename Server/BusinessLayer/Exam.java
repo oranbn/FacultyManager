@@ -6,6 +6,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class Exam {
     private final ConcurrentHashMap<Integer, ExamQuestion> examQuestions;
+    private int questionCounter;
     private final int courseId;
     private final int examId;
     private int duration;
@@ -23,6 +24,7 @@ public class Exam {
         this.isOpen = false;
         this.grades = new ConcurrentHashMap<>();
         this.dExam = dExam;
+        questionCounter = 0;
         dExam.insert();
     }
     public Exam(DExam dExam)
@@ -38,10 +40,11 @@ public class Exam {
         //todo:
         //load exam questions
         //load grades
+        // set question counter
     }
-    public void addQuestion()
+    public void addQuestion(double points, String title)
     {
-
+        examQuestions.put(questionCounter, new ExamQuestion(ques))
     }
     public void changeDuration(int duration)
     {

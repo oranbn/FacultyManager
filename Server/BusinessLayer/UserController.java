@@ -3,8 +3,16 @@ package BusinessLayer;
 import DataAccessLayer.DTOs.DUser;
 import DataAccessLayer.DUserController;
 
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
+import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class UserController {
@@ -24,26 +32,25 @@ public class UserController {
         dUserController = new DUserController();
         forbiddenPasswords = new ArrayList<>();
     }
-
     // Load all users from database
-    public void LoadData() {
-         List<DUser> dusers = dUserController.selectAllUsers();
-         for(DUser duser : dusers)
-         {
-             // get oldpassword of the user
-             // create new user
-             // set persisted true
-             // id++;
-         }
+    public void loadData() {
+        List<DUser> dusers = dUserController.selectAllUsers();
+        for(DUser duser : dusers)
+        {
+            // get oldpassword of the user
+            // create new user
+            // set persisted true
+            // id++;
+        }
     }
 
 
-    private boolean isLegalPassword(String password) {
+    private void isLegalPassword(String password) {
         char ch;
         boolean capitalFlag = false;
         boolean lowerCaseFlag = false;
         boolean numberFlag = false;
-        for (int i = 0; i < password.length(); i++) {
+        for (int i = 0; i < password.length() && (!capitalFlag || !lowerCaseFlag || !numberFlag) ; i++) {
             ch = password.charAt(i);
             if (Character.isDigit(ch)) {
                 numberFlag = true;
@@ -53,48 +60,49 @@ public class UserController {
                 lowerCaseFlag = true;
             }
         }
-        return !(password.length() < minPasswordLength | password.length() > maxPasswordLength | !capitalFlag | !lowerCaseFlag | !numberFlag | forbiddenPasswords.contains(password));
+        if(password.length() < minPasswordLength | password.length() > maxPasswordLength | !capitalFlag | !lowerCaseFlag | !numberFlag | forbiddenPasswords.contains(password))
+            throw new IllegalArgumentException("Illegal password");
     }
 
-    private boolean isUniqueEmail(String email) {
-        return !users.containsKey(email);
+    private void isUniqueEmail(String email) {
+        if(users.containsKey(email))
+            throw new IllegalArgumentException("Email is already exist");
     }
 
-    private boolean isLegalEmail(String email) {
+    private void isLegalEmail(String email) {
         String ePattern = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$";
         java.util.regex.Pattern p = java.util.regex.Pattern.compile(ePattern);
         java.util.regex.Matcher m = p.matcher(email);
-        return m.matches();
+        if(!m.matches())
+            throw new IllegalArgumentException("Illegal email address");
     }
 
-    public boolean changePassword(String email, String password) throws Exception {
-        if(isLegalPassword(password))
+    public void changePassword(String email, String password) throws Exception {
+        isLegalPassword(password);
             if(users.get(email).isPasswordOld(password))
                 throw new Exception("Changing to old password is not allowed!");
             else if(users.get(email).validatePassMatch(password))
                 throw new Exception("Changing to same password is not allowed!");
             else
                 users.get(email).changePassword(password);
-        else
-            throw new Exception("New password is not allowed!");
-        return true;
     }
 
-    public boolean register(String email, String firstName, String lastName, String idNumber, String phoneNumber, String password, String birthday) {
-        if(isLegalEmail(email) && isUniqueEmail(email) && isLegalPassword(password)) {
-            users.put(email, new User(email, firstName, lastName, idNumber, phoneNumber, password, birthday, new DUser(id++, email, firstName, lastName, idNumber, phoneNumber, password,1,false, birthday)));
-            return true;
+    public void register(String email, String firstName, String lastName, String idNumber, String phoneNumber, String password, String birthday) {
+        isLegalEmail(email);
+        isUniqueEmail(email);
+        isLegalPassword(password);
+            User user = new User(email, firstName, lastName, idNumber, phoneNumber, password, birthday, new DUser(id++, email, firstName, lastName, idNumber, phoneNumber, password,1,false, birthday));
+            sendEmail(user);
+            users.put(email, user);
         }
 
-        return false;
-    }
-
-    public void login(String email, String password, int connectionId) throws Exception {
+    public User login(String email, String password, int connectionId) throws Exception {
         if(users.containsKey(email))
             if(users.get(email).validatePassMatch(password))
                 if (!loggedInUsers.isLoggedIn(email)) {
                     users.get(email).setConnectionId(connectionId);
                     loggedInUsers.add(email);
+                    return users.get(email);
                 }
                 else
                     throw new Exception("user is already logged in!");
@@ -108,10 +116,10 @@ public class UserController {
         if(users.containsKey(email))
             if(loggedInUsers.isLoggedIn(email))
             {
-              users.get(email).setConnectionId(-1);
-              loggedInUsers.remove(email);
+                users.get(email).setConnectionId(-1);
+                loggedInUsers.remove(email);
             }
-        else
+            else
                 throw new Exception("User is already logged out!");
         else
             throw new Exception("email is incorrect");
@@ -131,8 +139,30 @@ public class UserController {
     {
 
     }
-    public boolean sendPrivateMessage(String sender, String recipient, String content, String dateAndTime)
+    public void sendPrivateMessage(String sender, String recipient, String content, String dateAndTime)
     {
-        return false;
+       
+    }
+
+    public void sendEmail(User user) {
+        String to = user.getEmail();
+        String from = "FacultyManagerMail@gmail.com";
+        String host = "localhost";
+        Properties properties = System.getProperties();
+        properties.setProperty("mail.smtp.host", host);
+        Session session = Session.getDefaultInstance(properties);
+        try {
+            MimeMessage message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(from));
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+            message.setSubject("Faculty Manager registration verification");
+            int randomCode = new Random().nextInt(900000) + 100000;
+            user.setActivationCode(randomCode);
+            message.setText("Hello "+user.getFirstName()+" "+user.getLastName()+", and welcome to Faculty Manager.\n your activation code is: "+randomCode);
+            Transport.send(message);
+            System.out.println("Sent message successfully....");
+        } catch (MessagingException mex) {
+            mex.printStackTrace();
+        }
     }
 }

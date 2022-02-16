@@ -1,5 +1,7 @@
 package BusinessLayer;
 
+import DataAccessLayer.DTOs.DExamQuestion;
+
 import java.util.List;
 
 public class ExamQuestion {
@@ -9,15 +11,25 @@ public class ExamQuestion {
     private int points;
     private String title;
     private final List<ExamAnswer> answers;
+    private final DExamQuestion dExamQuestion;
 
-    public ExamQuestion(int questionId, int examId,int coureId, int points, String title, List<ExamAnswer> answers) {
+    public ExamQuestion(int questionId, int examId, int coureId, int points, String title, List<ExamAnswer> answers, DExamQuestion dExamQuestion) {
         this.questionId = questionId;
         this.examId = examId;
         this.coureId = coureId;
         this.points = points;
         this.title = title;
         this.answers = answers;
+        this.dExamQuestion = dExamQuestion;
+        // dExamQuestion.insert();
     }
+
+    //todo:
+    //constructor for DTO object
+   /* public ExamQuestion(DExamQuestion dExamQuestion)
+    {
+
+    }*/
     public int getQuestionId() {
         return questionId;
     }
