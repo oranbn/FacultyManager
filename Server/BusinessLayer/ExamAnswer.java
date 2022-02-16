@@ -18,14 +18,19 @@ public class ExamAnswer {
         this.content = content;
         this.correct = correct;
         this.dExamAnswer = dExamAnswer;
-        //todo:
-        //dExamAnswer.insert();
+        dExamAnswer.insert();
     }
-    //todo:
-/*    public ExamAnswer(DExamAnswer dExamAnswer)
-    {
 
-    }*/
+    public ExamAnswer(DExamAnswer dExamAnswer)
+    {
+        this.questionId = dExamAnswer.getQuestionId();
+        this.answerId = dExamAnswer.getId();
+        this.examId = dExamAnswer.getExamId();
+        this.courseId = dExamAnswer.getCourseId();
+        this.content = dExamAnswer.getContent();
+        this.correct = dExamAnswer.isCorrect();
+        this.dExamAnswer = dExamAnswer;
+    }
     public int getExamId() { return examId; }
 
     public int getCourseId() { return courseId; }
@@ -53,5 +58,9 @@ public class ExamAnswer {
     }
     public void setAnswerId(int answerId) {
         this.answerId = answerId;
+    }
+    public void delete()
+    {
+        dExamAnswer.delete();
     }
 }

@@ -1,7 +1,9 @@
 package BusinessLayer;
 
 import DataAccessLayer.DTOs.DExam;
+import DataAccessLayer.DTOs.DExamQuestion;
 
+import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class Exam {
@@ -42,9 +44,9 @@ public class Exam {
         //load grades
         // set question counter
     }
-    public void addQuestion(double points, String title)
+    public void addQuestion(double points, String title, List<PreExamAnswer> answers)
     {
-        examQuestions.put(questionCounter, new ExamQuestion(ques))
+        examQuestions.put(questionCounter, new ExamQuestion(questionCounter, examId, courseId, points, title, answers, new DExamQuestion()));
     }
     public void changeDuration(int duration)
     {

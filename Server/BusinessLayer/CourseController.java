@@ -2,6 +2,7 @@ package BusinessLayer;
 
 import DataAccessLayer.DTOs.DCourse;
 
+import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class CourseController {
@@ -96,11 +97,11 @@ public class CourseController {
     public void removeAnswer() {
 
     }
-    public void addQuestion(User user, int examId, int courseId, double points, String title) {
+    public void addQuestion(User user, int examId, int courseId, double points, String title, List<PreExamAnswer> answers) {
         permissionValidator3(user);
         Course course = courses.get(courseId);
         if(course != null)
-            course.addQuestion(examId, points, title);
+            course.addQuestion(examId, points, title, answers);
         else
             throw new IllegalArgumentException("Invalid Course!");
     }

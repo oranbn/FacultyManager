@@ -139,9 +139,9 @@ public class Course {
     public void addAnswer(int examId, int questionId, String content, boolean correct) {
     }
 
-    public void addQuestion( int examId, double points, String title) {
+    public void addQuestion( int examId, double points, String title, List<PreExamAnswer> answers) {
         Exam exam = exams.get(examId);
         if(exam!=null)
-            exam.addQuestion(points,title);
+            exam.addQuestion(points,title,answers);
     }
 }

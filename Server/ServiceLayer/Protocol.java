@@ -116,7 +116,7 @@ public class Protocol implements MessagingProtocol<Operation>{
     {
         try {
             isConnected();
-            courseController.addQuestion(user, addQuestionOperation.getExamId(), addQuestionOperation.getCourseId(), addQuestionOperation.getPoints(), addQuestionOperation.getTitle());
+            courseController.addQuestion(user, addQuestionOperation.getExamId(), addQuestionOperation.getCourseId(), addQuestionOperation.getPoints(), addQuestionOperation.getTitle(), addQuestionOperation.getAnswers());
             connections.send(connectionId, new Response((short) 10, (short) 8, "Chat added Successfully"));
         }
         catch (Exception e) {

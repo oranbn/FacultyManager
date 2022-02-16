@@ -1,25 +1,32 @@
 package BusinessLayer;
 
+import DataAccessLayer.DTOs.DExamAnswer;
 import DataAccessLayer.DTOs.DExamQuestion;
 
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class ExamQuestion {
     private final int questionId;
     private final int examId;
     private final int coureId;
-    private int points;
+    private double points;
     private String title;
-    private final List<ExamAnswer> answers;
+    private int answerCounter;
+    private final ConcurrentHashMap<Integer, ExamAnswer> answers;
     private final DExamQuestion dExamQuestion;
 
-    public ExamQuestion(int questionId, int examId, int coureId, int points, String title, List<ExamAnswer> answers, DExamQuestion dExamQuestion) {
+    public ExamQuestion(int questionId, int examId, int coureId, double points, String title, List<PreExamAnswer> answers, DExamQuestion dExamQuestion) {
         this.questionId = questionId;
         this.examId = examId;
         this.coureId = coureId;
         this.points = points;
         this.title = title;
-        this.answers = answers;
+        this.answers = new ConcurrentHashMap<>();
+        for(PreExamAnswer preExamAnswer : answers)
+        {
+            this.answers.put(answerCounter, new ExamAnswer(questionId, answerCounter, examId, coureId, preExamAnswer.getContent(), preExamAnswer.isCorrect(), new DExamAnswer(answerCounter++, questionId, examId, coureId, preExamAnswer.getContent(), preExamAnswer.isCorrect())));
+        }
         this.dExamQuestion = dExamQuestion;
         // dExamQuestion.insert();
     }
@@ -33,7 +40,7 @@ public class ExamQuestion {
     public int getQuestionId() {
         return questionId;
     }
-    public int getPoints() {
+    public double getPoints() {
         return points;
     }
     public String getTitle() {
@@ -50,12 +57,13 @@ public class ExamQuestion {
     public void setTitle(String title) {
         this.title = title;
     }
-    public List<ExamAnswer> getAnswers() {
+    public ConcurrentHashMap<Integer, ExamAnswer> getAnswers() {
         return answers;
     }
-    public void addAnswer(ExamAnswer answer)
+    public void addAnswer(String content, boolean correct)
     {
-        answers.add(answer);
+        this.answers.put(answerCounter, new ExamAnswer(questionId, answerCounter, examId, coureId, content, correct, new DExamAnswer(answerCounter++, questionId, examId, coureId, content, correct)));
+
     }
     public void removeAnswer(ExamAnswer answer)
     {
