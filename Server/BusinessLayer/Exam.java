@@ -46,7 +46,7 @@ public class Exam {
     }
     public void addQuestion(double points, String title, List<PreExamAnswer> answers)
     {
-        examQuestions.put(questionCounter, new ExamQuestion(questionCounter, examId, courseId, points, title, answers, new DExamQuestion()));
+        examQuestions.put(questionCounter, new ExamQuestion(questionCounter, examId, courseId, points, title, answers, new DExamQuestion(questionCounter++, examId, courseId, points,title)));
     }
     public void changeDuration(int duration)
     {

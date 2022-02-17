@@ -28,15 +28,22 @@ public class ExamQuestion {
             this.answers.put(answerCounter, new ExamAnswer(questionId, answerCounter, examId, coureId, preExamAnswer.getContent(), preExamAnswer.isCorrect(), new DExamAnswer(answerCounter++, questionId, examId, coureId, preExamAnswer.getContent(), preExamAnswer.isCorrect())));
         }
         this.dExamQuestion = dExamQuestion;
-        // dExamQuestion.insert();
+        dExamQuestion.insert();
     }
 
-    //todo:
-    //constructor for DTO object
-   /* public ExamQuestion(DExamQuestion dExamQuestion)
+    public ExamQuestion(DExamQuestion dExamQuestion)
     {
+        this.questionId = dExamQuestion.getId();
+        this.examId = dExamQuestion.getExamId();
+        this.coureId = dExamQuestion.getCourseId();
+        this.points = dExamQuestion.getPoints();
+        this.title = dExamQuestion.getTitle();
+        answers = new ConcurrentHashMap<>();
+        this.dExamQuestion = dExamQuestion;
+        //todo:
+        // load all answers here.
 
-    }*/
+    }
     public int getQuestionId() {
         return questionId;
     }
