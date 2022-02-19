@@ -1,4 +1,53 @@
 package ServiceLayer.Objects.Operations.Client;
 
-public class ChangeAnswerContentOperation {
+import ServiceLayer.Objects.ClientOperation;
+import ServiceLayer.Protocol;
+
+public class ChangeAnswerContentOperation extends ClientOperation {
+    private int answerId;
+    private int questionId;
+    private int examId;
+    private int courseId;
+    private String content;
+
+    public ChangeAnswerContentOperation(short opCode) {
+        super(opCode);
+        this.answerId = -1;
+        this.questionId = -1;
+        this.examId = -1;
+        this.courseId = -1;
+        this.content = "";
+    }
+
+    @Override
+    public boolean pushByte(byte nextByte) {
+        if(nextByte == ';')
+            return true;
+        if(nextByte=='\0')
+        {
+            if(answerId==-1)
+                answerId = bytesToInt();
+            else if(questionId==-1)
+                questionId = bytesToInt();
+            else if(examId==-1)
+                examId = bytesToInt();
+            else if(courseId==-1)
+                courseId = bytesToInt();
+            else
+                content = bytesToString();
+        }
+        else
+            pushNextByte(nextByte);
+        return false;
+    }
+    public int getAnswerId(){return answerId;}
+    public int getCourseId(){ return courseId;}
+    public int getQuestionId(){return questionId;}
+    public int getExamId(){return  examId;}
+    public String getContent(){ return content;}
+
+    @Override
+    public void execute(Protocol protocol) {
+        protocol.changeAnswerContent(this);
+    }
 }

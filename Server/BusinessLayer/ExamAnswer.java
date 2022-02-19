@@ -63,4 +63,12 @@ public class ExamAnswer {
     {
         dExamAnswer.delete();
     }
+
+    public void changeAnswerContent(String content) {
+        this.content = content;
+    }
+
+    public void changeAnswerCorrect(boolean correct) {
+        this.correct = correct;
+    }
 }

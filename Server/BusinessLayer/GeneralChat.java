@@ -26,7 +26,7 @@ public class GeneralChat {
 
     public void addMessage(String userSender, String time, String content)
     {
-        messages.put(messageId, new ChatMessage(0,0,messageId,userSender,time, content, new DChatMessage(0, 0,messageId++, userSender, time, content, false)));
+        messages.put(messageId, new ChatMessage(-1,-1,messageId,userSender,time, content, new DChatMessage(0, 0,messageId++, userSender, time, content, false)));
     }
     public void removeMessage(int messageId) {
     ChatMessage message = messages.get(messageId);
@@ -54,5 +54,19 @@ public class GeneralChat {
             // update db
             // update client
         }
+    }
+
+    public void markMessage(int messageId) {
+        if(messages.containsKey(messageId))
+            messages.get(messageId).markMessage();
+        else
+            throw new IllegalArgumentException("Message not found!");
+    }
+
+    public void unMarkMessage(int messageId) {
+        if(messages.containsKey(messageId))
+            messages.get(messageId).unMarkMessage();
+        else
+            throw new IllegalArgumentException("Message not found!");
     }
 }

@@ -2,6 +2,7 @@ package BusinessLayer;
 
 import DataAccessLayer.DTOs.DCourse;
 import DataAccessLayer.DTOs.DCourseChat;
+import DataAccessLayer.DTOs.DExam;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,7 +52,12 @@ public class Course {
     {
         teachers.add(teacher);
     }
-    public void addMessage(){}
+    public void addMessage(String email, int chatId, String content, String time){
+        CourseChat chat = chats.get(chatId);
+        if(chat == null)
+            throw new IllegalArgumentException("Invalid chat!");
+        chat.addMessage(email,content, time);
+    }
     public void removeTeacher(String teacher)
     {
         teachers.remove(teacher);
@@ -86,13 +92,9 @@ public class Course {
     }
     public void removeChat(int chatId)
     {
-        CourseChat chat = chats.get(chatId);
-        if(chat!=null)
-        {
-            chat.deleteChat();
-        }
-        else
+        if(!chats.contains(chatId))
             throw new IllegalArgumentException("Invalid chat!");
+            chats.remove(chatId).deleteChat();
     }
     public int getId() {
         return id;
@@ -143,5 +145,61 @@ public class Course {
         Exam exam = exams.get(examId);
         if(exam!=null)
             exam.addQuestion(points,title,answers);
+        else
+            throw new IllegalArgumentException("Exam not found!");
+    }
+
+    public void markMessage(int chatId, int messageId) {
+        CourseChat chat = chats.get(chatId);
+        if(chat!=null)
+            chat.markMessage(messageId);
+        else
+            throw new IllegalArgumentException("Chat not found!");
+    }
+
+    public void changeAnswerContent(User user, int examId, int questionId, int answerId, String content) {
+        Exam exam = exams.get(examId);
+        if(exam!=null)
+            exam.changeAnswerContent(questionId, answerId, content);
+        else
+            throw new IllegalArgumentException("Exam not found!");
+    }
+
+    public void changeAnswerCorrect(User user, int examId, int questionId, int answerId, boolean correct) {
+        Exam exam = exams.get(examId);
+        if(exam!=null)
+            exam.changeAnswerCorrect(questionId, answerId, correct);
+        else
+            throw new IllegalArgumentException("Exam not found!");
+    }
+
+    public void changeChatMessageContent(User user, int chatId, int messageId, String content) {
+        CourseChat chat = chats.get(chatId);
+        if(chat!=null)
+            chat.changeChatMessageContent(messageId, content);
+        else
+            throw new IllegalArgumentException("Chat not found!");
+    }
+
+    public void addExam(User user, int duration, String examDate) {
+        //todo:
+        // check if examDate is valid
+        exams.put(examCounter, new Exam(id, examCounter, duration, examDate, new DExam(examCounter++, id, duration, false, examDate)));
+    }
+
+    public void removeAnswer(int examId, int questionId, int answerId) {
+        Exam exam = exams.get(examId);
+        if(exam!=null)
+            exam.removeAnswer(questionId, answerId);
+        else
+            throw new IllegalArgumentException("Exam not found!");
+    }
+
+    public void removeChatMessage(String email, int chatId, int messageId) {
+        CourseChat chat = chats.get(chatId);
+        if(chat!=null)
+            chat.removeMessage(messageId);
+        else
+            throw new IllegalArgumentException("Chat not found!");
     }
 }

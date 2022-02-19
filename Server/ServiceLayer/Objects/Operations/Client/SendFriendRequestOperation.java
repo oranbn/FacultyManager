@@ -4,11 +4,11 @@ import ServiceLayer.Objects.ClientOperation;
 import ServiceLayer.Protocol;
 
 public class SendFriendRequestOperation extends ClientOperation {
-    private String username;
+    private String email;
 
     public SendFriendRequestOperation(short opCode) {
         super(opCode);
-        this.username = "";
+        this.email = "";
     }
 
     @Override
@@ -17,15 +17,15 @@ public class SendFriendRequestOperation extends ClientOperation {
             return true;
         if(nextByte=='\0')
         {
-            username = bytesToString();
+            email = bytesToString();
         }
         else
             pushNextByte(nextByte);
         return false;
     }
 
-    public String getUsername() {
-        return username;
+    public String getEmail() {
+        return email;
     }
 
     @Override

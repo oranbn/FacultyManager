@@ -79,22 +79,22 @@ public class UserController {
 
     public void changePassword(String email, String password) throws Exception {
         isLegalPassword(password);
-            if(users.get(email).isPasswordOld(password))
-                throw new Exception("Changing to old password is not allowed!");
-            else if(users.get(email).validatePassMatch(password))
-                throw new Exception("Changing to same password is not allowed!");
-            else
-                users.get(email).changePassword(password);
+        if(users.get(email).isPasswordOld(password))
+            throw new Exception("Changing to old password is not allowed!");
+        else if(users.get(email).validatePassMatch(password))
+            throw new Exception("Changing to same password is not allowed!");
+        else
+            users.get(email).changePassword(password);
     }
 
     public void register(String email, String firstName, String lastName, String idNumber, String phoneNumber, String password, String birthday) {
         isLegalEmail(email);
         isUniqueEmail(email);
         isLegalPassword(password);
-            User user = new User(email, firstName, lastName, idNumber, phoneNumber, password, birthday, new DUser(id++, email, firstName, lastName, idNumber, phoneNumber, password,1,false, birthday));
-            sendEmail(user);
-            users.put(email, user);
-        }
+        User user = new User(email, firstName, lastName, idNumber, phoneNumber, password, birthday, new DUser(id++, email, firstName, lastName, idNumber, phoneNumber, password,1,false, birthday));
+        sendEmail(user);
+        users.put(email, user);
+    }
 
     public User login(String email, String password, int connectionId) throws Exception {
         if(users.containsKey(email))
@@ -141,7 +141,7 @@ public class UserController {
     }
     public void sendPrivateMessage(String sender, String recipient, String content, String dateAndTime)
     {
-       
+
     }
 
     public void sendEmail(User user) {
@@ -164,5 +164,38 @@ public class UserController {
         } catch (MessagingException mex) {
             mex.printStackTrace();
         }
+    }
+    public void sendEmailForgotPassword(String email)
+    {
+        User user = users.get(email);
+        if(user == null)
+            return;
+        String to = email;
+        String from = "FacultyManagerMail@gmail.com";
+        String host = "localhost";
+        Properties properties = System.getProperties();
+        properties.setProperty("mail.smtp.host", host);
+        Session session = Session.getDefaultInstance(properties);
+        try {
+            MimeMessage message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(from));
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+            message.setSubject("Faculty Manager registration verification");
+            int randomCode = new Random().nextInt(900000) + 100000;
+            user.setForgotPassword(randomCode);
+            message.setText("Hello "+user.getFirstName()+" "+user.getLastName()+", the code for resetting your password is: "+randomCode);
+            Transport.send(message);
+            System.out.println("Sent message successfully....");
+        } catch (MessagingException mex) {
+            mex.printStackTrace();
+        }
+    }
+
+    public void changeUserPermission(User user, String email, int permission) {
+        // check if user can change another user permission
+        User u = users.get(email);
+        if(u == null)
+            throw new IllegalArgumentException("Invalid email");
+        u.setPermissionLevel(permission);
     }
 }

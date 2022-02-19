@@ -4,10 +4,14 @@ import ServiceLayer.Objects.ClientOperation;
 import ServiceLayer.Protocol;
 
 public class MarkMessageOperation extends ClientOperation {
+    private int courseId;
+    private int chatId;
     private int messageId;
 
     public MarkMessageOperation(short opCode) {
         super(opCode);
+        this.courseId = -1;
+        this.chatId = -1;
         this.messageId = -1;
     }
 
@@ -17,13 +21,19 @@ public class MarkMessageOperation extends ClientOperation {
             return true;
         if(nextByte=='\0')
         {
-            messageId = bytesToInt();
+            if(courseId==-1)
+                courseId = bytesToInt();
+            else if(chatId == -1)
+                chatId = bytesToInt();
+            else
+                messageId = bytesToInt();
         }
         else
             pushNextByte(nextByte);
         return false;
     }
-
+    public int getChatId(){return courseId;}
+    public int getCourseId(){return courseId;}
     public int getMessageId() {
         return messageId;
     }

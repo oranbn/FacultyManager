@@ -18,6 +18,7 @@ public class User {
     private boolean isEmailApproved;
     private int connectionId;
     private int activationCode;
+    private int forgotPassword;
     private final List<String> oldPasswords;
     private DUser dUser;
     // user constructor for client register request:
@@ -34,6 +35,7 @@ public class User {
         this.dUser = dUser;
         this.permissionLevel = 1;
         this.connectionId = -1;
+        this.forgotPassword = -1;
         this.isEmailApproved = false;
         dUser.insert();
     }
@@ -118,5 +120,16 @@ public class User {
     }
     public int getActivationCode() {
         return activationCode;
+    }
+    public int getForgotPassword() {
+        return forgotPassword;
+    }
+
+    public void setForgotPassword(int forgotPassword) {
+        this.forgotPassword = forgotPassword;
+    }
+    public void setPermissionLevel(int permissionLevel)
+    {
+        this.permissionLevel = permissionLevel;
     }
 }

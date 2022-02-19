@@ -3,17 +3,17 @@ package ServiceLayer.Objects.Operations.Client;
 import ServiceLayer.Objects.ClientOperation;
 import ServiceLayer.Protocol;
 
-public class ChatMessageOperation extends ClientOperation {
-    private int courseId;
+public class ChangeChatMessageContentOperation extends ClientOperation {
+    private int messageId;
     private int chatId;
-    private String time;
+    private int courseId;
     private String content;
 
-    public ChatMessageOperation(short opCode) {
+    public ChangeChatMessageContentOperation(short opCode) {
         super(opCode);
-        this.courseId = -1;
+        this.messageId =-1;
         this.chatId = -1;
-        this.time = "";
+        this.courseId = -1;
         this.content = "";
     }
 
@@ -23,12 +23,12 @@ public class ChatMessageOperation extends ClientOperation {
             return true;
         if(nextByte=='\0')
         {
-            if(courseId==-1)
-                courseId = bytesToInt();
+            if(messageId==-1)
+                messageId = bytesToInt();
             else if(chatId==-1)
                 chatId = bytesToInt();
-            else if(time.equals(""))
-                time = bytesToString();
+            else if(courseId==-1)
+                courseId = bytesToInt();
             else
                 content = bytesToString();
         }
@@ -36,14 +36,13 @@ public class ChatMessageOperation extends ClientOperation {
             pushNextByte(nextByte);
         return false;
     }
-
+    public int getMessageId(){return messageId;}
+    public int getChatId(){return chatId;}
     public int getCourseId(){ return courseId;}
-    public int getChatId(){ return chatId;}
-    public String getTime(){return time;}
-    public String getContent(){ return content;}
+    public String getContent(){return content;}
 
     @Override
     public void execute(Protocol protocol) {
-        protocol.addChatMessage(this);
+        protocol.changeChatMessageContent(this);
     }
 }

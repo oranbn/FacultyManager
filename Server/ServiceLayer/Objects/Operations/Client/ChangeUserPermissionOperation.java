@@ -4,12 +4,12 @@ import ServiceLayer.Objects.ClientOperation;
 import ServiceLayer.Protocol;
 
 public class ChangeUserPermissionOperation extends ClientOperation {
-    private String username;
+    private String email;
     private int permission;
 
     public ChangeUserPermissionOperation(short opCode) {
         super(opCode);
-        this.username = "";
+        this.email = "";
         this.permission = -1;
     }
 
@@ -19,8 +19,8 @@ public class ChangeUserPermissionOperation extends ClientOperation {
             return true;
         if(nextByte=='\0')
         {
-            if(username.equals(""))
-                username = bytesToString();
+            if(email.equals(""))
+                email = bytesToString();
             else
                 permission = bytesToInt();
         }
@@ -29,7 +29,7 @@ public class ChangeUserPermissionOperation extends ClientOperation {
         return false;
     }
 
-    public String getUsername() { return username; }
+    public String getEmail() { return email; }
     public int getPermission(){ return permission;}
 
     @Override

@@ -10,7 +10,7 @@ public class ChatMessage {
     private final int messageId;
     private final String userSender;
     private final String time;
-    private final String content;
+    private String content;
     private boolean mark;
     private final DChatMessage dChatMessage;
 
@@ -70,5 +70,9 @@ public class ChatMessage {
     public void deleteMessage()
     {
         dChatMessage.delete();
+    }
+
+    public void changeChatMessageContent(String content) {
+        this.content = content;
     }
 }

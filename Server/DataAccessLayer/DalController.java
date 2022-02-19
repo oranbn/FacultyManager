@@ -89,7 +89,7 @@ public abstract class DalController {
     }
     protected abstract DTO ConvertReaderToObject(ResultSet reader);
     // get all objects of specific table - each row is a object
-    protected List<DTO> select()
+    public List<DTO> select()
     {
         List<DTO> results = new ArrayList<>();
         String sql = "SELECT * FROM "+tableName;

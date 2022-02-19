@@ -90,4 +90,28 @@ public class Exam {
     public int getGrade(String email) {
         return grades.get(email);
     }
+
+    public void changeAnswerContent(int questionId, int answerId, String content) {
+        ExamQuestion question = examQuestions.get(questionId);
+        if(question!=null)
+            question.changeAnswerContent(answerId, content);
+        else
+            throw new IllegalArgumentException("Question not found!");
+    }
+
+    public void changeAnswerCorrect(int questionId, int answerId, boolean correct) {
+        ExamQuestion question = examQuestions.get(questionId);
+        if(question!=null)
+            question.changeAnswerCorrect(answerId, correct);
+        else
+            throw new IllegalArgumentException("Question not found!");
+    }
+
+    public void removeAnswer(int questionId, int answerId) {
+        ExamQuestion question = examQuestions.get(questionId);
+        if(question!=null)
+            question.removeAnswer(answerId);
+        else
+            throw new IllegalArgumentException("Question not found!");
+    }
 }

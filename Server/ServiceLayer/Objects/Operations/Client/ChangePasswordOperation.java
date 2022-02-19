@@ -4,12 +4,10 @@ import ServiceLayer.Objects.ClientOperation;
 import ServiceLayer.Protocol;
 
 public class ChangePasswordOperation extends ClientOperation {
-    private String username;
     private String password;
 
     public ChangePasswordOperation(short opCode) {
         super(opCode);
-        this.username = "";
         this.password = "";
     }
 
@@ -19,17 +17,12 @@ public class ChangePasswordOperation extends ClientOperation {
             return true;
         if(nextByte=='\0')
         {
-            if(username.equals(""))
-                username = bytesToString();
-            else
                 password = bytesToString();
         }
         else
             pushNextByte(nextByte);
         return false;
     }
-
-    public String getUsername() { return username; }
     public String getPassword(){ return password;}
 
     @Override
