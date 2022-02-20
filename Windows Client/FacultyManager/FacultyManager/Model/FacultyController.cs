@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
+using FacultyManager.Model.Operations;
+using FacultyManager.Model.Operations.ClientOperations;
 
 namespace FacultyManager.Model
 {
@@ -23,18 +22,24 @@ namespace FacultyManager.Model
         }
         private void ServerListener()
         {
-
-            byte[] message = connectionHandler.Receive();
-            NotifiableModelObject ServerResponse = null;
-            int offset = 0;
-            while (ServerResponse == null)
-                ServerResponse = encoderDecoder.decodeNextByte(message[offset++]);
-            // ServerResponse.execute - 
+            /*while (running)
+            {
+                byte[] message = connectionHandler.Receive();
+                ServerOperation ServerResponse = null;
+                int offset = 0;
+                while (ServerResponse == null)
+                    ServerResponse = encoderDecoder.decodeNextByte(message[offset++]);
+                // ServerResponse.execute - 
+            }*/
         }
         internal IEnumerable<CourseModel> GetAllCourses(UserModel user)
         {
             throw new NotImplementedException();
         }
 
+        public void Login(string email, string password)
+        {
+            connectionHandler.Send(encoderDecoder.encode(new LoginOperation(2, email, password)));
+        }
     }
 }

@@ -7,7 +7,7 @@ namespace FacultyManager.View
     /// <summary>
     /// Interaction logic for Login.xaml
     /// </summary>
-    public partial class Login : Window
+    public partial class Login : UserControl
     {
 /*        private LoginViewModel viewModel;*/
         public Login()

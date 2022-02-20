@@ -12,17 +12,18 @@ namespace FacultyManager.Model
         int length = 0;
         private byte[] bytes = new byte[1 << 10];
         short opCode = -1;
-        Operation operation = null;
+        ServerOperation operation = null;
         public EncoderDecoder()
         {
 
         }
-        public Operation decodeNextByte(byte nextByte)
+        public ServerOperation decodeNextByte(byte nextByte)
         {
             return null;
         }
-        public byte[] encode(Operation message)
+        public byte[] encode(ClientOperation message)
         {
-            return null;
+            return message.encode();
         }
+    }
 }

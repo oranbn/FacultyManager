@@ -4,12 +4,12 @@ import ServiceLayer.Objects.ClientOperation;
 import ServiceLayer.Protocol;
 
 public class LoginOperation extends ClientOperation {
-    private String userName;
+    private String email;
     private String password;
 
     public LoginOperation(short opCode) {
         super(opCode);
-        this.userName = "";
+        this.email = "";
         this.password = "";
     }
 
@@ -19,8 +19,8 @@ public class LoginOperation extends ClientOperation {
             return true;
         if(nextByte=='\0')
         {
-            if(getUserName().equals("")){
-                userName = bytesToString();
+            if(email.equals("")){
+                email = bytesToString();
             }
             else if(password.equals("")){
                 this.password = bytesToString();
@@ -31,8 +31,8 @@ public class LoginOperation extends ClientOperation {
         return false;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getEmail() {
+        return email;
     }
 
     public String getPassword() {

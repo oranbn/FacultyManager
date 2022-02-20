@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FacultyManager.Model.Operations
+namespace FacultyManager.Model
 {
-    public class Operation
+    interface Operation
     {
+        public short getOpCode();
     }
 }

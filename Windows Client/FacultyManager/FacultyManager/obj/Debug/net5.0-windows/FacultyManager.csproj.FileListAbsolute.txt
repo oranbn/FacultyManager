@@ -9,7 +9,6 @@ C:\Users\User\Desktop\FacultyManager\Windows Client\FacultyManager\FacultyManage
 C:\Users\User\Desktop\FacultyManager\Windows Client\FacultyManager\FacultyManager\bin\Debug\net5.0-windows\FacultyManager.runtimeconfig.json
 C:\Users\User\Desktop\FacultyManager\Windows Client\FacultyManager\FacultyManager\bin\Debug\net5.0-windows\FacultyManager.runtimeconfig.dev.json
 C:\Users\User\Desktop\FacultyManager\Windows Client\FacultyManager\FacultyManager\bin\Debug\net5.0-windows\FacultyManager.dll
-C:\Users\User\Desktop\FacultyManager\Windows Client\FacultyManager\FacultyManager\bin\Debug\net5.0-windows\ref\FacultyManager.dll
 C:\Users\User\Desktop\FacultyManager\Windows Client\FacultyManager\FacultyManager\bin\Debug\net5.0-windows\FacultyManager.pdb
 C:\Users\User\Desktop\FacultyManager\Windows Client\FacultyManager\FacultyManager\obj\Debug\net5.0-windows\App.baml
 C:\Users\User\Desktop\FacultyManager\Windows Client\FacultyManager\FacultyManager\obj\Debug\net5.0-windows\View\HomePage.baml
@@ -24,3 +23,7 @@ C:\Users\User\Desktop\FacultyManager\Windows Client\FacultyManager\FacultyManage
 C:\Users\User\Desktop\FacultyManager\Windows Client\FacultyManager\FacultyManager\obj\Debug\net5.0-windows\ref\FacultyManager.dll
 C:\Users\User\Desktop\FacultyManager\Windows Client\FacultyManager\FacultyManager\obj\Debug\net5.0-windows\FacultyManager.pdb
 C:\Users\User\Desktop\FacultyManager\Windows Client\FacultyManager\FacultyManager\obj\Debug\net5.0-windows\FacultyManager.genruntimeconfig.cache
+C:\Users\User\Desktop\FacultyManager\Windows Client\FacultyManager\FacultyManager\obj\Debug\net5.0-windows\MainWindow.g.cs
+C:\Users\User\Desktop\FacultyManager\Windows Client\FacultyManager\FacultyManager\obj\Debug\net5.0-windows\GeneratedInternalTypeHelper.g.cs
+C:\Users\User\Desktop\FacultyManager\Windows Client\FacultyManager\FacultyManager\obj\Debug\net5.0-windows\MainWindow.baml
+C:\Users\User\Desktop\FacultyManager\Windows Client\FacultyManager\FacultyManager\bin\Debug\net5.0-windows\ref\FacultyManager.dll

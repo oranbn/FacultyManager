@@ -51,7 +51,7 @@ public class Protocol implements MessagingProtocol<Operation>{
     public void login(LoginOperation loginOperation) {
         if(user==null) {
             try {
-                this.user = userController.login(loginOperation.getUserName(), loginOperation.getPassword(), connectionId);
+                this.user = userController.login(loginOperation.getEmail(), loginOperation.getPassword(), connectionId);
                 connections.send(connectionId, new Response((short) 10, (short) 2, "Logged in Successfully"));
 
             } catch (Exception e) {

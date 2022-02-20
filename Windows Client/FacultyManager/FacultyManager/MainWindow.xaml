@@ -1,0 +1,23 @@
+<Window
+    x:Class="FacultyManager.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewmodel="clr-namespace:FacultyManager.ViewModel"
+    xmlns:view="clr-namespace:FacultyManager.View"
+    Title="Faculty Manager"
+    Width="450"
+    Height="450"
+    mc:Ignorable="d">
+    <ContentControl Content="{Binding CurrentViewModel}">
+        <ContentControl.Resources>
+            <DataTemplate DataType="{x:Type viewmodel:LoginViewModel}">
+                <view:Login />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodel:RegisterViewModel}">
+                <view:Register />
+            </DataTemplate>
+        </ContentControl.Resources>
+    </ContentControl>
+</Window>

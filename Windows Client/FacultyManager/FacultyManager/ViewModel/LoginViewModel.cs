@@ -1,11 +1,14 @@
 ﻿using FacultyManager.Model;
 using System;
 using System.Windows.Input;
+using FacultyManager.Commands;
+using FacultyManager.Stores;
 
 namespace FacultyManager.ViewModel
 {
     public class LoginViewModel : NotifiableObject
     {
+        public ICommand NavigateRegisterCommand { get; }
         public FacultyController Controller { get; private set; }
         private string _email;
         public string Email
@@ -41,30 +44,12 @@ namespace FacultyManager.ViewModel
         /// A method to login
         /// </summary>
         /// <returns>A user model object</returns>
-        public UserModel Login()
-        {
-           
-            Message = "";
-            try
-            {
-                return Controller.Login(Email, Password);
-            }
-            catch (Exception e)
-            {
-                Message = e.Message;
-                return null;
-            }
-        }
-        /// <summary>
-        /// A method to register
-        /// </summary>
-        public void Register()
+        public void Login()
         {
             Message = "";
             try
             {
-                Controller.Register(Email, Password);
-                Message = "Registered successfully";
+                Controller.Login(Email, Password);
             }
             catch (Exception e)
             {
@@ -81,9 +66,10 @@ namespace FacultyManager.ViewModel
         /// <summary>
         /// Constructor
         /// </summary>
-        public LoginViewModel()
+        public LoginViewModel(NavigationStore navigationStore)
         {
-            this.Controller = new BackendController();
+            this.Controller = new FacultyController();
+            NavigateRegisterCommand = new NavigateCommand<RegisterViewModel>(navigationStore, () => new RegisterViewModel(navigationStore));
         }
     }
 }
