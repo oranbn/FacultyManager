@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FacultyManager.Model
+namespace FacultyManager.Model.Operations
 {
-    class ChatModel
+    public class Operation
     {
     }
 }

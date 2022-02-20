@@ -31,7 +31,7 @@ namespace FacultyManager.Model
         /// <param name="controller">BackendController object</param>
         /// <param name="email">The email of the user</param>
         /// <param name="password">The passwrod of the user</param>
-        public UserModel(BackendController controller, string email, string password) : base(controller)
+        public UserModel(FacultyController controller, string email, string password) : base(controller)
         {
             this.Email = email;
             this.Password = password;
@@ -40,9 +40,9 @@ namespace FacultyManager.Model
         /// A getter to receive a kanban model obeject
         /// </summary>
         /// <returns>A kanban model object</returns>
-        public KanbanModel GetKanban()
+        public FacultyManagerModel GetFacultyManagerModel()
         {
-            return new KanbanModel(Controller, this);
+            return new FacultyManagerModel(Controller, this);
         }
     }
 }
