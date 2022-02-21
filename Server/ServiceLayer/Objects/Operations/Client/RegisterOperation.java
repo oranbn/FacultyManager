@@ -4,7 +4,7 @@ import ServiceLayer.Objects.ClientOperation;
 import ServiceLayer.Protocol;
 
 public class RegisterOperation extends ClientOperation {
-    private String userName;
+    private String email;
     private String password;
     private String firstName;
     private String lastName;
@@ -14,8 +14,12 @@ public class RegisterOperation extends ClientOperation {
 
     public RegisterOperation(short opCode) {
         super(opCode);
-        this.userName= "";
+        this.email= "";
         this.password = "";
+        this.firstName = "";
+        this.lastName = "";
+        this.idNumber = "";
+        this.phoneNumber = "";
         this.birthday = "";
     }
 
@@ -25,8 +29,8 @@ public class RegisterOperation extends ClientOperation {
             return true;
         if(nextByte==(byte)0)
         {
-            if(getUserName().equals("")){
-                this.userName = bytesToString();
+            if(email.equals("")){
+                this.email = bytesToString();
             }
             else if(password.equals("")){
                 this.password = bytesToString();
@@ -52,8 +56,8 @@ public class RegisterOperation extends ClientOperation {
         return false;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getEmail() {
+        return email;
     }
 
     public String getPassword() {
