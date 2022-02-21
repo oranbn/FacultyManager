@@ -2,11 +2,121 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:components="clr-namespace:FacultyManager.Components"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FacultyManager.View"
         mc:Ignorable="d"
-       >
+        d:DesignHeight="800"
+    d:DesignWidth="800">
     <Grid>
-        <Button Width="80" HorizontalAlignment="Left" Command="{Binding NavigateLoginCommand}" Style="{StaticResource ButtonTemplate}" BorderBrush="#fff" Grid.Column="3" Grid.Row="5" Content="Login" FontWeight="UltraBold"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <components:NavigationBar Grid.Row="0" DataContext="{Binding NavigationBarViewModel}" />
+        <Grid Grid.Row="1">
+        <Grid.Background>
+            <ImageBrush ImageSource=
+   "pack://application:,,,/FacultyManager;component/View/BackGround/backgroundcolor.png" Stretch="UniformToFill"/>
+        </Grid.Background>
+        <TextBlock Text="Oran" VerticalAlignment="Bottom" Foreground="White" ></TextBlock>
+        <Rectangle Width="350" Height="350" VerticalAlignment="Center" Margin="0,40" RadiusY="10" RadiusX="10" Fill="White">
+            <Rectangle.Effect>
+                <DropShadowEffect BlurRadius="15" Direction="0" RenderingBias="Quality" ShadowDepth="1" Color="#FFBBBBBB"/>
+            </Rectangle.Effect>
+        </Rectangle>
+        <Grid VerticalAlignment="Bottom" Margin="0,175" Height="350">
+            <Label Content="REGISTER" Margin="0,-10" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="Gray" FontSize="18"/>
+            <StackPanel VerticalAlignment="Center">
+                <TextBox Margin="0,10" x:Name="EmailTextBox" Text="{Binding Path=Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" KeyDown="TextBox_KeyDown" TextChanged="EmailTextBox_TextChanged" FontFamily="Champagne &amp; Limousines" FontSize="18" Width="220"/>
+                <TextBlock IsHitTestVisible="False" HorizontalAlignment="Center" Margin="-30" Text="Enter Email Here" Foreground="DarkGray">
+                    <TextBlock.Style>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Text, ElementName=EmailTextBox}" Value="">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+                <TextBox Margin="0,10" x:Name="PasswordTextBox" KeyDown="TextBox_KeyDown" Text="{Binding Path=Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="PasswordTextBox_TextChanged" FontFamily="pack://application:,,,/Resources/#password" FontSize="18" Width="220">
+                    <TextBox.InputBindings>
+                        <!--Disable Copy-->
+                        <KeyBinding Command="ApplicationCommands.NotACommand" Key="C" Modifiers="Control" />
+                        <KeyBinding Command="ApplicationCommands.NotACommand" Key="X" Modifiers="Control" />
+                    </TextBox.InputBindings>
+                </TextBox>
+                <TextBlock IsHitTestVisible="False" HorizontalAlignment="Center" Margin="-30" Text="Enter Password Here" Foreground="DarkGray">
+                    <TextBlock.Style>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Text, ElementName=PasswordTextBox}" Value="">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+                <TextBox Margin="0,10" x:Name="FirstNameTextBox" Text="{Binding Path=Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" KeyDown="TextBox_KeyDown" TextChanged="EmailTextBox_TextChanged" FontFamily="Champagne &amp; Limousines" FontSize="18" Width="220"/>
+                <TextBlock IsHitTestVisible="False" HorizontalAlignment="Center" Margin="-30" Text="Enter First Name Here" Foreground="DarkGray">
+                    <TextBlock.Style>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Text, ElementName=FirstNameTextBox}" Value="">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+                <TextBox Margin="0,10" x:Name="LastNameTextBox" Text="{Binding Path=Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" KeyDown="TextBox_KeyDown" TextChanged="EmailTextBox_TextChanged" FontFamily="Champagne &amp; Limousines" FontSize="18" Width="220"/>
+                <TextBlock IsHitTestVisible="False" HorizontalAlignment="Center" Margin="-30" Text="Enter Last Name Here" Foreground="DarkGray">
+                    <TextBlock.Style>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Text, ElementName=LastNameTextBox}" Value="">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+                <TextBox Margin="0,10" x:Name="IDTextBox" Text="{Binding Path=Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" KeyDown="TextBox_KeyDown" TextChanged="EmailTextBox_TextChanged" FontFamily="Champagne &amp; Limousines" FontSize="18" Width="220"/>
+                <TextBlock IsHitTestVisible="False" HorizontalAlignment="Center" Margin="-30" Text="Enter ID Here" Foreground="DarkGray">
+                    <TextBlock.Style>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Text, ElementName=IDTextBox}" Value="">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+                <TextBox Margin="0,10" x:Name="PhoneNumberTextBox" Text="{Binding Path=Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" KeyDown="TextBox_KeyDown" TextChanged="EmailTextBox_TextChanged" FontFamily="Champagne &amp; Limousines" FontSize="18" Width="220"/>
+                <TextBlock IsHitTestVisible="False" HorizontalAlignment="Center" Margin="-30" Text="Enter Phone Number Here" Foreground="DarkGray">
+                    <TextBlock.Style>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Text, ElementName=PhoneNumberTextBox}" Value="">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+                <Label Content="{Binding Path=Message, Mode=OneWay}" Foreground="Red" HorizontalAlignment="Center" Height="40"/>
+            </StackPanel>
+            <Button Width="120" Height="40" Margin="15" VerticalAlignment="Bottom" HorizontalAlignment="Center" Command="{Binding LoginCommand}" Style="{StaticResource ButtonTemplate}" BorderBrush="#fff" Content="Register" Click="Register_Click" FontWeight="UltraBold"/>
+        </Grid>
     </Grid>
+        </Grid>
 </UserControl>

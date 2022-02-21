@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using FacultyManager.Model.Operations;
 using FacultyManager.Model.Operations.ClientOperations;
+using FacultyManager.Stores;
 
 namespace FacultyManager.Model
 {
@@ -10,9 +11,11 @@ namespace FacultyManager.Model
     {
         private ConnectionHandler connectionHandler;
         private EncoderDecoder encoderDecoder;
+        private AccountStore _accountStore;
         private bool running = true;
-        public FacultyController()
+        public FacultyController(AccountStore accountStore)
         {
+            _accountStore = accountStore;
             String serverAddress = "";
             Int32 serverPort = 0;
             connectionHandler = new ConnectionHandler(serverAddress, serverPort);

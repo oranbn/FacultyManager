@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET5_0;NETCOREAPP
 C:\Users\User\Desktop\FacultyManager\Windows Client\FacultyManager\FacultyManager\App.xaml
-4918500514
+61260022477
 
-55-1998052930
+64452090440
 193-1891726104
-MainWindow.xaml;View\HomePage.xaml;View\Login.xaml;View\Register.xaml;
+Components\NavigationBar.xaml;MainWindow.xaml;View\Account.xaml;View\HomePage.xaml;View\Login.xaml;View\Register.xaml;
 
 False
 

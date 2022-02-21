@@ -2,13 +2,15 @@
 using System;
 using System.Windows.Input;
 using FacultyManager.Commands;
+using FacultyManager.Service;
 using FacultyManager.Stores;
 
 namespace FacultyManager.ViewModel
 {
     public class LoginViewModel : NotifiableObject
     {
-        public ICommand NavigateRegisterCommand { get; }
+        public ICommand LoginCommand { get; }
+        public NavigationBarViewModel NavigationBarViewModel { get; }
         public FacultyController Controller { get; private set; }
         private string _email;
         public string Email
@@ -66,10 +68,11 @@ namespace FacultyManager.ViewModel
         /// <summary>
         /// Constructor
         /// </summary>
-        public LoginViewModel(NavigationStore navigationStore)
+        public LoginViewModel(NavigationBarViewModel navigationBarViewModel, AccountStore accountStore, NavigationService<HomeViewModel> homeNavigationService)
         {
-            this.Controller = new FacultyController();
-            NavigateRegisterCommand = new NavigateCommand<RegisterViewModel>(navigationStore, () => new RegisterViewModel(navigationStore));
+            this.NavigationBarViewModel = navigationBarViewModel;
+            this.Controller = new FacultyController(accountStore);
+            LoginCommand = new LoginCommand(this, homeNavigationService);
         }
     }
 }

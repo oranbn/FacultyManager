@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using FacultyManager.ViewModel;
 
 namespace FacultyManager.View
 {
@@ -9,7 +10,7 @@ namespace FacultyManager.View
     /// </summary>
     public partial class Login : UserControl
     {
-/*        private LoginViewModel viewModel;*/
+       /*private LoginViewModel viewModel;*/
         public Login()
         {
             InitializeComponent();
@@ -30,10 +31,6 @@ namespace FacultyManager.View
                 kanban.Show();
                 this.Close();
             }*/
-        }
-        private void Register_Click(object sender, RoutedEventArgs e)
-        {
-            /*viewModel.Register();*/
         }
 
         private void EmailTextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)

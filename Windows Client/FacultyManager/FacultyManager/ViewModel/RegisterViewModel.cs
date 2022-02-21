@@ -1,4 +1,6 @@
 using FacultyManager.Commands;
+using FacultyManager.Model;
+using FacultyManager.Service;
 using FacultyManager.Stores;
 using System.Windows.Input;
 using FacultyManager.ViewModel;
@@ -7,13 +9,15 @@ namespace FacultyManager.ViewModel
 {
     public class RegisterViewModel : NotifiableObject
     {
-        public string WelcomeMessage => "Welcome to my application.";
+        public NavigationBarViewModel NavigationBarViewModel { get; }
 
         public ICommand NavigateLoginCommand { get; }
 
-        public RegisterViewModel(NavigationStore navigationStore)
+        public RegisterViewModel(NavigationBarViewModel navigationBarViewModel, NavigationService<LoginViewModel> loginNavigationService)
         {
-            NavigateLoginCommand = new NavigateCommand<LoginViewModel>(navigationStore, () => new LoginViewModel(navigationStore));
+            NavigationBarViewModel = navigationBarViewModel;
+
+            NavigateLoginCommand = new NavigateCommand<LoginViewModel>(loginNavigationService);
         }
     }
 }

@@ -7,8 +7,8 @@
     xmlns:viewmodel="clr-namespace:FacultyManager.ViewModel"
     xmlns:view="clr-namespace:FacultyManager.View"
     Title="Faculty Manager"
-    Width="450"
-    Height="450"
+    Width="800"
+    Height="800"
     mc:Ignorable="d">
     <ContentControl Content="{Binding CurrentViewModel}">
         <ContentControl.Resources>
@@ -17,6 +17,12 @@
             </DataTemplate>
             <DataTemplate DataType="{x:Type viewmodel:RegisterViewModel}">
                 <view:Register />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodel:HomeViewModel}">
+                <view:HomePage />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodel:AccountViewModel}">
+                <view:Account />
             </DataTemplate>
         </ContentControl.Resources>
     </ContentControl>

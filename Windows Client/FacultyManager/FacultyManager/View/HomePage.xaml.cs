@@ -17,7 +17,7 @@ namespace FacultyManager.View
     /// <summary>
     /// Interaction logic for HomePage.xaml
     /// </summary>
-    public partial class HomePage : Window
+    public partial class HomePage : UserControl
     {
         public HomePage()
         {
