@@ -5,6 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewmodel="clr-namespace:FacultyManager.ViewModel"
+    xmlns:components="clr-namespace:FacultyManager.Components"
     xmlns:view="clr-namespace:FacultyManager.View"
     Title="Faculty Manager"
     Width="800"
@@ -23,6 +24,9 @@
             </DataTemplate>
             <DataTemplate DataType="{x:Type viewmodel:AccountViewModel}">
                 <view:Account />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodel:LayoutViewModel}">
+                <components:Layout />
             </DataTemplate>
         </ContentControl.Resources>
     </ContentControl>

@@ -21,10 +21,10 @@ namespace FacultyManager.ViewModel
         public bool IsLoggedIn => _accountStore.IsLoggedIn;
 
         public NavigationBarViewModel(AccountStore accountStore,
-            NavigationService<HomeViewModel> homeNavigationService, 
-            NavigationService<AccountViewModel> accountNavigationService, 
-            NavigationService<LoginViewModel> loginNavigationService,
-            NavigationService<RegisterViewModel> registerNavigationService)
+            INavigationService<HomeViewModel> homeNavigationService, 
+            INavigationService<AccountViewModel> accountNavigationService, 
+            INavigationService<LoginViewModel> loginNavigationService,
+            INavigationService<RegisterViewModel> registerNavigationService)
         {
             _accountStore = accountStore;
             NavigateHomeCommand = new NavigateCommand<HomeViewModel>(homeNavigationService);

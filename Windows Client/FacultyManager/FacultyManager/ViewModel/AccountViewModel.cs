@@ -9,12 +9,11 @@ namespace FacultyManager.ViewModel
 {
     public class AccountViewModel : NotifiableObject
     {
-        public NavigationBarViewModel NavigationBarViewModel { get; }
-        
+        private readonly AccountStore _accountStore;
 
-        public AccountViewModel(NavigationBarViewModel navigationBarViewModel)
+        public AccountViewModel(AccountStore accountStore)
         {
-            NavigationBarViewModel = navigationBarViewModel;
+            _accountStore = accountStore;
         }
     }
 }

@@ -32,3 +32,5 @@ C:\Users\User\Desktop\FacultyManager\Windows Client\FacultyManager\FacultyManage
 C:\Users\User\Desktop\FacultyManager\Windows Client\FacultyManager\FacultyManager\obj\Debug\net5.0-windows\Components\NavigationBar.baml
 C:\Users\User\Desktop\FacultyManager\Windows Client\FacultyManager\FacultyManager\obj\Debug\net5.0-windows\View\Account.g.cs
 C:\Users\User\Desktop\FacultyManager\Windows Client\FacultyManager\FacultyManager\obj\Debug\net5.0-windows\View\Account.baml
+C:\Users\User\Desktop\FacultyManager\Windows Client\FacultyManager\FacultyManager\obj\Debug\net5.0-windows\Components\Layout.g.cs
+C:\Users\User\Desktop\FacultyManager\Windows Client\FacultyManager\FacultyManager\obj\Debug\net5.0-windows\Components\Layout.baml

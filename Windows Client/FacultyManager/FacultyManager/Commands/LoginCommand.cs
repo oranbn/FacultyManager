@@ -12,9 +12,9 @@ namespace FacultyManager.Commands
     public class LoginCommand : CommandBase
     {
         private readonly LoginViewModel _viewModel;
-        private readonly NavigationService<HomeViewModel> _navigationService;
+        private readonly INavigationService<HomeViewModel> _navigationService;
 
-        public LoginCommand(LoginViewModel viewModel,  NavigationService<HomeViewModel> navigationService)
+        public LoginCommand(LoginViewModel viewModel,  INavigationService<HomeViewModel> navigationService)
         {
             _viewModel = viewModel;
             _navigationService = navigationService;

@@ -9,13 +9,6 @@
         d:DesignHeight="800"
     d:DesignWidth="800">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-
-        <components:NavigationBar Grid.Row="0" DataContext="{Binding NavigationBarViewModel}" />
-        <Grid Grid.Row="1">
         <Grid.Background>
             <ImageBrush ImageSource=
    "pack://application:,,,/FacultyManager;component/View/BackGround/backgroundcolor.png" Stretch="UniformToFill"/>
@@ -118,5 +111,4 @@
             <Button Width="120" Height="40" Margin="15" VerticalAlignment="Bottom" HorizontalAlignment="Center" Command="{Binding LoginCommand}" Style="{StaticResource ButtonTemplate}" BorderBrush="#fff" Content="Register" Click="Register_Click" FontWeight="UltraBold"/>
         </Grid>
     </Grid>
-        </Grid>
 </UserControl>

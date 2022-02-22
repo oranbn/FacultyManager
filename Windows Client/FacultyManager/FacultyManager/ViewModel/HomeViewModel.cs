@@ -10,12 +10,13 @@ namespace FacultyManager.ViewModel
     public class HomeViewModel : NotifiableObject
     {
         public string WelcomeMessage => "Welcome to FacultyManager application.";
-        public NavigationBarViewModel NavigationBarViewModel { get; }
+        private readonly AccountStore _accountStore;
+  
         
 
-        public HomeViewModel(NavigationBarViewModel navigationBarViewModel)
+        public HomeViewModel(AccountStore accountStore)
         {
-            NavigationBarViewModel = navigationBarViewModel;
+            _accountStore = accountStore;
         }
     }
 }
