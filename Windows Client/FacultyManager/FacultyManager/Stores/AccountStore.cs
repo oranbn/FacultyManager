@@ -1,3 +1,5 @@
+using System;
+using System.Windows;
 using FacultyManager.Model;
 
 namespace FacultyManager.Stores
@@ -12,9 +14,15 @@ namespace FacultyManager.Stores
             set
             {
                 _currentAccount = value;
+                CurrentAccountChanged?.Invoke();
             }
         }
         public bool IsLoggedIn => CurrentAccount != null;
         public bool IsNotLoggedIn => CurrentAccount == null;
+        public event Action CurrentAccountChanged;
+        public void Logout()
+        {
+            CurrentAccount = null;
+        }
     }
 }

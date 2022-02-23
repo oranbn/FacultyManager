@@ -61,7 +61,7 @@ namespace FacultyManager
                 () => new RegisterViewModel(CreateLoginNavigationService()),
                 CreateNavigationBarViewModel);
         }
-        public NavigationBarViewModel CreateNavigationBarViewModel()
+        private NavigationBarViewModel CreateNavigationBarViewModel()
         {
             return new NavigationBarViewModel(
                 _accountStore,

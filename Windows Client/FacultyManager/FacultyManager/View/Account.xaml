@@ -7,6 +7,9 @@
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        
+        <TextBlock
+            Margin="0 20 0 0"
+            Text="{Binding Email}" />
+
     </Grid>
 </UserControl>

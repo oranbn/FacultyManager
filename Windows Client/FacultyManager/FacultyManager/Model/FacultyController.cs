@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading;
+using System.Windows;
 using FacultyManager.Model.Operations;
 using FacultyManager.Model.Operations.ClientOperations;
 using FacultyManager.Stores;
@@ -42,7 +43,10 @@ namespace FacultyManager.Model
 
         public void Login(string email, string password)
         {
-            connectionHandler.Send(encoderDecoder.encode(new LoginOperation(2, email, password)));
+            //connectionHandler.Send(encoderDecoder.encode(new LoginOperation(2, email, password)));
+            
+            // just for testing:
+            _accountStore.CurrentAccount = new Account(email, email, email, email, email, email);
         }
     }
 }
