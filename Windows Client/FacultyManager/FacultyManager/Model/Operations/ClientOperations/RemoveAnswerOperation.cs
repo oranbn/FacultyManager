@@ -8,5 +8,10 @@ namespace FacultyManager.Model.Operations.ClientOperations
 {
     class RemoveAnswerOperation
     {
+        private int questionId;
+        private int answerId;
+        private int examId;
+        private int courseId;
+
     }
 }

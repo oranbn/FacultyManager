@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 namespace FacultyManager.Model.Operations.ClientOperations
 {
     class CreateCourseOperation
-    {
+    {    
+        private string name;
+        private string generalInfo;
+    
     }
 }

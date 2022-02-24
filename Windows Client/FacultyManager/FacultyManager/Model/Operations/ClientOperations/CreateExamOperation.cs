@@ -8,5 +8,8 @@ namespace FacultyManager.Model.Operations.ClientOperations
 {
     class CreateExamOperation
     {
+        private int courseId;
+        private int duration;
+        private string examDate;
     }
 }

@@ -8,5 +8,7 @@ namespace FacultyManager.Model.Operations.ClientOperations
 {
     class RemoveChatOperation
     {
+        private int courseId;
+        private int chatId;
     }
 }

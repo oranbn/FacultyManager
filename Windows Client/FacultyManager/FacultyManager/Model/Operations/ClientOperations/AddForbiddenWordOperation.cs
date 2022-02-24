@@ -8,5 +8,6 @@ namespace FacultyManager.Model.Operations.ClientOperations
 {
     class AddForbiddenWordOperation
     {
+        private string forbiddenWord;
     }
 }

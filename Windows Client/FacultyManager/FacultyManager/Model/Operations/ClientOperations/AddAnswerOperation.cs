@@ -8,5 +8,10 @@ namespace FacultyManager.Model.Operations.ClientOperations
 {
     class AddAnswerOperation
     {
+        private int questionId;
+        private int examId;
+        private int courseId;
+        private string content;
+        private bool correct;
     }
 }

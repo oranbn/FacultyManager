@@ -5,7 +5,7 @@ import ServiceLayer.Protocol;
 
 public class CreateNewChatOperation extends ClientOperation {
     private int courseId;
-    String chatName;
+    private String chatName;
 
     public CreateNewChatOperation(short opCode) {
         super(opCode);

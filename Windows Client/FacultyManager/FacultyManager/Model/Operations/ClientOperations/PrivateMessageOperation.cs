@@ -8,5 +8,8 @@ namespace FacultyManager.Model.Operations.ClientOperations
 {
     class PrivateMessageOperation
     {
+        private string userName;
+        private string content;
+        private string dateAndTime;
     }
 }

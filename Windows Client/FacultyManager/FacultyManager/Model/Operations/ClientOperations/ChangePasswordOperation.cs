@@ -8,5 +8,6 @@ namespace FacultyManager.Model.Operations.ClientOperations
 {
     class ChangePasswordOperation
     {
+        private string password;
     }
 }
