@@ -7,8 +7,19 @@
   "targets": {
     ".NETCoreApp,Version=v5.0": {
       "FacultyManager/1.0.0": {
+        "dependencies": {
+          "SimpleModal.WPF": "1.0.0"
+        },
         "runtime": {
           "FacultyManager.dll": {}
+        }
+      },
+      "SimpleModal.WPF/1.0.0": {
+        "runtime": {
+          "lib/netcoreapp3.1/ModalControl.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       }
     }
@@ -18,6 +29,13 @@
       "type": "project",
       "serviceable": false,
       "sha512": ""
+    },
+    "SimpleModal.WPF/1.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-dtTvUl6O2peKZz2oCh5Y6mRjYL+q/Izxm6+z/Nzdpbcgxdo/qTD39stwegu/sY0uBTAYGJEy2P9X8mwpOMM+rw==",
+      "path": "simplemodal.wpf/1.0.0",
+      "hashPath": "simplemodal.wpf.1.0.0.nupkg.sha512"
     }
   }
 }

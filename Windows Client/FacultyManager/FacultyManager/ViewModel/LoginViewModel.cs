@@ -11,6 +11,7 @@ namespace FacultyManager.ViewModel
     public class LoginViewModel : NotifiableObject
     {
         public ICommand LoginCommand { get; }
+        public ICommand CloseLoginCommand { get; }
         public FacultyController Controller { get; private set; }
         private string _email;
         public string Email
@@ -68,10 +69,11 @@ namespace FacultyManager.ViewModel
         /// <summary>
         /// Constructor
         /// </summary>
-        public LoginViewModel(AccountStore accountStore, INavigationService<HomeViewModel> homeNavigationService)
+        public LoginViewModel(AccountStore accountStore, INavigationService homeNavigationService, INavigationService closeNavigationService )
         {
             this.Controller = new FacultyController(accountStore);
             LoginCommand = new LoginCommand(this, homeNavigationService);
+            CloseLoginCommand = new NavigateCommand(closeNavigationService);
         }
     }
 }

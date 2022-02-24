@@ -14,6 +14,8 @@ namespace FacultyManager.View
         public Login()
         {
             InitializeComponent();
+            Focusable = true;
+            Loaded += (s, e) => Keyboard.Focus(this);
 /*            this.DataContext = new LoginViewModel();
             this.viewModel = (LoginViewModel)DataContext;*/
         }

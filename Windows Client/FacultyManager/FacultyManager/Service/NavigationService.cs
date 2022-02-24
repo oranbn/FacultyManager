@@ -6,8 +6,7 @@ using System.Text;
 
 namespace FacultyManager.Service
 {
-    public class NavigationService<TViewModel>
-        where TViewModel : NotifiableObject
+    public class NavigationService<TViewModel> : INavigationService where TViewModel : NotifiableObject
     {
         private readonly NavigationStore _navigationStore;
         private readonly Func<TViewModel> _createViewModel;

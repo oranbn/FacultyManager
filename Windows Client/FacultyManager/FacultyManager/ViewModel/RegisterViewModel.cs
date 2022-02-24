@@ -9,9 +9,9 @@ namespace FacultyManager.ViewModel
 
         public ICommand NavigateLoginCommand { get; }
 
-        public RegisterViewModel(INavigationService<LoginViewModel> loginNavigationService)
+        public RegisterViewModel(INavigationService loginNavigationService)
         {
-            NavigateLoginCommand = new NavigateCommand<LoginViewModel>(loginNavigationService);
+            NavigateLoginCommand = new NavigateCommand(loginNavigationService);
         }
     }
 }

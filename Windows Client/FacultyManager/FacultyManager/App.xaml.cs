@@ -10,28 +10,30 @@ namespace FacultyManager
     {
         private readonly AccountStore _accountStore;
         private readonly NavigationStore _navigationStore;
+        private readonly ModalNavigationStore _modalNavigationStore;
 
         public App()
         {
             _accountStore = new AccountStore();
             _navigationStore = new NavigationStore();
+            _modalNavigationStore = new ModalNavigationStore();
         }
         
         protected override void OnStartup(StartupEventArgs e)
         {
-            INavigationService<LoginViewModel> loginNavigationService = CreateLoginNavigationService();
-            loginNavigationService.Navigate();
+            INavigationService homeNavigationService = CreateHomeNavigationService();
+            homeNavigationService.Navigate();
 
             MainWindow = new MainWindow()
             {
-                DataContext = new MainViewModel(_navigationStore)
+                DataContext = new MainViewModel(_navigationStore, _modalNavigationStore)
             };
             MainWindow.Show();
 
             base.OnStartup(e);
         }
 
-        private INavigationService<HomeViewModel> CreateHomeNavigationService()
+        private INavigationService CreateHomeNavigationService()
         {
             return new LayoutNavigationService<HomeViewModel>(
                 _navigationStore,
@@ -39,22 +41,25 @@ namespace FacultyManager
                 CreateNavigationBarViewModel);
         }
 
-        private INavigationService<LoginViewModel> CreateLoginNavigationService()
+        private INavigationService CreateLoginNavigationService()
         {
-            return new LayoutNavigationService<LoginViewModel>(
-                _navigationStore,
-                () => new LoginViewModel(_accountStore, CreateHomeNavigationService()),
-                CreateNavigationBarViewModel);
+            CompositeNavigationService navigationService = new CompositeNavigationService(
+                new CloseModalNavigationService(_modalNavigationStore),
+                CreateAccountNavigationService());
+
+            return new ModalNavigationService<LoginViewModel>(
+                _modalNavigationStore,
+                () => new LoginViewModel(_accountStore, navigationService, new CloseModalNavigationService(_modalNavigationStore)));
         }
 
-        private INavigationService<AccountViewModel> CreateAccountNavigationService()
+        private INavigationService CreateAccountNavigationService()
         {
             return new LayoutNavigationService<AccountViewModel>(
                 _navigationStore,
                 () => new AccountViewModel(_accountStore),
                 CreateNavigationBarViewModel);
         }
-        private INavigationService<RegisterViewModel> CreateRegisterNavigationService()
+        private INavigationService CreateRegisterNavigationService()
         {
             return new LayoutNavigationService<RegisterViewModel>(
                 _navigationStore,

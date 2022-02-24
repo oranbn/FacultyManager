@@ -23,17 +23,17 @@ namespace FacultyManager.ViewModel
         
 
         public NavigationBarViewModel(AccountStore accountStore,
-            INavigationService<HomeViewModel> homeNavigationService, 
-            INavigationService<AccountViewModel> accountNavigationService, 
-            INavigationService<LoginViewModel> loginNavigationService,
-            INavigationService<RegisterViewModel> registerNavigationService)
+            INavigationService homeNavigationService, 
+            INavigationService accountNavigationService, 
+            INavigationService loginNavigationService,
+            INavigationService registerNavigationService)
         {
             _accountStore = accountStore;
-            NavigateHomeCommand = new NavigateCommand<HomeViewModel>(homeNavigationService);
-            NavigateAccountCommand = new NavigateCommand<AccountViewModel>(accountNavigationService);
-            NavigateLoginCommand = new NavigateCommand<LoginViewModel>(loginNavigationService);
-            NavigateRegisterCommand = new NavigateCommand<RegisterViewModel>(registerNavigationService);
-            LogoutCommand = new LogoutCommand(_accountStore, loginNavigationService);
+            NavigateHomeCommand = new NavigateCommand(homeNavigationService);
+            NavigateAccountCommand = new NavigateCommand(accountNavigationService);
+            NavigateLoginCommand = new NavigateCommand(loginNavigationService);
+            NavigateRegisterCommand = new NavigateCommand(registerNavigationService);
+            LogoutCommand = new LogoutCommand(_accountStore, homeNavigationService);
             _accountStore.CurrentAccountChanged += OnCurrentAccountChanged;
         }
 

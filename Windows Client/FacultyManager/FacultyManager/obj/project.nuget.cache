@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "CrQaMrrk3VDG4pMYA4r2ZKYTo93/T95pavfFNmloUb6ee2L3TabDdzeAaamd/jbmUXXDABnKoa2j0nmiBdjgFg==",
+  "dgSpecHash": "grfvqrJmKaaN0aPBoMfnJEv9EPQHMTPTqQbDNsbyDY1nKeVtg6H4dfRXD2Zm8uvSn3y07qPXzKsbGz0Te4s9uw==",
   "success": true,
   "projectFilePath": "C:\\Users\\User\\Desktop\\FacultyManager\\Windows Client\\FacultyManager\\FacultyManager\\FacultyManager.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\User\\.nuget\\packages\\simplemodal.wpf\\1.0.0\\simplemodal.wpf.1.0.0.nupkg.sha512"
+  ],
   "logs": []
 }

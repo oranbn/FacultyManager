@@ -2,7 +2,7 @@ using FacultyManager.ViewModel;
 
 namespace FacultyManager.Service
 {
-    public interface INavigationService<TViewModel> where TViewModel : NotifiableObject
+    public interface INavigationService
     {
         void Navigate();
     }
