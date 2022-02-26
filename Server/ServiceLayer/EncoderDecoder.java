@@ -53,7 +53,6 @@ public class EncoderDecoder implements MessageEncoderDecoder<Operation> {
         if (length >= bytes.length) {
             bytes = Arrays.copyOf(bytes, length * 2);
         }
-
         bytes[length++] = nextByte;
     }
     @Override
@@ -80,27 +79,32 @@ public class EncoderDecoder implements MessageEncoderDecoder<Operation> {
                 bArrNotification[bArrNotification.length-1] = ';';
                 return bArrNotification;*/
 
-            case 10:
+            case 1:
                 bArrMessage = shortToBytes(((Response)message).getMessageOpCode());
                 byte[] bArrOptional = ((Response)message).getOptional().getBytes();
-                byte[] bArrACK = new byte[5+bArrOptional.length];
+                byte[] bArrACK = new byte[6+bArrOptional.length];
                 bArrACK[0] = bArrOpCode[0];
                 bArrACK[1] = bArrOpCode[1];
                 bArrACK[2] = bArrMessage[0];
                 bArrACK[3] = bArrMessage[1];
                 for(int i=0;i<bArrOptional.length;i++)
                     bArrACK[i+4] = bArrOptional[i];
+                bArrACK[bArrACK.length-2] = 0;
                 bArrACK[bArrACK.length-1] = ';';
                 return bArrACK;
 
-            case 11:
+            case 2:
                 bArrMessage = shortToBytes(((Response)message).getMessageOpCode());
-                byte[] bArrErr = new byte[5];
+                bArrOptional = ((Response)message).getOptional().getBytes();
+                byte[] bArrErr = new byte[6+ bArrOptional.length];
                 bArrErr[0] = bArrOpCode[0];
                 bArrErr[1] = bArrOpCode[1];
                 bArrErr[2] = bArrMessage[0];
                 bArrErr[3] = bArrMessage[1];
-                bArrErr[4] = ';';
+                for(int i=0;i<bArrOptional.length;i++)
+                    bArrErr[i+4] = bArrOptional[i];
+                bArrErr[bArrErr.length-2] = 0;
+                bArrErr[bArrErr.length-1] = ';';
                 return bArrErr;
         }
         return null;

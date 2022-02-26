@@ -12,7 +12,7 @@ namespace FacultyManager.ViewModel
     {
         public ICommand LoginCommand { get; }
         public ICommand CloseLoginCommand { get; }
-        public FacultyController Controller { get; private set; }
+        private readonly FacultyController _controller;
         private string _email;
         public string Email
         {
@@ -52,7 +52,7 @@ namespace FacultyManager.ViewModel
             Message = "";
             try
             {
-                Controller.Login(Email, Password);
+                _controller.Login(Email, Password);
             }
             catch (Exception e)
             {
@@ -69,9 +69,9 @@ namespace FacultyManager.ViewModel
         /// <summary>
         /// Constructor
         /// </summary>
-        public LoginViewModel(AccountStore accountStore, INavigationService homeNavigationService, INavigationService closeNavigationService )
+        public LoginViewModel(FacultyController facultyController, AccountStore accountStore, INavigationService homeNavigationService, INavigationService closeNavigationService )
         {
-            this.Controller = new FacultyController(accountStore);
+            _controller = facultyController;
             LoginCommand = new LoginCommand(this, homeNavigationService);
             CloseLoginCommand = new NavigateCommand(closeNavigationService);
         }

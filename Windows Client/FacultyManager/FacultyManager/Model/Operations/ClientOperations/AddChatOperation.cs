@@ -6,9 +6,28 @@ using System.Threading.Tasks;
 
 namespace FacultyManager.Model.Operations.ClientOperations
 {
-    class AddChatOperation
+    public class AddChatOperation : ClientOperation
     {
-        private int courseId;
-        private string chatName;
+        private readonly int _courseId;
+        private readonly string _chatName;
+
+        public AddChatOperation(short opCode, int courseId, string chatName) : base(opCode)
+        {
+            this._courseId = courseId;
+            this._chatName = chatName;
+        }
+        public override byte[] encode()
+        {
+            byte[] bytes = new byte[_chatName.Length + 9];
+            bytes[0] = (byte)((getOpCode() >> 8) & 0xFF);
+            bytes[1] = (byte)(getOpCode() & 0xFF);
+            int index = 2;
+            AddIntToByteArray(_courseId, bytes, ref index);
+            bytes[index++] = 0;
+            AddStringToByteArray(_chatName, bytes, ref index);
+            bytes[index++] = 0;
+            bytes[index] = (byte)';';
+            return bytes;
+        }
     }
 }

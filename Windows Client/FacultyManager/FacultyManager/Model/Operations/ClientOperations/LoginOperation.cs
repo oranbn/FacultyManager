@@ -6,27 +6,27 @@ using System.Threading.Tasks;
 
 namespace FacultyManager.Model.Operations.ClientOperations
 {
-    class LoginOperation : ClientOperation
+    public class LoginOperation : ClientOperation
     {
-        private string email;
-        private string password;
+        private readonly string _email;
+        private readonly string _password;
 
         public LoginOperation(short opCode, string email, string password) : base(opCode)
         {
-            this.email = email;
-            this.password = password;
+            _email = email;
+            _password = password;
         }
 
         public override byte[] encode()
         {
-            byte[] bytes = new byte[email.Length + password.Length + 4];
-            bytes[0] = (byte)((base.getOpCode() >> 8) & 0xFF);
-            bytes[1] = (byte)(base.getOpCode() & 0xFF);
+            byte[] bytes = new byte[_email.Length + _password.Length + 4];
+            bytes[0] = (byte)((getOpCode() >> 8) & 0xFF);
+            bytes[1] = (byte)(getOpCode() & 0xFF);
             int index = 2;
-            AddStringToByteArray(email, bytes, ref index);
+            AddStringToByteArray(_email, bytes, ref index);
             bytes[index++] = 0;
-            AddStringToByteArray(password, bytes, ref index);
-            bytes[index++] = (byte)';';
+            AddStringToByteArray(_password, bytes, ref index);
+            bytes[index] = (byte)';';
             return bytes;
         }
     }

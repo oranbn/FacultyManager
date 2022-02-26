@@ -1,6 +1,7 @@
 package ServiceLayer.Objects.Operations.Server;
 
 import ServiceLayer.Objects.ServerOperation;
+import ServiceLayer.Protocol;
 
 public class Response extends ServerOperation {
     private short messageOpCode;
@@ -15,5 +16,10 @@ public class Response extends ServerOperation {
     }
     public String getOptional() {
         return optional;
+    }
+
+    @Override
+    public void execute(Protocol protocol) {
+
     }
 }

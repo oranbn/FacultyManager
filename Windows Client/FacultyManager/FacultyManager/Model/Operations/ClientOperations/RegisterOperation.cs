@@ -8,40 +8,47 @@ namespace FacultyManager.Model.Operations.ClientOperations
 {
     public class RegisterOperation : ClientOperation
     {
-        private String email;
-        private String password;
-        private String firstName;
-        private String lastName;
-        private String idNumber;
-        private String phoneNumber;
-        private String birthday;
+        private readonly string _email;
+        private readonly string _password;
+        private readonly string _firstName;
+        private readonly string _lastName;
+        private readonly string _idNumber;
+        private readonly string _phoneNumber;
+        private readonly string _birthday;
 
-        public RegisterOperation(short opCode, string email, string password) : base(opCode)
+
+        public RegisterOperation(short opCode, string email, string password, string firstName, string lastName, string idNumber, string phoneNumber, string birthday) : base(opCode)
         {
-            this.email = email;
-            this.password = password;
+            _email = email;
+            _password = password;
+            _firstName = firstName;
+            _lastName = lastName;
+            _idNumber = idNumber;
+            _phoneNumber = phoneNumber;
+            _birthday = birthday;
         }
 
         public override byte[] encode()
         {
-            byte[] bytes = new byte[email.Length + password.Length+firstName.Length+lastName.Length+idNumber.Length+phoneNumber.Length+birthday.Length + 9];
-            bytes[0] = (byte)((base.getOpCode() >> 8) & 0xFF);
-            bytes[1] = (byte)(base.getOpCode() & 0xFF);
+            byte[] bytes = new byte[_email.Length + _password.Length + _firstName.Length + _lastName.Length + _idNumber.Length + _phoneNumber.Length + _birthday.Length + 10];
+            bytes[0] = (byte)((getOpCode() >> 8) & 0xFF);
+            bytes[1] = (byte)(getOpCode() & 0xFF);
             int index = 2;
-            AddStringToByteArray(email, bytes, ref index);
+            AddStringToByteArray(_email, bytes, ref index);
             bytes[index++] = 0;
-            AddStringToByteArray(password, bytes, ref index);
+            AddStringToByteArray(_password, bytes, ref index);
             bytes[index++] = 0;
-            AddStringToByteArray(firstName, bytes, ref index);
+            AddStringToByteArray(_firstName, bytes, ref index);
             bytes[index++] = 0;
-            AddStringToByteArray(lastName, bytes, ref index);
+            AddStringToByteArray(_lastName, bytes, ref index);
             bytes[index++] = 0;
-            AddStringToByteArray(idNumber, bytes, ref index);
+            AddStringToByteArray(_idNumber, bytes, ref index);
             bytes[index++] = 0;
-            AddStringToByteArray(phoneNumber, bytes, ref index);
+            AddStringToByteArray(_phoneNumber, bytes, ref index);
             bytes[index++] = 0;
-            AddStringToByteArray(birthday, bytes, ref index);
-            bytes[index++] = (byte)';';
+            AddStringToByteArray(_birthday, bytes, ref index);
+            bytes[index++] = 0;
+            bytes[index] = (byte)';';
             return bytes;
         }
     }

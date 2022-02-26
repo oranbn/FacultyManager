@@ -1,7 +1,6 @@
-﻿package BusinessLayer;
+package BusinessLayer;
 
 import DataAccessLayer.DTOs.DChatMessage;
-
 import java.util.List;
 
 public class ChatMessage {

@@ -3,6 +3,7 @@ using FacultyManager.Stores;
 using FacultyManager.ViewModel;
 using System;
 using System.Windows;
+using FacultyManager.Model;
 
 namespace FacultyManager
 {
@@ -11,12 +12,14 @@ namespace FacultyManager
         private readonly AccountStore _accountStore;
         private readonly NavigationStore _navigationStore;
         private readonly ModalNavigationStore _modalNavigationStore;
+        private readonly FacultyController _facultyController;
 
         public App()
         {
             _accountStore = new AccountStore();
             _navigationStore = new NavigationStore();
             _modalNavigationStore = new ModalNavigationStore();
+            _facultyController = new FacultyController(_accountStore);
         }
         
         protected override void OnStartup(StartupEventArgs e)
@@ -24,8 +27,7 @@ namespace FacultyManager
             INavigationService homeNavigationService = CreateHomeNavigationService();
             homeNavigationService.Navigate();
 
-            MainWindow = new MainWindow()
-            {
+            MainWindow = new MainWindow() {
                 DataContext = new MainViewModel(_navigationStore, _modalNavigationStore)
             };
             MainWindow.Show();
@@ -37,7 +39,7 @@ namespace FacultyManager
         {
             return new LayoutNavigationService<HomeViewModel>(
                 _navigationStore,
-                () => new HomeViewModel(_accountStore),
+                () => new HomeViewModel(_facultyController, _accountStore),
                 CreateNavigationBarViewModel);
         }
 
@@ -49,21 +51,21 @@ namespace FacultyManager
 
             return new ModalNavigationService<LoginViewModel>(
                 _modalNavigationStore,
-                () => new LoginViewModel(_accountStore, navigationService, new CloseModalNavigationService(_modalNavigationStore)));
+                () => new LoginViewModel(_facultyController, _accountStore, navigationService, new CloseModalNavigationService(_modalNavigationStore)));
         }
 
         private INavigationService CreateAccountNavigationService()
         {
             return new LayoutNavigationService<AccountViewModel>(
                 _navigationStore,
-                () => new AccountViewModel(_accountStore),
+                () => new AccountViewModel(_facultyController, _accountStore),
                 CreateNavigationBarViewModel);
         }
         private INavigationService CreateRegisterNavigationService()
         {
             return new LayoutNavigationService<RegisterViewModel>(
                 _navigationStore,
-                () => new RegisterViewModel(CreateLoginNavigationService()),
+                () => new RegisterViewModel(_facultyController, CreateLoginNavigationService()),
                 CreateNavigationBarViewModel);
         }
         private NavigationBarViewModel CreateNavigationBarViewModel()

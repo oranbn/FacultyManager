@@ -47,8 +47,12 @@ public abstract class ClientOperation implements Operation {
         return output;
     }
     public boolean bytesToBoolean(){
-        if(bArr.length>1 || bArr[0] == 1)
+        bArr = new byte[size];
+        int temp = length;
+        length = 0;
+        if(temp > 1 || bArr[0] == 1) {
             return false;
+        }
         return true;
     }
     public int getLength() {

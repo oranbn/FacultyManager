@@ -6,8 +6,22 @@ using System.Threading.Tasks;
 
 namespace FacultyManager.Model.Operations.ClientOperations
 {
-    class ChangePasswordOperation
+    public class ChangePasswordOperation : ClientOperation
     {
-        private string password;
+        private readonly string _password;
+
+        public ChangePasswordOperation(short opCode, string password) : base(opCode) {
+            _password = password;
+        }
+        public override byte[] encode() {
+            byte[] bytes = new byte[_password.Length + 4];
+            bytes[0] = (byte)((getOpCode() >> 8) & 0xFF);
+            bytes[1] = (byte)(getOpCode() & 0xFF);
+            int index = 2;
+            AddStringToByteArray(_password, bytes, ref index);
+            bytes[index++] = 0;
+            bytes[index] = (byte)';';
+            return bytes;
+        }
     }
 }

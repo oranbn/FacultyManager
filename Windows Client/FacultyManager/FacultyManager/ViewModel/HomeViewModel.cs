@@ -11,11 +11,12 @@ namespace FacultyManager.ViewModel
     {
         public string WelcomeMessage => "Welcome to FacultyManager application.";
         private readonly AccountStore _accountStore;
-  
+        private readonly FacultyController _facultyController;
         
 
-        public HomeViewModel(AccountStore accountStore)
+        public HomeViewModel(FacultyController facultyController, AccountStore accountStore)
         {
+            _facultyController = facultyController;
             _accountStore = accountStore;
         }
     }

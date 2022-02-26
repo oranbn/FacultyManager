@@ -16,7 +16,7 @@ public class Protocol implements MessagingProtocol<Operation>{
     public Protocol(UserController userController, CourseController courseController) {
         this.userController = userController;
         this.courseController = courseController;
-        userController.loadData();
+        //userController.loadData();
         courseController.loadData();
     }
 
@@ -36,11 +36,11 @@ public class Protocol implements MessagingProtocol<Operation>{
         return false;
     }
     public void register(RegisterOperation registerOperation) {
-        try{userController.register(registerOperation.getUserName(),registerOperation.getFirstName(),registerOperation.getLastName(),registerOperation.getIdNumber(),registerOperation.getPhoneNumber(), registerOperation.getPassword(), registerOperation.getBirthday());
-            connections.send(connectionId, new Response((short) 10, (short) 1, "Registered Successfully"));
+        try{userController.register(registerOperation.getEmail(),registerOperation.getFirstName(),registerOperation.getLastName(),registerOperation.getIdNumber(),registerOperation.getPhoneNumber(), registerOperation.getPassword(), registerOperation.getBirthday());
+            connections.send(connectionId, new Response((short) 1, (short) 1, "Registered Successfully"));
         }
         catch (Exception e) {
-            connections.send(connectionId, new Response((short) 11, (short) 1, e.getMessage()));
+            connections.send(connectionId, new Response((short) 2, (short) 1, e.getMessage()));
         }
     }
     public void isConnected()
@@ -52,21 +52,21 @@ public class Protocol implements MessagingProtocol<Operation>{
         if(user==null) {
             try {
                 this.user = userController.login(loginOperation.getEmail(), loginOperation.getPassword(), connectionId);
-                connections.send(connectionId, new Response((short) 10, (short) 2, "Logged in Successfully"));
+                connections.send(connectionId, new Response((short) 1, (short) 2, "Logged in Successfully"));
 
             } catch (Exception e) {
-                connections.send(connectionId, new Response((short) 11, (short) 2, e.getMessage()));
+                connections.send(connectionId, new Response((short) 2, (short) 2, e.getMessage()));
             }
         }
         else
-            connections.send(connectionId, new Response((short) 11, (short) 2, "Invalid login request!"));
+            connections.send(connectionId, new Response((short) 2, (short) 2, "Invalid login request!"));
     }
     public void logout(LogoutOperation logoutOperation) {
         if(user!=null)
             try{
                 userController.logout(user.getEmail());
                 user = null;
-                connections.send(connectionId, new Response((short)10, (short)3, "Logged out successfully"));
+                connections.send(connectionId, new Response((short)1, (short)3, "Logged out successfully"));
             }
             catch(Exception e) {
 
@@ -75,10 +75,10 @@ public class Protocol implements MessagingProtocol<Operation>{
     public void privateMessage(PrivateMessageOperation privateMessageOperation) {
         try {
             userController.sendPrivateMessage(user.getEmail(), (privateMessageOperation.getUserName()), (privateMessageOperation.getContent()), (privateMessageOperation.getDateAndTime()));
-            connections.send(connectionId, new Response((short) 10, (short) 6, "Message has been posted Successfully"));
+            connections.send(connectionId, new Response((short) 1, (short) 6, "Message has been posted Successfully"));
         }
         catch (Exception e) {
-            connections.send(connectionId, new Response((short) 11, (short) 6, ""));
+            connections.send(connectionId, new Response((short) 2, (short) 6, ""));
         }
     }
     public void acceptFriendRequest(AcceptFriendRequestOperation acceptFriendRequestOperation){
@@ -95,30 +95,30 @@ public class Protocol implements MessagingProtocol<Operation>{
         try {
             isConnected();
             courseController.addAnswer(user,addAnswerOperation.getCourseId(), addAnswerOperation.getExamId(), addAnswerOperation.getQuestionId(), addAnswerOperation.getContent(), addAnswerOperation.isCorrect());
-            connections.send(connectionId, new Response((short) 10, (short) 7, "Answer added Successfully"));
+            connections.send(connectionId, new Response((short) 1, (short) 7, "Answer added Successfully"));
         }
         catch (Exception e) {
-            connections.send(connectionId, new Response((short) 11, (short) 7,e.getMessage()));
+            connections.send(connectionId, new Response((short) 2, (short) 7,e.getMessage()));
         }
     }
     public void addChat(AddChatOperation addChatOperation) {
         try {
             isConnected();
             courseController.addChat(user, addChatOperation.getChatName(), addChatOperation.getCourseId());
-            connections.send(connectionId, new Response((short) 10, (short) 8, "Chat added Successfully"));
+            connections.send(connectionId, new Response((short) 1, (short) 8, "Chat added Successfully"));
         }
         catch (Exception e) {
-            connections.send(connectionId, new Response((short) 11, (short) 8,e.getMessage()));
+            connections.send(connectionId, new Response((short) 2, (short) 8,e.getMessage()));
         }
     }
     public void addQuestion(AddQuestionOperation addQuestionOperation) {
         try {
             isConnected();
             courseController.addQuestion(user, addQuestionOperation.getExamId(), addQuestionOperation.getCourseId(), addQuestionOperation.getPoints(), addQuestionOperation.getTitle(), addQuestionOperation.getAnswers());
-            connections.send(connectionId, new Response((short) 10, (short) 8, "Chat added Successfully"));
+            connections.send(connectionId, new Response((short) 1, (short) 8, "Chat added Successfully"));
         }
         catch (Exception e) {
-            connections.send(connectionId, new Response((short) 11, (short) 8,e.getMessage()));
+            connections.send(connectionId, new Response((short) 2, (short) 8,e.getMessage()));
         }
     }
     public void cancelFriendship(CancelFriendshipOperation cancelFriendshipOperation) {
