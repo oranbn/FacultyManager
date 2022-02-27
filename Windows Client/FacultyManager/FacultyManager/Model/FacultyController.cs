@@ -41,94 +41,139 @@ namespace FacultyManager.Model
                     Monitor.PulseAll(_lock);
             }
         }
-        public void AcceptFriendRequest(string email){}
-        public void AddAnswer(int questionId, int examId, int courseId, string content, bool correct){}
-        public void AddChat(int courseId, string chatName) { }
+        public ServerOperation SendMessage(byte[] message)
+        {
+            connectionHandler.Send(message);
+            lock(_lock)
+                while (_serverOperation == null)
+                    Monitor.Wait(_lock);
+            ServerOperation serverOperation = _serverOperation;
+            _serverOperation = null;
+            return serverOperation;
+        }
 
-        public void AddForbiddenWord(string forbiddenWord){ }
-        public void CancelFriendShip(string email){}
-        public void ChangeAnswerContent(int answerId, int questionId, int examId, int courseId, string content){}
-        public void ChangeAnswerCorrect(int answerId, int questionId, int examId, int courseId, bool correct) {}
-        public void ChangeChatMessageContent(int messageId, int chatId, int courseId, string content) {}
-        public void ChangeCourseName(){}
-        public void ChangePassword(string password){}
-        public void ChangeQuestionTitle(){}
-        public void ChangeUserPermission(string email, int permission){}
-        public void ChatMessage(int courseId, int chatId, string time, string content){}
-        public void CreateCourse(string name, string generalInfo){}
-        public void CreateExam(int courseId, int duration, string examDate){}
-        public void CreateNewChat(int courseId, string chatName){}
-        public void GetAllChatMessages(int courseId, int chatId){}
+        public ServerOperation AcceptFriendRequest(string email) {
+            return SendMessage(encoderDecoder.encode(new AcceptFriendRequestOperation(12, email)));
+
+        }
+
+        public ServerOperation AddAnswer(int questionId, int examId, int courseId, string content, bool correct)
+        {
+            return SendMessage(encoderDecoder.encode(new AddAnswerOperation(13, questionId, examId, courseId, content, correct)));
+
+        }
+
+        public ServerOperation AddChat(int courseId, string chatName)
+        {
+            return SendMessage(encoderDecoder.encode(new AddChatOperation(14, courseId, chatName)));
+
+        }
+
+        public ServerOperation AddForbiddenWord(string forbiddenWord){    
+            return SendMessage(encoderDecoder.encode(new AddForbiddenWordOperation(15, forbiddenWord)));
+        }
+        public ServerOperation CancelFriendShip(string email){
+            return SendMessage(encoderDecoder.encode(new CancelFriendshipOperation(16, email)));
+        }
+        public ServerOperation ChangeAnswerContent(int answerId, int questionId, int examId, int courseId, string content){        
+            return SendMessage(encoderDecoder.encode(new ChangeAnswerContentOperation(17, answerId, questionId, examId, courseId, content)));
+        }
+
+        public ServerOperation ChangeAnswerCorrect(int answerId, int questionId, int examId, int courseId, bool correct) {
+            return SendMessage(encoderDecoder.encode(new ChangeAnswerCorrectOperation(18, answerId, questionId, examId, courseId, correct)));
+
+        }
+
+        public ServerOperation ChangeChatMessageContent(int messageId, int chatId, int courseId, string content) {
+            return SendMessage(encoderDecoder.encode(new ChangeChatMessageContentOperation(19, messageId, chatId, courseId, content)));
+
+        }
+
+        public ServerOperation ChangeCourseName() {
+            //return SendMessage(encoderDecoder.encode(new ChangeCourseNameOperation(20)));
+            return null;
+        }
+
+        public ServerOperation ChangePassword(string password) {
+            return SendMessage(encoderDecoder.encode(new ChangePasswordOperation(21, password)));
+
+        }
+
+        public ServerOperation ChangeQuestionTitle() {
+            //return SendMessage(encoderDecoder.encode(new ChangeQuestionTitleOperation(22, email)));
+            return null;
+        }
+
+        public ServerOperation ChangeUserPermission(string email, int permission) {
+            return SendMessage(encoderDecoder.encode(new ChangeUserPermissionOperation(23, email, permission)));
+
+        }
+
+        public ServerOperation ChatMessage(int courseId, int chatId, string time, string content) {
+            return SendMessage(encoderDecoder.encode(new ChatMessageOperation(24, courseId, chatId, time, content)));
+
+        }
+        public ServerOperation CreateCourse(string name, string generalInfo){   
+            return SendMessage(encoderDecoder.encode(new CreateCourseOperation(25, name, generalInfo)));
+        }
+        public ServerOperation CreateExam(int courseId, int duration, string examDate){   
+            return SendMessage(encoderDecoder.encode(new CreateExamOperation(26, courseId, duration, examDate)));
+        }
+        public ServerOperation CreateNewChat(int courseId, string chatName){   
+            return SendMessage(encoderDecoder.encode(new CreateNewChatOperation(27, courseId, chatName)));
+        }
+        public ServerOperation GetAllChatMessages(int courseId, int chatId){   
+            return SendMessage(encoderDecoder.encode(new GetAllChatMessagesOperation(28, courseId, chatId)));
+        }
         internal IEnumerable<CourseModel> GetAllCourses(UserModel user)
         {
             throw new NotImplementedException();
         }
         public ServerOperation Login(string email, string password)
         {
-            connectionHandler.Send(encoderDecoder.encode(new LoginOperation(2, email, password)));
-            lock(_lock)
-                while (_serverOperation == null)
-                    Monitor.Wait(_lock);
-            ServerOperation serverOperation = _serverOperation;
-            _serverOperation = null;
-            return serverOperation;
+            return SendMessage(encoderDecoder.encode(new LoginOperation(2, email, password)));
         }
 
         public ServerOperation Logout()
         {
-            connectionHandler.Send(encoderDecoder.encode(new LogoutOperation(3)));
-            lock(_lock)
-                while (_serverOperation == null)
-                    Monitor.Wait(_lock);
-            ServerOperation serverOperation = _serverOperation;
-            _serverOperation = null;
-            return serverOperation;
+            return SendMessage(encoderDecoder.encode(new LogoutOperation(3)));
         }
 
         public ServerOperation MarkMessage(int courseId, int chatId, int messageId) {
-            connectionHandler.Send(encoderDecoder.encode(new MarkMessageOperation(4,courseId, chatId, messageId)));
-            lock(_lock)
-                while (_serverOperation == null)
-                    Monitor.Wait(_lock);
-            ServerOperation serverOperation = _serverOperation;
-            _serverOperation = null;
-            return serverOperation;
+            return SendMessage(encoderDecoder.encode(new MarkMessageOperation(4,courseId, chatId, messageId)));
         }
 
         public ServerOperation PrivateMessage(string userName, string content, string dateAndTime) {
-            connectionHandler.Send(encoderDecoder.encode(new PrivateMessageOperation(5,userName, content, dateAndTime)));
-            lock(_lock)
-                while (_serverOperation == null)
-                    Monitor.Wait(_lock);
-            ServerOperation serverOperation = _serverOperation;
-            _serverOperation = null;
-            return serverOperation;
+            return SendMessage(encoderDecoder.encode(new PrivateMessageOperation(5,userName, content, dateAndTime)));
         }
         public ServerOperation Register(string email, string password, string firstName, string lastName, string idNumber,
             string phoneNumber, string birthday) {
-            connectionHandler.Send(encoderDecoder.encode(new RegisterOperation(1, email, password, firstName, lastName, idNumber, phoneNumber, "22-03-1998")));
-            lock(_lock)
-                while (_serverOperation == null)
-                    Monitor.Wait(_lock);
-            ServerOperation serverOperation = _serverOperation;
-            _serverOperation = null;
-            return serverOperation;
+            return SendMessage(encoderDecoder.encode(new RegisterOperation(1, email, password, firstName, lastName, idNumber, phoneNumber, "22-03-1998")));
         }
 
         public ServerOperation RemoveAnswer(int questionId, int answerId, int examId, int courseId)
         {
-            connectionHandler.Send(encoderDecoder.encode(new RemoveAnswerOperation(6, questionId, answerId, examId, courseId)));
-            lock(_lock)
-                while (_serverOperation == null)
-                    Monitor.Wait(_lock);
-            ServerOperation serverOperation = _serverOperation;
-            _serverOperation = null;
-            return serverOperation;
+            return SendMessage(encoderDecoder.encode(new RemoveAnswerOperation(6, questionId, answerId, examId, courseId)));
         }
-        public void RemoveChatMessage(int courseId, int chatId, int messageId){}
-        public void RemoveChat(int courseId, int chatId){}
-        public void RemoveForbiddenWord(string forbiddenWord){}
-        public void SendFriendRequest(string email){}
-        public void UnMarkMessage(int courseId, int chatId, int messageId){}
+
+        public ServerOperation RemoveChatMessage(int courseId, int chatId, int messageId) {
+            return SendMessage(encoderDecoder.encode(new RemoveChatMessageOperation(7, courseId, chatId, messageId)));
+        }
+
+        public ServerOperation RemoveChat(int courseId, int chatId) {
+            return SendMessage(encoderDecoder.encode(new RemoveChatOperation(8, courseId, chatId)));
+        }
+
+        public ServerOperation RemoveForbiddenWord(string forbiddenWord) {
+            return SendMessage(encoderDecoder.encode(new RemoveForbiddenWordOperation(9, forbiddenWord)));
+        }
+        public ServerOperation SendFriendRequest(string email) {
+            return SendMessage(encoderDecoder.encode(new SendFriendRequestOperation(10, email)));
+        }
+
+        public ServerOperation UnMarkMessage(int courseId, int chatId, int messageId)
+        {
+            return SendMessage(encoderDecoder.encode(new UnMarkMessageOperation(11, courseId, chatId, messageId)));
+        }
     }
 }

@@ -23,7 +23,7 @@ public class AccountResponse extends ServerOperation {
 
 
     public byte[] encode() {
-        byte[] bytes = new byte[email.length() + firstName.length() + lastName.length() + idNumber.length() + phoneNumber.length() + phoneNumber.length() + 9];
+        byte[] bytes = new byte[email.length() + firstName.length() + lastName.length() + idNumber.length() + phoneNumber.length() + phoneNumber.length() + birthday.length() + 9];
         bytes[0] = (byte)((getOpCode() >> 8) & 0xFF);
         bytes[1] = (byte)(getOpCode() & 0xFF);
         int index = 2;

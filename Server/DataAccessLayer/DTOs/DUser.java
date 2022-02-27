@@ -14,7 +14,7 @@ public class DUser extends DTO {
     public static final String BirthdayColumnName="Birthday";
     public static final String PermissionLevelColumnName="PermissionLevel";
     public static final String IsEmailApprovedColumnName="IsEmailApproved";
-
+    public static final String ActivationCodeColumnName="ActivationCode";
     private String email;
     private String firstName;
     private String lastName;
@@ -24,9 +24,10 @@ public class DUser extends DTO {
     private int permissionLevel;
     private boolean isEmailApproved;
     private String birthday;
+    private int activationCode;
 
 
-    public DUser(int id, String email, String firstName, String lastName, String idNumber, String phoneNumber, String password, int permissionLevel, boolean isEmailApproved, String birthday) {
+    public DUser(int id, String email, String firstName, String lastName, String idNumber, String phoneNumber, String password, int permissionLevel, boolean isEmailApproved, String birthday, int activationCode) {
         super(new DUserController(), id);
         this.email = email;
         this.firstName = firstName;
@@ -37,6 +38,7 @@ public class DUser extends DTO {
         this.permissionLevel = permissionLevel;
         this.isEmailApproved = isEmailApproved;
         this.birthday = birthday;
+        this.activationCode = activationCode;
     }
     public void insert()
     {
@@ -77,18 +79,21 @@ public class DUser extends DTO {
     public String getPhoneNumber() {
         return phoneNumber;
     }
+    public int getActivationCode() { return activationCode;}
+    public void setActivationCode(int activationCode)
+    {
+        this.activationCode = activationCode;
+        if(persisted)
+            controller.update(getId(), ActivationCodeColumnName, activationCode);
+    }
     public void setPassword(String password) {
         this.password = password;
         if(persisted)
-        {
             controller.update(getId(), PasswordColumnName, password);
-        }
     }
     public void approveEmail() {
         isEmailApproved = true;
         if(persisted)
-        {
-            controller.update(getId(), PasswordColumnName, isEmailApproved);
-        }
+            controller.update(getId(), IsEmailApprovedColumnName, isEmailApproved);
     }
 }

@@ -23,7 +23,7 @@ namespace FacultyManager.ViewModel
             get => _email;
             set
             {
-                this._email = value;
+                _email = value;
                 _message = "";
                 RaisePropertyChanged("Message");
                 RaisePropertyChanged("Email");
@@ -35,7 +35,7 @@ namespace FacultyManager.ViewModel
             get => _password;
             set
             {
-                this._password = value;
+                _password = value;
                 _message = "";
                 RaisePropertyChanged("Message");
                 RaisePropertyChanged("Password");
@@ -47,7 +47,7 @@ namespace FacultyManager.ViewModel
             get => _message;
             set
             {
-                this._message = value;
+                _message = value;
                 RaisePropertyChanged("Message");
             }
         }

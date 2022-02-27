@@ -19,7 +19,7 @@ public class DUserController extends DalController {
     // insert new user to database
     public boolean insert(DUser user)
     {
-        String sql = "INSERT INTO User("+DTO.IDColumnName+","+DUser.EmailColumnName+","+DUser.PasswordColumnName+"," +DUser.FirstNameColumnName+","+DUser.LastNameColumnName+","+ DUser.IDNumberColumnName+","+DUser.PhoneNumberColumnName+","+ DUser.BirthdayColumnName+","+DUser.PermissionLevelColumnName+","+ DUser.IsEmailApprovedColumnName+") VALUES(?,?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO User("+DTO.IDColumnName+","+DUser.EmailColumnName+","+DUser.PasswordColumnName+"," +DUser.FirstNameColumnName+","+DUser.LastNameColumnName+","+ DUser.IDNumberColumnName+","+DUser.PhoneNumberColumnName+","+ DUser.BirthdayColumnName+","+DUser.PermissionLevelColumnName+","+ DUser.IsEmailApprovedColumnName+","+DUser.ActivationCodeColumnName+") VALUES(?,?,?,?,?,?,?,?,?,?,?)";
 
         try (Connection conn = connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -33,6 +33,8 @@ public class DUserController extends DalController {
             pstmt.setString(8, user.getBirthday());
             pstmt.setInt(9, user.getPermissionLevel());
             pstmt.setBoolean(10, user.isEmailApproved());
+            pstmt.setInt(11, user.getActivationCode());
+
             pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -45,7 +47,7 @@ public class DUserController extends DalController {
     protected DTO ConvertReaderToObject(ResultSet reader) {
         DUser result = null;
         try {
-            result = new DUser(reader.getInt(1), reader.getString(2), reader.getString(3),reader.getString(4),reader.getString(5), reader.getString(6),reader.getString(7), reader.getInt(8),reader.getBoolean(9), reader.getString(10));
+            result = new DUser(reader.getInt(1), reader.getString(2), reader.getString(3),reader.getString(4),reader.getString(5), reader.getString(6),reader.getString(7), reader.getInt(8),reader.getBoolean(9), reader.getString(10), reader.getInt(11));
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }

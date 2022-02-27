@@ -11,9 +11,10 @@ namespace FacultyManager.Model.Operations.ClientOperations
         public LogoutOperation(short opCode) : base(opCode) { }
         
         public override byte[] encode() {
-            byte[] bytes = new byte[2];
+            byte[] bytes = new byte[3];
             bytes[0] = (byte) ((getOpCode() >> 8) & 0xFF);
             bytes[1] = (byte) (getOpCode() & 0xFF);
+            bytes[2] = (byte)';';
             return bytes;
         }
     }

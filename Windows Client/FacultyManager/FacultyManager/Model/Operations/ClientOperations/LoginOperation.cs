@@ -19,13 +19,14 @@ namespace FacultyManager.Model.Operations.ClientOperations
 
         public override byte[] encode()
         {
-            byte[] bytes = new byte[_email.Length + _password.Length + 4];
+            byte[] bytes = new byte[_email.Length + _password.Length + 5];
             bytes[0] = (byte)((getOpCode() >> 8) & 0xFF);
             bytes[1] = (byte)(getOpCode() & 0xFF);
             int index = 2;
             AddStringToByteArray(_email, bytes, ref index);
             bytes[index++] = 0;
             AddStringToByteArray(_password, bytes, ref index);
+            bytes[index++] = 0;
             bytes[index] = (byte)';';
             return bytes;
         }

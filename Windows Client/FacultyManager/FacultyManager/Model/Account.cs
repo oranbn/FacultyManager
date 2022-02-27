@@ -5,7 +5,7 @@ namespace FacultyManager.Model
         public string Email
         {
             get => email;
-            set => email = value;
+            set { email = value; }
         }
 
         public string FirstName

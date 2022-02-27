@@ -78,7 +78,8 @@ namespace FacultyManager
                 CreateHomeNavigationService(),
                 CreateAccountNavigationService(),
                 CreateLoginNavigationService(),
-                CreateRegisterNavigationService());
+                CreateRegisterNavigationService(),
+                _facultyController);
         }
     }
 }

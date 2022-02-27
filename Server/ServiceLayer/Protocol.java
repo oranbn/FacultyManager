@@ -4,6 +4,7 @@ package ServiceLayer;
 import BusinessLayer.*;
 import ServiceLayer.Objects.Operation;
 import ServiceLayer.Objects.Operations.Client.*;
+import ServiceLayer.Objects.Operations.Server.AccountResponse;
 import ServiceLayer.Objects.Operations.Server.Response;
 
 public class Protocol implements MessagingProtocol<Operation>{
@@ -52,7 +53,7 @@ public class Protocol implements MessagingProtocol<Operation>{
         if(user==null) {
             try {
                 this.user = userController.login(loginOperation.getEmail(), loginOperation.getPassword(), connectionId);
-                connections.send(connectionId, new Response((short) 1, (short) 2, "Logged in Successfully"));
+                connections.send(connectionId, new AccountResponse((short)3, user.getEmail(), user.getFirstName(), user.getLastName(), user.getIdNumber(), user.getPhoneNumber(), user.getBirthday()));
 
             } catch (Exception e) {
                 connections.send(connectionId, new Response((short) 2, (short) 2, e.getMessage()));
@@ -69,7 +70,7 @@ public class Protocol implements MessagingProtocol<Operation>{
                 connections.send(connectionId, new Response((short)1, (short)3, "Logged out successfully"));
             }
             catch(Exception e) {
-
+                connections.send(connectionId, new Response((short)2, (short)3, e.getMessage()));
             }
     }
     public void privateMessage(PrivateMessageOperation privateMessageOperation) {

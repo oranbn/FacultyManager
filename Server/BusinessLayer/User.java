@@ -82,7 +82,7 @@ public class User {
         isEmailApproved = true;
         dUser.approveEmail();
     }
-    public void setActivationCode(int activationCode){ this.activationCode = activationCode; }
+    public void setActivationCode(int activationCode){ this.activationCode = activationCode; dUser.setActivationCode(activationCode);}
     public String getEmail() {
         return email;
     }

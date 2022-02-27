@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows.Input;
+using FacultyManager.Model;
 
 namespace FacultyManager.ViewModel
 {
@@ -26,14 +27,15 @@ namespace FacultyManager.ViewModel
             INavigationService homeNavigationService, 
             INavigationService accountNavigationService, 
             INavigationService loginNavigationService,
-            INavigationService registerNavigationService)
+            INavigationService registerNavigationService,
+            FacultyController _controller)
         {
             _accountStore = accountStore;
             NavigateHomeCommand = new NavigateCommand(homeNavigationService);
             NavigateAccountCommand = new NavigateCommand(accountNavigationService);
             NavigateLoginCommand = new NavigateCommand(loginNavigationService);
             NavigateRegisterCommand = new NavigateCommand(registerNavigationService);
-            LogoutCommand = new LogoutCommand(_accountStore, homeNavigationService);
+            LogoutCommand = new LogoutCommand(_accountStore, homeNavigationService, _controller);
             _accountStore.CurrentAccountChanged += OnCurrentAccountChanged;
         }
 
