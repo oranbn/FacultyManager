@@ -57,57 +57,7 @@ public class EncoderDecoder implements MessageEncoderDecoder<Operation> {
     }
     @Override
     public byte[] encode(Operation message) {
-        short opCode = message.getOpCode();
-        byte[] bArrOpCode = shortToBytes(opCode);
-        byte[] bArrMessage;
-        switch (opCode)
-        {
-            /*case 9:
-                byte notificationByte = ((NotificationOperation)message).getNotificationType();
-                byte[] bArrPostingUser = ((NotificationOperation)message).getPostingUser().getBytes();
-                byte[] bArrContent = ((NotificationOperation)message).getContent().getBytes();
-                byte[] bArrNotification = new byte[6+bArrPostingUser.length+bArrContent.length];
-                bArrNotification[0] = bArrOpCode[0];
-                bArrNotification[1] = bArrOpCode[1];
-                bArrNotification[2] = notificationByte;
-                for(int i=0;i<bArrPostingUser.length;i++)
-                    bArrNotification[i+3] = bArrPostingUser[i];
-                bArrNotification[3+bArrPostingUser.length] = (byte)0;
-                for(int i=0;i<bArrContent.length;i++)
-                    bArrNotification[i+4+bArrPostingUser.length] = bArrContent[i];
-                bArrNotification[bArrNotification.length-2] = (byte)0;
-                bArrNotification[bArrNotification.length-1] = ';';
-                return bArrNotification;*/
-
-            case 1:
-                bArrMessage = shortToBytes(((Response)message).getMessageOpCode());
-                byte[] bArrOptional = ((Response)message).getOptional().getBytes();
-                byte[] bArrACK = new byte[6+bArrOptional.length];
-                bArrACK[0] = bArrOpCode[0];
-                bArrACK[1] = bArrOpCode[1];
-                bArrACK[2] = bArrMessage[0];
-                bArrACK[3] = bArrMessage[1];
-                for(int i=0;i<bArrOptional.length;i++)
-                    bArrACK[i+4] = bArrOptional[i];
-                bArrACK[bArrACK.length-2] = 0;
-                bArrACK[bArrACK.length-1] = ';';
-                return bArrACK;
-
-            case 2:
-                bArrMessage = shortToBytes(((Response)message).getMessageOpCode());
-                bArrOptional = ((Response)message).getOptional().getBytes();
-                byte[] bArrErr = new byte[6+ bArrOptional.length];
-                bArrErr[0] = bArrOpCode[0];
-                bArrErr[1] = bArrOpCode[1];
-                bArrErr[2] = bArrMessage[0];
-                bArrErr[3] = bArrMessage[1];
-                for(int i=0;i<bArrOptional.length;i++)
-                    bArrErr[i+4] = bArrOptional[i];
-                bArrErr[bArrErr.length-2] = 0;
-                bArrErr[bArrErr.length-1] = ';';
-                return bArrErr;
-        }
-        return null;
+        return message.encode();
     }
 
     public byte[] shortToBytes(short num)

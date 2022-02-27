@@ -12,19 +12,15 @@ namespace FacultyManager.Commands
     public class RegisterCommand : CommandBase
     {
         private readonly RegisterViewModel _viewModel;
-        private readonly INavigationService _navigationService;
 
-        public RegisterCommand(RegisterViewModel viewModel,  INavigationService navigationService)
+        public RegisterCommand(RegisterViewModel viewModel)
         {
             _viewModel = viewModel;
-            _navigationService = navigationService;
         }
 
         public override void Execute(object parameter)
         {
             _viewModel.Register();
-            // check if login works if so navigate to home page
-            _navigationService.Navigate();
         }
     }
 }

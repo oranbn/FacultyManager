@@ -17,14 +17,15 @@ namespace FacultyManager.Model.Operations.ServerResponse
 
         public override bool pushByte(byte nextByte)
         {
-            if(nextByte == ';')
+            if (nextByte == ';')
                 return true;
-            if(nextByte=='\0')
+            if (messageOpCode == -1 && Length == 1) {
+                pushNextByte(nextByte);
+                messageOpCode = bytesToShort();
+            }
+            else if(nextByte=='\0' && messageOpCode!= -1)
             {
-                if (messageOpCode == -1)
-                    messageOpCode = bytesToShort();
-                else
-                    optional = bytesToString();
+                optional = bytesToString();
             }
             else
                 pushNextByte(nextByte);

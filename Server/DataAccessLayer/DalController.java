@@ -19,7 +19,7 @@ public abstract class DalController {
     }
     protected Connection connect() {
         // SQLite connection string
-        String url = "jdbc:sqlite:C://sqlite/db/test.db"; // database path
+        String url = "jdbc:sqlite:C:/Users/User/Desktop/FacultyManager/Server/FacultyManagerDB.db"; // database path
         Connection conn = null;
         try {
             conn = DriverManager.getConnection(url);

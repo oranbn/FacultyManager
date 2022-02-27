@@ -63,9 +63,12 @@ namespace FacultyManager
         }
         private INavigationService CreateRegisterNavigationService()
         {
+            CompositeNavigationService navigationService = new CompositeNavigationService(
+                new CloseModalNavigationService(_modalNavigationStore),
+                CreateHomeNavigationService());
             return new LayoutNavigationService<RegisterViewModel>(
                 _navigationStore,
-                () => new RegisterViewModel(_facultyController, CreateLoginNavigationService()),
+                () => new RegisterViewModel(_facultyController, _modalNavigationStore,navigationService, new CloseModalNavigationService(_modalNavigationStore)),
                 CreateNavigationBarViewModel);
         }
         private NavigationBarViewModel CreateNavigationBarViewModel()

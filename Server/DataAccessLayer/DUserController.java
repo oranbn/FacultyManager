@@ -19,14 +19,20 @@ public class DUserController extends DalController {
     // insert new user to database
     public boolean insert(DUser user)
     {
-        String sql = "INSERT INTO Users(DTO.IDColumnName,DUser.EmailColumnName,DUser.PasswordColumnName,DUser.BirthdayColumnName) VALUES(?,?,?,?)";
+        String sql = "INSERT INTO User("+DTO.IDColumnName+","+DUser.EmailColumnName+","+DUser.PasswordColumnName+"," +DUser.FirstNameColumnName+","+DUser.LastNameColumnName+","+ DUser.IDNumberColumnName+","+DUser.PhoneNumberColumnName+","+ DUser.BirthdayColumnName+","+DUser.PermissionLevelColumnName+","+ DUser.IsEmailApprovedColumnName+") VALUES(?,?,?,?,?,?,?,?,?,?)";
 
         try (Connection conn = connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, user.getId());
             pstmt.setString(2, user.getEmail());
             pstmt.setString(3, user.getPassword());
-            pstmt.setString(4, user.getBirthday());
+            pstmt.setString(4, user.getFirstName());
+            pstmt.setString(5, user.getLastName());
+            pstmt.setString(6, user.getIdNumber());
+            pstmt.setString(7, user.getPhoneNumber());
+            pstmt.setString(8, user.getBirthday());
+            pstmt.setInt(9, user.getPermissionLevel());
+            pstmt.setBoolean(10, user.isEmailApproved());
             pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());

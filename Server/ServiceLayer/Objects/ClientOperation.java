@@ -58,4 +58,5 @@ public abstract class ClientOperation implements Operation {
     public int getLength() {
         return length;
     }
+    public byte[] encode(){ return null;}
 }

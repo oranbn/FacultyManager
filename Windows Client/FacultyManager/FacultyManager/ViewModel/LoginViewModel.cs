@@ -3,6 +3,8 @@ using System;
 using System.Windows;
 using System.Windows.Input;
 using FacultyManager.Commands;
+using FacultyManager.Model.Operations;
+using FacultyManager.Model.Operations.ServerResponse;
 using FacultyManager.Service;
 using FacultyManager.Stores;
 
@@ -11,8 +13,10 @@ namespace FacultyManager.ViewModel
     public class LoginViewModel : NotifiableObject
     {
         public ICommand LoginCommand { get; }
+        public ICommand LoginSuccessCommand { get; }
         public ICommand CloseLoginCommand { get; }
         private readonly FacultyController _controller;
+        private readonly AccountStore _account;
         private string _email;
         public string Email
         {
@@ -20,6 +24,8 @@ namespace FacultyManager.ViewModel
             set
             {
                 this._email = value;
+                _message = "";
+                RaisePropertyChanged("Message");
                 RaisePropertyChanged("Email");
             }
         }
@@ -30,6 +36,8 @@ namespace FacultyManager.ViewModel
             set
             {
                 this._password = value;
+                _message = "";
+                RaisePropertyChanged("Message");
                 RaisePropertyChanged("Password");
             }
         }
@@ -50,13 +58,16 @@ namespace FacultyManager.ViewModel
         public void Login()
         {
             Message = "";
-            try
+            ServerOperation response =  _controller.Login(Email, Password);
+            switch (response.getOpCode())
             {
-                _controller.Login(Email, Password);
-            }
-            catch (Exception e)
-            {
-                Message = e.Message;
+                case 2:
+                    Message = ((MessageResponse)response).getOptional();
+                    break;
+                case 3:
+                    _account.CurrentAccount = new Account(((AccountResponse)response).Email,((AccountResponse)response).FirstName,((AccountResponse)response).LastName,((AccountResponse)response).IdNumber,((AccountResponse)response).PhoneNumber,((AccountResponse)response).Birthday);
+                    LoginSuccessCommand.Execute(null);
+                    break;
             }
         }
         /// <summary>
@@ -72,7 +83,9 @@ namespace FacultyManager.ViewModel
         public LoginViewModel(FacultyController facultyController, AccountStore accountStore, INavigationService homeNavigationService, INavigationService closeNavigationService )
         {
             _controller = facultyController;
+            _account = accountStore;
             LoginCommand = new LoginCommand(this, homeNavigationService);
+            LoginSuccessCommand = new NavigateCommand(homeNavigationService);
             CloseLoginCommand = new NavigateCommand(closeNavigationService);
         }
     }

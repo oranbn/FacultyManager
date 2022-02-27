@@ -3,10 +3,7 @@ package BusinessLayer;
 import DataAccessLayer.DTOs.DUser;
 import DataAccessLayer.DUserController;
 
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Session;
-import javax.mail.Transport;
+import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.ArrayList;
@@ -146,9 +143,34 @@ public class UserController {
 
     public void sendEmail(User user) {
         String to = user.getEmail();
-        String from = "FacultyManagerMail@gmail.com";
-        String host = "localhost";
+        String from = "FacultyManager1@gmail.com";
+        String host = "smtp.gmail.com";
         Properties properties = System.getProperties();
+        properties.put("mail.smtp.host", host);
+        properties.put("mail.smtp.port", "465");
+        properties.put("mail.smtp.ssl.enable", "true");
+        properties.put("mail.smtp.auth", "true");
+        Session session = Session.getInstance(properties, new javax.mail.Authenticator() {
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication("FacultyManager1@gmail.com", "Aa@123456");
+            }
+        });
+        session.setDebug(true);
+        try {
+            MimeMessage message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(from));
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+            message.setSubject("Faculty Manager registration verification");
+            int randomCode = new Random().nextInt(900000) + 100000;
+            user.setActivationCode(randomCode);
+            message.setText("Hello "+user.getFirstName()+" "+user.getLastName()+", and welcome to Faculty Manager.\n your activation code is: "+randomCode);
+            System.out.println("sending...");
+            Transport.send(message);
+            System.out.println("Sent message successfully....");
+        } catch (MessagingException mex) {
+            mex.printStackTrace();
+        }
+        /*Properties properties = System.getProperties();
         properties.setProperty("mail.smtp.host", host);
         Session session = Session.getDefaultInstance(properties);
         try {
@@ -163,7 +185,7 @@ public class UserController {
             System.out.println("Sent message successfully....");
         } catch (MessagingException mex) {
             mex.printStackTrace();
-        }
+        }*/
     }
     public void sendEmailForgotPassword(String email)
     {

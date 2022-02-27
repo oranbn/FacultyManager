@@ -14,10 +14,7 @@ namespace FacultyManager.Model
         private byte[] bytes = new byte[1 << 10];
         short opCode = -1;
         ServerOperation operation = null;
-        public EncoderDecoder()
-        {
-
-        }
+        public EncoderDecoder() { }
         public ServerOperation decodeNextByte(byte nextByte)
         {
             if (opCode == -1)
@@ -35,18 +32,18 @@ namespace FacultyManager.Model
                         case 2:
                             operation = new MessageResponse(opCode);
                             break;
+                        case 3:
+                            operation = new AccountResponse(opCode);
+                            break;
                     }
                 }
             }
-            else
-            {
-                if(operation.pushByte(nextByte)) {
-                    opCode = -1;
-                    length = 0;
-                    ServerOperation op = operation;
-                    operation = null;
-                    return op;
-                }
+            else if(operation.pushByte(nextByte)) {
+                opCode = -1;
+                length = 0;
+                ServerOperation op = operation;
+                operation = null;
+                return op;
             }
             return null;
         }

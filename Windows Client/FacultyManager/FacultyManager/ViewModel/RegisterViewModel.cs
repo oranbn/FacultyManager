@@ -4,14 +4,18 @@ using System.Windows.Input;
 using FacultyManager.Model;
 using FacultyManager.Model.Operations;
 using FacultyManager.Model.Operations.ServerResponse;
+using FacultyManager.Stores;
 
 namespace FacultyManager.ViewModel
 {
     public class RegisterViewModel : NotifiableObject
     {
-
+        private ModalNavigationStore _modalNavigationStore;
+        private INavigationService _homeNavigationService;
+        private INavigationService _closeNavigationService;
         public ICommand NavigateLoginCommand { get; }
         public ICommand RegisterCommand { get; }
+        
         private readonly FacultyController _facultyController;
         private string _email;
         public string Email
@@ -83,20 +87,29 @@ namespace FacultyManager.ViewModel
                RaisePropertyChanged("Birthday");
            }
        }
-        public RegisterViewModel(FacultyController facultyController, INavigationService loginNavigationService)
+        public RegisterViewModel(FacultyController facultyController,ModalNavigationStore modalNavigationStore ,INavigationService homeNavigationService, INavigationService closeNavigationService)
         {
-            RegisterCommand = new RegisterCommand(this, loginNavigationService);
+            RegisterCommand = new RegisterCommand(this);
             _facultyController = facultyController;
-            NavigateLoginCommand = new NavigateCommand(loginNavigationService);
+            _modalNavigationStore = modalNavigationStore;
+            _homeNavigationService = homeNavigationService;
+            _closeNavigationService = closeNavigationService;
         }
 
         public void Register()
         {
             MessageResponse messageResponse = (MessageResponse) _facultyController.Register(Email, Password, FirstName,
                 LastName, IdNumber, PhoneNumber, Birthday);
-            switch (messageResponse.getMessageOpCode()) {
+            switch (messageResponse.getOpCode()) {
                 case 1:
-                    
+                    new ModalNavigationService<PopupMessageViewModel>(
+                        _modalNavigationStore,
+                        () => new PopupMessageViewModel(messageResponse, _homeNavigationService)).Navigate();
+                    break;
+                case 2:
+                    new ModalNavigationService<PopupMessageViewModel>(
+                        _modalNavigationStore,
+                        () => new PopupMessageViewModel(messageResponse, _closeNavigationService)).Navigate();
                     break;
             }
     }

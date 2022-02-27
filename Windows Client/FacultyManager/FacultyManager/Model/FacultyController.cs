@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Windows;
 using FacultyManager.Model.Operations;
@@ -31,13 +32,13 @@ namespace FacultyManager.Model
             while (running)
             {
                 byte[] message = connectionHandler.Receive();
-                MessageBox.Show("test");
                 ServerOperation ServerResponse = null;
                 int offset = 0;
                 while (ServerResponse == null)
                     ServerResponse = encoderDecoder.decodeNextByte(message[offset++]);
                 _serverOperation = ServerResponse;
-                Monitor.PulseAll(_lock);
+                lock (_lock)
+                    Monitor.PulseAll(_lock);
             }
         }
         public void AcceptFriendRequest(string email){}
@@ -62,34 +63,68 @@ namespace FacultyManager.Model
         {
             throw new NotImplementedException();
         }
-        public void Login(string email, string password)
+        public ServerOperation Login(string email, string password)
         {
-            //connectionHandler.Send(encoderDecoder.encode(new LoginOperation(2, email, password)));
-            
-            // just for testing:
-            _accountStore.CurrentAccount = new Account(email, email, email, email, email, email);
-        }
-        public void Logout(){}
-        public void LoginSuccess(string email, string firstName, string lastName, string idNumber, string phoneNumber, string birthday)
-        {
-            _accountStore.CurrentAccount = new Account(email, firstName, lastName, idNumber, phoneNumber, birthday);
-        }
-        public void MarkMessage(int courseId, int chatId, int messageId){}
-        public void PrivateMessage(string userName, string content, string dateAndTime){}
-
-        public ServerOperation Register(string email, string password, string firstName, string lastName, string idNumber,
-            string phoneNumber, string birthday) {
-            connectionHandler.Send(encoderDecoder.encode(new RegisterOperation(1, email, password, firstName, lastName, idNumber, phoneNumber, "22-03-1998")));
-            while (_serverOperation == null)
-            {
-                Monitor.Wait(_lock);
-            }
-
+            connectionHandler.Send(encoderDecoder.encode(new LoginOperation(2, email, password)));
+            lock(_lock)
+                while (_serverOperation == null)
+                    Monitor.Wait(_lock);
             ServerOperation serverOperation = _serverOperation;
             _serverOperation = null;
             return serverOperation;
         }
-        public void RemoveAnswer(int questionId, int answerId, int examId, int courseId){}
+
+        public ServerOperation Logout()
+        {
+            connectionHandler.Send(encoderDecoder.encode(new LogoutOperation(3)));
+            lock(_lock)
+                while (_serverOperation == null)
+                    Monitor.Wait(_lock);
+            ServerOperation serverOperation = _serverOperation;
+            _serverOperation = null;
+            return serverOperation;
+        }
+
+        public ServerOperation MarkMessage(int courseId, int chatId, int messageId) {
+            connectionHandler.Send(encoderDecoder.encode(new MarkMessageOperation(4,courseId, chatId, messageId)));
+            lock(_lock)
+                while (_serverOperation == null)
+                    Monitor.Wait(_lock);
+            ServerOperation serverOperation = _serverOperation;
+            _serverOperation = null;
+            return serverOperation;
+        }
+
+        public ServerOperation PrivateMessage(string userName, string content, string dateAndTime) {
+            connectionHandler.Send(encoderDecoder.encode(new PrivateMessageOperation(5,userName, content, dateAndTime)));
+            lock(_lock)
+                while (_serverOperation == null)
+                    Monitor.Wait(_lock);
+            ServerOperation serverOperation = _serverOperation;
+            _serverOperation = null;
+            return serverOperation;
+        }
+        public ServerOperation Register(string email, string password, string firstName, string lastName, string idNumber,
+            string phoneNumber, string birthday) {
+            connectionHandler.Send(encoderDecoder.encode(new RegisterOperation(1, email, password, firstName, lastName, idNumber, phoneNumber, "22-03-1998")));
+            lock(_lock)
+                while (_serverOperation == null)
+                    Monitor.Wait(_lock);
+            ServerOperation serverOperation = _serverOperation;
+            _serverOperation = null;
+            return serverOperation;
+        }
+
+        public ServerOperation RemoveAnswer(int questionId, int answerId, int examId, int courseId)
+        {
+            connectionHandler.Send(encoderDecoder.encode(new RemoveAnswerOperation(6, questionId, answerId, examId, courseId)));
+            lock(_lock)
+                while (_serverOperation == null)
+                    Monitor.Wait(_lock);
+            ServerOperation serverOperation = _serverOperation;
+            _serverOperation = null;
+            return serverOperation;
+        }
         public void RemoveChatMessage(int courseId, int chatId, int messageId){}
         public void RemoveChat(int courseId, int chatId){}
         public void RemoveForbiddenWord(string forbiddenWord){}

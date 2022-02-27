@@ -10,6 +10,10 @@ public abstract class ServerOperation implements Operation {
     public short getOpCode() {
         return opCode;
     }
-
-
+    public abstract byte[] encode();
+    public int AddStringToByteArray(String str, byte[] bytes, int index) {
+        for (int i = 0; i < str.length(); i++)
+            bytes[index++] = (byte)str.charAt(i);
+        return index;
+    }
 }

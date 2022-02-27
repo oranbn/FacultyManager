@@ -23,8 +23,6 @@ namespace FacultyManager.Commands
         public override void Execute(object parameter)
         {
             _viewModel.Login();
-            // check if login works if so navigate to home page
-            _navigationService.Navigate();
         }
     }
 }

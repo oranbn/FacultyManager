@@ -7,7 +7,13 @@ public class DUser extends DTO {
     private boolean persisted;
     public static final String EmailColumnName="Email";
     public static final String PasswordColumnName="Password";
+    public static final String FirstNameColumnName="FirstName";
+    public static final String LastNameColumnName="LastName";
+    public static final String IDNumberColumnName="IDNumber";
+    public static final String PhoneNumberColumnName="PhoneNumber";
     public static final String BirthdayColumnName="Birthday";
+    public static final String PermissionLevelColumnName="PermissionLevel";
+    public static final String IsEmailApprovedColumnName="IsEmailApproved";
 
     private String email;
     private String firstName;

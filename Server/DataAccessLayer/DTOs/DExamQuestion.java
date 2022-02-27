@@ -4,7 +4,7 @@ import DataAccessLayer.*;
 
 public class DExamQuestion extends DTO{
     public static final String CourseIDColumnName="CourseID";
-    public static final String ExamIdColumnName="ExamId";
+    public static final String ExamIdColumnName="ExamID";
     public static final String PointsColumnName="Points";
     public static final String TitleColumnName="Title";
 

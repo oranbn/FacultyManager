@@ -3,15 +3,80 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:FacultyManager.View"
+             xmlns:local="clr-namespace:FacultyManager.Components"
              mc:Ignorable="d"
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="400" d:DesignWidth="170">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+    </UserControl.Resources>
     <Grid>
+    <Grid Visibility="{Binding Correct, Converter={StaticResource BooleanToVisibilityConverter}}">
         <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
             <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
-        <TextBox Grid.Row="0" Text="√" FontStretch="Expanded" TextAlignment="Center" VerticalAlignment="Top" FontSize="50" Background="Green" Foreground="White"/>
+        <Rectangle Grid.Row="0" Fill="Green" />
+        <Rectangle Grid.Row="1" Fill="Green" />
+        <Border Grid.Row="0" CornerRadius="50"
+            Width="60"
+            Height="60"
+            Margin="10"
+            BorderBrush="White"
+            BorderThickness="3">
+            <TextBlock FontSize="40" FontWeight="Bold" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center">√
+            </TextBlock>
+        </Border>
+        <TextBlock Grid.Row="1" Margin="5" Foreground="Aquamarine" FontSize="16" Text="Registered Successfully" VerticalAlignment="Bottom" HorizontalAlignment="Center"></TextBlock>
+        <TextBlock Grid.Row="2" Margin="20" VerticalAlignment="Center" Foreground="DimGray" FontWeight="UltraLight" FontSize="14" TextWrapping="Wrap" Text="You have successfully created a FacultyManager account,&#x0a; A verification code has been sent to your email account."></TextBlock>
+        <Button Grid.Row="3" Margin="5" Content="Continue" Height="40" Width="140" Command="{Binding NavigateCommand}" Background="Transparent" 
+                BorderThickness="0" BorderBrush="Transparent">
+            <Button.Template>
+                <ControlTemplate TargetType="Button">
+                    <Border CornerRadius="10" Height="40" Width="140" BorderBrush="Green" 
+                            BorderThickness="4,4,4,4" Background="Green">
+                        <TextBlock Text="{TemplateBinding Content}" FontSize="20"
+                                   HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                   Foreground="White"/>
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
     </Grid>
+        <Grid Visibility="{Binding Error, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+            <Rectangle Grid.Row="0" Fill="Red" />
+            <Rectangle Grid.Row="1" Fill="Red" />
+            <Border Grid.Row="0" CornerRadius="50"
+                    Width="60"
+                    Height="60"
+                    Margin="10"
+                    BorderBrush="White"
+                    BorderThickness="3">
+                <TextBlock FontSize="40" FontWeight="Bold" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center">X
+                </TextBlock>
+            </Border>
+            <TextBlock Grid.Row="1" Margin="5" Foreground="Aquamarine" FontSize="16" Text="registration failed" VerticalAlignment="Bottom" HorizontalAlignment="Center"></TextBlock>
+            <TextBlock Grid.Row="2" Margin="20" VerticalAlignment="Center" Foreground="DimGray" FontWeight="UltraLight" FontSize="14" TextWrapping="Wrap" Text="{Binding Message}"></TextBlock>
+            <Button Grid.Row="3" Margin="5" Content="Try Again" Height="40" Width="140" Command="{Binding NavigateCommand}" Background="Transparent" 
+                    BorderThickness="0" BorderBrush="Transparent">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border CornerRadius="10" Height="40" Width="140" BorderBrush="DarkRed" 
+                                BorderThickness="4,4,4,4" Background="Red">
+                            <TextBlock Text="{TemplateBinding Content}" FontSize="20"
+                                       HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                       Foreground="White"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+        </Grid>
+</Grid>
 </UserControl>

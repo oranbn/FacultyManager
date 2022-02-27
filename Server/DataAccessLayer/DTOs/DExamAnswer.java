@@ -4,8 +4,8 @@ import DataAccessLayer.*;
 
 public class DExamAnswer extends DTO{
     public static final String CourseIDColumnName="CourseID";
-    public static final String QuestionIdColumnName="QuestionId";
-    public static final String ExamIdColumnName="ExamId";
+    public static final String QuestionIdColumnName="QuestionID";
+    public static final String ExamIdColumnName="ExamID";
     public static final String ContentColumnName="Content";
     public static final String CorrectColumnName="Correct";
 
