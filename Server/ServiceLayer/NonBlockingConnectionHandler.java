@@ -39,6 +39,7 @@ public class NonBlockingConnectionHandler<T> implements ConnectionHandler<T>, ja
             success = chan.read(buf) != -1;
         } catch (IOException ex) {
             ex.printStackTrace();
+            protocol.logout();
         }
 
         if (success) {

@@ -175,5 +175,10 @@ namespace FacultyManager.Model
         {
             return SendMessage(encoderDecoder.encode(new UnMarkMessageOperation(11, courseId, chatId, messageId)));
         }
+
+        public ServerOperation ActivateAccount(string activationCode)
+        {
+            return SendMessage(encoderDecoder.encode(new ActivateAccountOperation(29, activationCode)));
+        }
     }
 }

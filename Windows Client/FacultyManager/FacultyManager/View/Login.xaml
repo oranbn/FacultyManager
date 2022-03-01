@@ -59,7 +59,9 @@
                 </TextBlock>
                 <Label Content="{Binding Path=Message, Mode=OneWay}" Foreground="Red" HorizontalAlignment="Center" Height="40"/>
             </StackPanel>
-            <Button Width="120" Height="40" Margin="10" VerticalAlignment="Bottom" HorizontalAlignment="Center" Command="{Binding LoginCommand}" Style="{StaticResource ButtonTemplate}" BorderBrush="#fff" Content="Login" FontWeight="UltraBold"/>
+            <Button Width="110" Height="40" Margin="10" VerticalAlignment="Bottom" HorizontalAlignment="Left" Command="{Binding LoginCommand}" Style="{StaticResource ButtonTemplate}" BorderBrush="#fff" Content="Login" FontWeight="UltraBold"/>
+            <Button Width="110" Height="40" Margin="10" VerticalAlignment="Bottom" HorizontalAlignment="Right" Command="{Binding ForgotPasswordCommand}" Style="{StaticResource ButtonTemplate}" BorderBrush="#fff" Content="Forgot Password" FontWeight="UltraBold"/>
+
         </Grid>
     </Grid>
 </UserControl>

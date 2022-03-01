@@ -10,7 +10,7 @@ public class DUserController extends DalController {
 
     public DUserController()
     {
-        super("Users");
+        super("User");
     }
     // get all users from database
     public List<DUser> selectAllUsers(){

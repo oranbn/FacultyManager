@@ -48,10 +48,9 @@ namespace FacultyManager
             CompositeNavigationService navigationService = new CompositeNavigationService(
                 new CloseModalNavigationService(_modalNavigationStore),
                 CreateAccountNavigationService());
-
             return new ModalNavigationService<LoginViewModel>(
                 _modalNavigationStore,
-                () => new LoginViewModel(_facultyController, _accountStore, navigationService, new CloseModalNavigationService(_modalNavigationStore)));
+                () => new LoginViewModel(_facultyController, _accountStore, navigationService, new CloseModalNavigationService(_modalNavigationStore), new ModalNavigationService<AccountActivationViewModel>(_modalNavigationStore, () => new AccountActivationViewModel(_facultyController, navigationService))));
         }
 
         private INavigationService CreateAccountNavigationService()

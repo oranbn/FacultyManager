@@ -38,3 +38,6 @@ C:\Users\User\Desktop\FacultyManager\Windows Client\FacultyManager\FacultyManage
 C:\Users\User\Desktop\FacultyManager\Windows Client\FacultyManager\FacultyManager\obj\Debug\net5.0-windows\FacultyManager.csproj.CopyComplete
 C:\Users\User\Desktop\FacultyManager\Windows Client\FacultyManager\FacultyManager\obj\Debug\net5.0-windows\Components\PopupMessage.g.cs
 C:\Users\User\Desktop\FacultyManager\Windows Client\FacultyManager\FacultyManager\obj\Debug\net5.0-windows\Components\PopupMessage.baml
+C:\Users\User\Desktop\FacultyManager\Windows Client\FacultyManager\FacultyManager\obj\Debug\net5.0-windows\View\AccountActivation.g.cs
+C:\Users\User\Desktop\FacultyManager\Windows Client\FacultyManager\FacultyManager\obj\Debug\net5.0-windows\View\AccountActivation.baml
+C:\Users\User\Desktop\FacultyManager\Windows Client\FacultyManager\FacultyManager\bin\Debug\net5.0-windows\WpfAnimatedGif.dll

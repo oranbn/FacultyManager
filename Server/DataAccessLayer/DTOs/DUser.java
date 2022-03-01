@@ -27,7 +27,7 @@ public class DUser extends DTO {
     private int activationCode;
 
 
-    public DUser(int id, String email, String firstName, String lastName, String idNumber, String phoneNumber, String password, int permissionLevel, boolean isEmailApproved, String birthday, int activationCode) {
+    public DUser(int id, String email, String password, String firstName, String lastName, String idNumber, String phoneNumber, int permissionLevel, boolean isEmailApproved, String birthday, int activationCode) {
         super(new DUserController(), id);
         this.email = email;
         this.firstName = firstName;

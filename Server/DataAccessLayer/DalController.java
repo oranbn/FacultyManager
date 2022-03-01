@@ -93,12 +93,9 @@ public abstract class DalController {
     {
         List<DTO> results = new ArrayList<>();
         String sql = "SELECT * FROM "+tableName;
-
-        try (Connection conn = this.connect();
-             Statement stmt  = conn.createStatement();
-             ResultSet rs    = stmt.executeQuery(sql)){
-
-            // loop through the result set
+        try(Connection conn = this.connect();
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql)){
             while (rs.next()) {
                 results.add(ConvertReaderToObject(rs));
             }

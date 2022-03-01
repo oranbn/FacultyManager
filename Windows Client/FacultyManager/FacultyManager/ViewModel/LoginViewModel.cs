@@ -15,6 +15,7 @@ namespace FacultyManager.ViewModel
         public ICommand LoginCommand { get; }
         public ICommand LoginSuccessCommand { get; }
         public ICommand CloseLoginCommand { get; }
+        public ICommand ActivationCommand { get; }
         private readonly FacultyController _controller;
         private readonly AccountStore _account;
         private string _email;
@@ -65,8 +66,11 @@ namespace FacultyManager.ViewModel
                     Message = ((MessageResponse)response).getOptional();
                     break;
                 case 3:
-                    _account.CurrentAccount = new Account(((AccountResponse)response).Email,((AccountResponse)response).FirstName,((AccountResponse)response).LastName,((AccountResponse)response).IdNumber,((AccountResponse)response).PhoneNumber,((AccountResponse)response).Birthday);
-                    LoginSuccessCommand.Execute(null);
+                    _account.CurrentAccount = new Account(((AccountResponse)response).Email,((AccountResponse)response).FirstName,((AccountResponse)response).LastName,((AccountResponse)response).IdNumber,((AccountResponse)response).PhoneNumber,((AccountResponse)response).Birthday, ((AccountResponse)response).IsApproved);
+                    if(_account.CurrentAccount.IsApproved)
+                        LoginSuccessCommand.Execute(null);
+                    else
+                        ActivationCommand.Execute(null);
                     break;
             }
         }
@@ -80,13 +84,14 @@ namespace FacultyManager.ViewModel
         /// <summary>
         /// Constructor
         /// </summary>
-        public LoginViewModel(FacultyController facultyController, AccountStore accountStore, INavigationService homeNavigationService, INavigationService closeNavigationService )
+        public LoginViewModel(FacultyController facultyController, AccountStore accountStore, INavigationService homeNavigationService, INavigationService closeNavigationService, INavigationService activationNavigationService )
         {
             _controller = facultyController;
             _account = accountStore;
             LoginCommand = new LoginCommand(this, homeNavigationService);
             LoginSuccessCommand = new NavigateCommand(homeNavigationService);
             CloseLoginCommand = new NavigateCommand(closeNavigationService);
+            ActivationCommand = new NavigateCommand(activationNavigationService);
         }
     }
 }

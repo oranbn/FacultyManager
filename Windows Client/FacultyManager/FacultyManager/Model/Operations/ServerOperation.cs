@@ -57,12 +57,13 @@ namespace FacultyManager.Model.Operations
             return output;
         }
         public bool bytesToBoolean(){
-            bArr = new byte[size];
             int temp = Length;
             Length = 0;
-            if(temp > 1 || bArr[0] == 1) {
+            if(temp > 1 || bArr[0] == (byte)1) {
+                bArr = new byte[size];
                 return false;
             }
+            bArr = new byte[size];
             return true;
         }
 

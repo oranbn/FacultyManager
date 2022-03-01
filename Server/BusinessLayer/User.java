@@ -22,7 +22,7 @@ public class User {
     private final List<String> oldPasswords;
     private DUser dUser;
     // user constructor for client register request:
-    public User(String email, String firstName, String lastName, String idNumber, String phoneNumber, String password, String birthday, DUser dUser)
+    public User(String email, String password, String firstName, String lastName, String idNumber, String phoneNumber, String birthday, DUser dUser)
     {
         this.email = email;
         this.firstName = firstName;
@@ -131,5 +131,20 @@ public class User {
     public void setPermissionLevel(int permissionLevel)
     {
         this.permissionLevel = permissionLevel;
+    }
+
+    public void activateAccount(String activationCode) {
+        try {
+            int code = Integer.parseInt(activationCode);
+            if(code == -1 || code != this.activationCode)
+                throw new IllegalArgumentException("Invalid activation code");
+            isEmailApproved = true;
+            dUser.approveEmail();
+        }
+        catch (NumberFormatException  e)
+        {
+            throw new IllegalArgumentException("Invalid activation code");
+        }
+
     }
 }

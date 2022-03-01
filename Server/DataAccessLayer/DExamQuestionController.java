@@ -13,11 +13,11 @@ import java.sql.SQLException;
 public class DExamQuestionController extends DalController {
 
     public DExamQuestionController() {
-        super("ExamQuestions");
+        super("ExamQuestion");
     }
     public boolean insert(DExamQuestion dExamAnswer)
     {
-        String sql = "INSERT INTO ExamQuestions(DTO.IDColumnName,DExamQuestion.ExamIdColumnName, DExamQuestion.CourseIDColumnName, DExamQuestion.PointsColumnName,DExamQuestion.TitleColumnName) VALUES(?,?,?,?,?)";
+        String sql = "INSERT INTO ExamQuestion(DTO.IDColumnName,DExamQuestion.ExamIdColumnName, DExamQuestion.CourseIDColumnName, DExamQuestion.PointsColumnName,DExamQuestion.TitleColumnName) VALUES(?,?,?,?,?)";
         try (Connection conn = connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, dExamAnswer.getId());

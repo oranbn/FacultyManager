@@ -17,6 +17,9 @@
             <DataTemplate DataType="{x:Type viewmodels:HomeViewModel}">
                 <views:HomePage />
             </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:AccountActivationViewModel}">
+                <views:AccountActivation />
+            </DataTemplate>
             <DataTemplate DataType="{x:Type viewmodels:AccountViewModel}">
                 <views:Account />
             </DataTemplate>

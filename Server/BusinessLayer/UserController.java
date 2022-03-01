@@ -1,5 +1,6 @@
 package BusinessLayer;
 
+import DataAccessLayer.DOldPasswordController;
 import DataAccessLayer.DTOs.DUser;
 import DataAccessLayer.DUserController;
 
@@ -16,6 +17,7 @@ public class UserController {
     private final ConcurrentHashMap<String, User> users;
     private final ConcurrentHashMap<String, List<String>> friendship;
     private final DUserController dUserController;
+    private final DOldPasswordController dOldPasswordController;
     private int id = 0;
     private final LoggedInUsers loggedInUsers;
     private final int maxPasswordLength = 20;
@@ -27,6 +29,7 @@ public class UserController {
         users = new ConcurrentHashMap<>();
         friendship = new ConcurrentHashMap<>();
         dUserController = new DUserController();
+        dOldPasswordController = new DOldPasswordController();
         forbiddenPasswords = new ArrayList<>();
     }
     // Load all users from database
@@ -34,10 +37,9 @@ public class UserController {
         List<DUser> dusers = dUserController.selectAllUsers();
         for(DUser duser : dusers)
         {
-            // get oldpassword of the user
-            // create new user
-            // set persisted true
-            // id++;
+            List<String> oldPassword = dOldPasswordController.selectOldPasswords(duser.getId());
+            users.put(duser.getEmail(), new User(duser, oldPassword));
+            id++;
         }
     }
 
@@ -88,8 +90,8 @@ public class UserController {
         isLegalEmail(email);
         isUniqueEmail(email);
         isLegalPassword(password);
-        User user = new User(email, firstName, lastName, idNumber, phoneNumber, password, birthday, new DUser(id++, email, firstName, lastName, idNumber, phoneNumber, password,1,false, birthday, -1));
-        //sendEmail(user);
+        User user = new User(email, password, firstName, lastName, idNumber, phoneNumber, birthday, new DUser(id++, email, password, firstName, lastName, idNumber, phoneNumber,1,false, birthday, -1));
+        sendEmail(user);
         users.put(email, user);
     }
 
@@ -211,5 +213,12 @@ public class UserController {
         if(u == null)
             throw new IllegalArgumentException("Invalid email");
         u.setPermissionLevel(permission);
+    }
+
+    public void activateAccount(String email, String activationCode) {
+        User u = users.get(email);
+        if(u == null)
+            throw new IllegalArgumentException("Invalid email");
+        u.activateAccount(activationCode);
     }
 }

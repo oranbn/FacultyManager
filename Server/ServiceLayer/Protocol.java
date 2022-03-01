@@ -17,8 +17,6 @@ public class Protocol implements MessagingProtocol<Operation>{
     public Protocol(UserController userController, CourseController courseController) {
         this.userController = userController;
         this.courseController = courseController;
-        //userController.loadData();
-        courseController.loadData();
     }
 
     @Override
@@ -35,6 +33,15 @@ public class Protocol implements MessagingProtocol<Operation>{
     @Override
     public boolean shouldTerminate() {
         return false;
+    }
+    public void logout(){
+        try {
+            userController.logout(user.getEmail());
+        } catch (Exception e) {
+        }
+        finally {
+            user = null;
+        }
     }
     public void register(RegisterOperation registerOperation) {
         try{userController.register(registerOperation.getEmail(),registerOperation.getFirstName(),registerOperation.getLastName(),registerOperation.getIdNumber(),registerOperation.getPhoneNumber(), registerOperation.getPassword(), registerOperation.getBirthday());
@@ -53,7 +60,7 @@ public class Protocol implements MessagingProtocol<Operation>{
         if(user==null) {
             try {
                 this.user = userController.login(loginOperation.getEmail(), loginOperation.getPassword(), connectionId);
-                connections.send(connectionId, new AccountResponse((short)3, user.getEmail(), user.getFirstName(), user.getLastName(), user.getIdNumber(), user.getPhoneNumber(), user.getBirthday()));
+                connections.send(connectionId, new AccountResponse((short)3, user.getEmail(), user.getFirstName(), user.getLastName(), user.getIdNumber(), user.getPhoneNumber(), user.getBirthday(), user.isEmailApproved()));
 
             } catch (Exception e) {
                 connections.send(connectionId, new Response((short) 2, (short) 2, e.getMessage()));
@@ -81,6 +88,16 @@ public class Protocol implements MessagingProtocol<Operation>{
         catch (Exception e) {
             connections.send(connectionId, new Response((short) 2, (short) 6, ""));
         }
+    }
+    public void activateAccount(ActivateAccountOperation activateAccountOperation) {
+        if(user!=null)
+            try{
+                userController.activateAccount(user.getEmail(), activateAccountOperation.getActivationCode());
+                connections.send(connectionId, new Response((short)1, (short)29, "Activated account successfully"));
+            }
+            catch(Exception e) {
+                connections.send(connectionId, new Response((short)2, (short)29, e.getMessage()));
+            }
     }
     public void acceptFriendRequest(AcceptFriendRequestOperation acceptFriendRequestOperation){
         try{

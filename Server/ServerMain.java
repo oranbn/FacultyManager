@@ -14,6 +14,8 @@ public class ServerMain {
         LoggedInUsers loggedInUsers = new LoggedInUsers();
         CourseController courseController = new CourseController();
         UserController userController = new UserController(loggedInUsers);
+        userController.loadData();
+        courseController.loadData();
         try (Server<Operation> server = Server.reactor(Integer.parseInt(args[1]), Integer.parseInt(args[0]), () -> new Protocol(userController, courseController), EncoderDecoder::new, connectionsController);) {
             server.serve();
         } catch (Exception e) {

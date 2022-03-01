@@ -11,6 +11,7 @@ namespace FacultyManager.Model.Operations.ServerResponse
         public string IdNumber => _idNumber;
 
         public string PhoneNumber => _phoneNumber;
+        public bool IsApproved => _isApproved;
 
         public string Birthday => _birthday;
         private string _email;
@@ -19,6 +20,7 @@ namespace FacultyManager.Model.Operations.ServerResponse
         private string _idNumber;
         private string _phoneNumber;
         private string _birthday;
+        private bool _isApproved;
         public AccountResponse(short opCode) : base(opCode)
         {
             _email = "";
@@ -27,6 +29,7 @@ namespace FacultyManager.Model.Operations.ServerResponse
             _idNumber = "";
             _phoneNumber = "";
             _birthday = "";
+            _isApproved = false;
         }
 
         public override bool pushByte(byte nextByte)
@@ -47,6 +50,8 @@ namespace FacultyManager.Model.Operations.ServerResponse
                     _phoneNumber = bytesToString();
                 else if(_birthday.Equals(""))
                     _birthday = bytesToString();
+                else
+                    _isApproved = bytesToBoolean();
             }
             else
                 pushNextByte(nextByte);

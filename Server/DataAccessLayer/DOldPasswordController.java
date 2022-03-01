@@ -10,11 +10,11 @@ import java.util.List;
 
 public class DOldPasswordController extends DalController{
     public DOldPasswordController() {
-        super("OldPasswords");
+        super("OldPassword");
     }
     public boolean insert(DOldPassword password)
     {
-        String sql = "INSERT INTO OldPasswords(DTO.IDColumnName,DOldPassword.OldPasswordColumnName) VALUES(?,?)";
+        String sql = "INSERT INTO OldPassword(DTO.IDColumnName,DOldPassword.OldPasswordColumnName) VALUES(?,?)";
 
         try (Connection conn = connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -27,10 +27,10 @@ public class DOldPasswordController extends DalController{
         }
         return true;
     }
-    protected List<DTO> selectOldPasswords(int id)
+    public List<String> selectOldPasswords(int id)
     {
-        List<DTO> results = new ArrayList<>();
-        String sql = "SELECT OldPassword.Password from OldPasswords INNER JOIN User ON OldPassword.ID = User.ID AND OldPassword.ID="+id+";";
+        List<String> results = new ArrayList<>();
+        String sql = "SELECT OldPassword.Password from OldPassword INNER JOIN User ON OldPassword.ID = User.ID AND OldPassword.ID="+id+";";
 
         try (Connection conn = this.connect();
              Statement stmt  = conn.createStatement();
@@ -38,7 +38,7 @@ public class DOldPasswordController extends DalController{
 
             // loop through the result set
             while (rs.next()) {
-                results.add(ConvertReaderToObject(rs));
+                results.add(((DOldPassword)ConvertReaderToObject(rs)).getOldPassword());
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
