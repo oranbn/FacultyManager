@@ -180,5 +180,20 @@ namespace FacultyManager.Model
         {
             return SendMessage(encoderDecoder.encode(new ActivateAccountOperation(29, activationCode)));
         }
+
+        public ServerOperation ResetPassword(string newPassword, string email)
+        {
+            return SendMessage(encoderDecoder.encode(new ResetPasswordOperation(31, newPassword, email)));
+        }
+
+        public ServerOperation ForgotPassword(string email)
+        {
+            return SendMessage(encoderDecoder.encode(new ForgotPasswordOperation(30, email)));
+        }
+
+        public ServerOperation ForgotPasswordCode(string forgotPasswordCode, string email)
+        {
+            return SendMessage(encoderDecoder.encode(new ForgotPasswordCodeOperation(32, forgotPasswordCode, email)));
+        }
     }
 }

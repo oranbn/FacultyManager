@@ -15,6 +15,7 @@ public class DUser extends DTO {
     public static final String PermissionLevelColumnName="PermissionLevel";
     public static final String IsEmailApprovedColumnName="IsEmailApproved";
     public static final String ActivationCodeColumnName="ActivationCode";
+    public static final String ForgotPasswordColumnName="ForgotPassword";
     private String email;
     private String firstName;
     private String lastName;
@@ -25,9 +26,10 @@ public class DUser extends DTO {
     private boolean isEmailApproved;
     private String birthday;
     private int activationCode;
+    private int forgotPassword;
 
 
-    public DUser(int id, String email, String password, String firstName, String lastName, String idNumber, String phoneNumber, int permissionLevel, boolean isEmailApproved, String birthday, int activationCode) {
+    public DUser(int id, String email, String password, String firstName, String lastName, String idNumber, String phoneNumber, int permissionLevel, boolean isEmailApproved, String birthday, int activationCode, int forgotPassword) {
         super(new DUserController(), id);
         this.email = email;
         this.firstName = firstName;
@@ -39,6 +41,7 @@ public class DUser extends DTO {
         this.isEmailApproved = isEmailApproved;
         this.birthday = birthday;
         this.activationCode = activationCode;
+        this.forgotPassword = forgotPassword;
     }
     public void insert()
     {
@@ -80,6 +83,13 @@ public class DUser extends DTO {
         return phoneNumber;
     }
     public int getActivationCode() { return activationCode;}
+    public int getForgotPassword() { return forgotPassword;}
+    public void setForgotPassword(int forgotPassword)
+    {
+        this.forgotPassword = forgotPassword;
+        if(persisted)
+            controller.update(getId(), ForgotPasswordColumnName, forgotPassword);
+    }
     public void setActivationCode(int activationCode)
     {
         this.activationCode = activationCode;
@@ -91,9 +101,18 @@ public class DUser extends DTO {
         if(persisted)
             controller.update(getId(), PasswordColumnName, password);
     }
+    public void setPermissionLevel(int permissionLevel) {
+        this.permissionLevel = permissionLevel;
+        if(persisted)
+            controller.update(getId(), PermissionLevelColumnName, permissionLevel);
+    }
     public void approveEmail() {
         isEmailApproved = true;
         if(persisted)
             controller.update(getId(), IsEmailApprovedColumnName, isEmailApproved);
+    }
+    public void setPersisted(boolean persisted)
+    {
+        this.persisted = persisted;
     }
 }

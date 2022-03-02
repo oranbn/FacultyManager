@@ -15,6 +15,7 @@ namespace FacultyManager.ViewModel
         public ICommand LoginCommand { get; }
         public ICommand LoginSuccessCommand { get; }
         public ICommand CloseLoginCommand { get; }
+        public ICommand ForgotPasswordCommand { get; }
         public ICommand ActivationCommand { get; }
         private readonly FacultyController _controller;
         private readonly AccountStore _account;
@@ -84,14 +85,20 @@ namespace FacultyManager.ViewModel
         /// <summary>
         /// Constructor
         /// </summary>
-        public LoginViewModel(FacultyController facultyController, AccountStore accountStore, INavigationService homeNavigationService, INavigationService closeNavigationService, INavigationService activationNavigationService )
+        public LoginViewModel(FacultyController facultyController, AccountStore accountStore, INavigationService homeNavigationService, INavigationService closeNavigationService, INavigationService activationNavigationService, INavigationService forgotPasswordNavigationService)
         {
             _controller = facultyController;
             _account = accountStore;
-            LoginCommand = new LoginCommand(this, homeNavigationService);
+            LoginCommand = new GenericCommand(this);
             LoginSuccessCommand = new NavigateCommand(homeNavigationService);
             CloseLoginCommand = new NavigateCommand(closeNavigationService);
             ActivationCommand = new NavigateCommand(activationNavigationService);
+            ForgotPasswordCommand = new NavigateCommand(forgotPasswordNavigationService);
+        }
+
+        public override void Execute()
+        {
+            Login();
         }
     }
 }

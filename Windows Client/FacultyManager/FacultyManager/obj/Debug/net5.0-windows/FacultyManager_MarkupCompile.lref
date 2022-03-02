@@ -1,4 +1,4 @@
-﻿C:\Users\User\Desktop\FacultyManager\Windows Client\FacultyManager\FacultyManager\obj\Debug\net5.0-windows\GeneratedInternalTypeHelper.g.cs
+﻿
 FC:\Users\User\Desktop\FacultyManager\Windows Client\FacultyManager\FacultyManager\App.xaml;;
 FC:\Users\User\Desktop\FacultyManager\Windows Client\FacultyManager\FacultyManager\Components\Layout.xaml;;
 FC:\Users\User\Desktop\FacultyManager\Windows Client\FacultyManager\FacultyManager\Components\NavigationBar.xaml;;
@@ -6,6 +6,7 @@ FC:\Users\User\Desktop\FacultyManager\Windows Client\FacultyManager\FacultyManag
 FC:\Users\User\Desktop\FacultyManager\Windows Client\FacultyManager\FacultyManager\MainWindow.xaml;;
 FC:\Users\User\Desktop\FacultyManager\Windows Client\FacultyManager\FacultyManager\View\Account.xaml;;
 FC:\Users\User\Desktop\FacultyManager\Windows Client\FacultyManager\FacultyManager\View\AccountActivation.xaml;;
+FC:\Users\User\Desktop\FacultyManager\Windows Client\FacultyManager\FacultyManager\View\ForgotPassword.xaml;;
 FC:\Users\User\Desktop\FacultyManager\Windows Client\FacultyManager\FacultyManager\View\HomePage.xaml;;
 FC:\Users\User\Desktop\FacultyManager\Windows Client\FacultyManager\FacultyManager\View\Login.xaml;;
 FC:\Users\User\Desktop\FacultyManager\Windows Client\FacultyManager\FacultyManager\View\Register.xaml;;

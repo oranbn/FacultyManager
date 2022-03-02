@@ -27,5 +27,10 @@ namespace FacultyManager.ViewModel
             _message = response.getOptional();
             NavigateCommand = new NavigateCommand(navigationService);
         }
+
+        public override void Execute()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

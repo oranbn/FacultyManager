@@ -51,5 +51,10 @@ namespace FacultyManager.ViewModel
 
             base.Dispose();
         }
+
+        public override void Execute()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

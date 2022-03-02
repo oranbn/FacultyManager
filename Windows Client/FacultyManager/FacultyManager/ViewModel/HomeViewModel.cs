@@ -19,5 +19,10 @@ namespace FacultyManager.ViewModel
             _facultyController = facultyController;
             _accountStore = accountStore;
         }
+
+        public override void Execute()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

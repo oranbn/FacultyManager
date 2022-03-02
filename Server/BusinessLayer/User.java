@@ -52,8 +52,10 @@ public class User {
         this.birthday = u.getBirthday();
         this.permissionLevel = u.getPermissionLevel();
         this.isEmailApproved = u.isEmailApproved();
+        this.forgotPassword = u.getForgotPassword();
         this.oldPasswords = OldPassword;
         this.connectionId = -1;
+        u.setPersisted(true);
     }
     public void changePassword(String newPassword)
     {
@@ -127,10 +129,12 @@ public class User {
 
     public void setForgotPassword(int forgotPassword) {
         this.forgotPassword = forgotPassword;
+        dUser.setForgotPassword(forgotPassword);
     }
     public void setPermissionLevel(int permissionLevel)
     {
         this.permissionLevel = permissionLevel;
+        dUser.setPermissionLevel(permissionLevel);
     }
 
     public void activateAccount(String activationCode) {
@@ -146,5 +150,17 @@ public class User {
             throw new IllegalArgumentException("Invalid activation code");
         }
 
+    }
+
+    public void forgotPasswordCode(String forgotPasswordCode) {
+        try {
+            int code = Integer.parseInt(forgotPasswordCode);
+            if(code == -1 || code != this.forgotPassword)
+                throw new IllegalArgumentException("Invalid resetting password code");
+        }
+        catch (NumberFormatException  e)
+        {
+            throw new IllegalArgumentException("Invalid resetting password code");
+        }
     }
 }

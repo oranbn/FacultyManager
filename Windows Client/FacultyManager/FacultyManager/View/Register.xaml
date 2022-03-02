@@ -8,6 +8,9 @@
         mc:Ignorable="d"
         d:DesignHeight="800"
     d:DesignWidth="800">
+    <UserControl.InputBindings>
+        <KeyBinding Command="{Binding ForgotPasswordCommand}" Key="Enter" />
+    </UserControl.InputBindings>
     <Grid>
         <Grid.Background>
             <ImageBrush ImageSource=
@@ -22,7 +25,7 @@
         <Grid VerticalAlignment="Bottom" Margin="0,175" Height="350">
             <Label Content="REGISTER" Margin="0,-10" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="Gray" FontSize="18"/>
             <StackPanel VerticalAlignment="Center">
-                <TextBox Margin="0,10" x:Name="EmailTextBox" Text="{Binding Path=Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" KeyDown="TextBox_KeyDown" TextChanged="EmailTextBox_TextChanged" FontFamily="Champagne &amp; Limousines" FontSize="18" Width="220"/>
+                <TextBox Margin="0,10" x:Name="EmailTextBox" Text="{Binding Path=Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontFamily="Champagne &amp; Limousines" FontSize="18" Width="220"/>
                 <TextBlock IsHitTestVisible="False" HorizontalAlignment="Center" Margin="-30" Text="Enter Email Here" Foreground="DarkGray">
                     <TextBlock.Style>
                         <Style TargetType="{x:Type TextBlock}">
@@ -35,7 +38,7 @@
                         </Style>
                     </TextBlock.Style>
                 </TextBlock>
-                <TextBox Margin="0,10" x:Name="PasswordTextBox" KeyDown="TextBox_KeyDown" Text="{Binding Path=Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="PasswordTextBox_TextChanged" FontFamily="pack://application:,,,/Resources/#password" FontSize="18" Width="220">
+                <TextBox Margin="0,10" x:Name="PasswordTextBox" Text="{Binding Path=Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontFamily="pack://application:,,,/Resources/#password" FontSize="18" Width="220">
                     <TextBox.InputBindings>
                         <!--Disable Copy-->
                         <KeyBinding Command="ApplicationCommands.NotACommand" Key="C" Modifiers="Control" />
@@ -54,7 +57,7 @@
                         </Style>
                     </TextBlock.Style>
                 </TextBlock>
-                <TextBox Margin="0,10" x:Name="FirstNameTextBox" Text="{Binding Path=FirstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" KeyDown="TextBox_KeyDown" TextChanged="EmailTextBox_TextChanged" FontFamily="Champagne &amp; Limousines" FontSize="18" Width="220"/>
+                <TextBox Margin="0,10" x:Name="FirstNameTextBox" Text="{Binding Path=FirstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontFamily="Champagne &amp; Limousines" FontSize="18" Width="220"/>
                 <TextBlock IsHitTestVisible="False" HorizontalAlignment="Center" Margin="-30" Text="Enter First Name Here" Foreground="DarkGray">
                     <TextBlock.Style>
                         <Style TargetType="{x:Type TextBlock}">
@@ -67,7 +70,7 @@
                         </Style>
                     </TextBlock.Style>
                 </TextBlock>
-                <TextBox Margin="0,10" x:Name="LastNameTextBox" Text="{Binding Path=LastName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" KeyDown="TextBox_KeyDown" TextChanged="EmailTextBox_TextChanged" FontFamily="Champagne &amp; Limousines" FontSize="18" Width="220"/>
+                <TextBox Margin="0,10" x:Name="LastNameTextBox" Text="{Binding Path=LastName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontFamily="Champagne &amp; Limousines" FontSize="18" Width="220"/>
                 <TextBlock IsHitTestVisible="False" HorizontalAlignment="Center" Margin="-30" Text="Enter Last Name Here" Foreground="DarkGray">
                     <TextBlock.Style>
                         <Style TargetType="{x:Type TextBlock}">
@@ -80,7 +83,7 @@
                         </Style>
                     </TextBlock.Style>
                 </TextBlock>
-                <TextBox Margin="0,10" x:Name="IDTextBox" Text="{Binding Path=IdNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" KeyDown="TextBox_KeyDown" TextChanged="EmailTextBox_TextChanged" FontFamily="Champagne &amp; Limousines" FontSize="18" Width="220"/>
+                <TextBox Margin="0,10" x:Name="IDTextBox" Text="{Binding Path=IdNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontFamily="Champagne &amp; Limousines" FontSize="18" Width="220"/>
                 <TextBlock IsHitTestVisible="False" HorizontalAlignment="Center" Margin="-30" Text="Enter ID Here" Foreground="DarkGray">
                     <TextBlock.Style>
                         <Style TargetType="{x:Type TextBlock}">
@@ -93,7 +96,7 @@
                         </Style>
                     </TextBlock.Style>
                 </TextBlock>
-                <TextBox Margin="0,10" x:Name="PhoneNumberTextBox" Text="{Binding Path=PhoneNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" KeyDown="TextBox_KeyDown" TextChanged="EmailTextBox_TextChanged" FontFamily="Champagne &amp; Limousines" FontSize="18" Width="220"/>
+                <TextBox Margin="0,10" x:Name="PhoneNumberTextBox" Text="{Binding Path=PhoneNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontFamily="Champagne &amp; Limousines" FontSize="18" Width="220"/>
                 <TextBlock IsHitTestVisible="False" HorizontalAlignment="Center" Margin="-30" Text="Enter Phone Number Here" Foreground="DarkGray">
                     <TextBlock.Style>
                         <Style TargetType="{x:Type TextBlock}">
@@ -108,7 +111,7 @@
                 </TextBlock>
                 <Label Content="{Binding Path=Message, Mode=OneWay}" Foreground="Red" HorizontalAlignment="Center" Height="40"/>
             </StackPanel>
-            <Button Width="120" Height="40" Margin="15" VerticalAlignment="Bottom" HorizontalAlignment="Center" Command="{Binding RegisterCommand}" Style="{StaticResource ButtonTemplate}" BorderBrush="#fff" Content="Register" Click="Register_Click" FontWeight="UltraBold"/>
+            <Button Width="120" Height="40" Margin="15" VerticalAlignment="Bottom" HorizontalAlignment="Center" Command="{Binding RegisterCommand}" Style="{StaticResource ButtonTemplate}" BorderBrush="#fff" Content="Register" FontWeight="UltraBold"/>
         </Grid>
     </Grid>
 </UserControl>

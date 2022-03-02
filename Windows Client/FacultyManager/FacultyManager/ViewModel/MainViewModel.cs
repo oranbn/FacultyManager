@@ -33,5 +33,10 @@ namespace FacultyManager.ViewModel
             RaisePropertyChanged(nameof(CurrentModalViewModel));
             RaisePropertyChanged(nameof(IsOpen));
         }
+
+        public override void Execute()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -50,7 +50,7 @@ namespace FacultyManager
                 CreateAccountNavigationService());
             return new ModalNavigationService<LoginViewModel>(
                 _modalNavigationStore,
-                () => new LoginViewModel(_facultyController, _accountStore, navigationService, new CloseModalNavigationService(_modalNavigationStore), new ModalNavigationService<AccountActivationViewModel>(_modalNavigationStore, () => new AccountActivationViewModel(_facultyController, navigationService))));
+                () => new LoginViewModel(_facultyController, _accountStore, navigationService, new CloseModalNavigationService(_modalNavigationStore), new ModalNavigationService<AccountActivationViewModel>(_modalNavigationStore, () => new AccountActivationViewModel(_facultyController, navigationService)),new ModalNavigationService<ForgotPasswordViewModel>(_modalNavigationStore, () => new ForgotPasswordViewModel(_facultyController, new CloseModalNavigationService(_modalNavigationStore)))));
         }
 
         private INavigationService CreateAccountNavigationService()

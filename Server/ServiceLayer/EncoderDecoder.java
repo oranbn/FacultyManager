@@ -108,6 +108,15 @@ public class EncoderDecoder implements MessageEncoderDecoder<Operation> {
                     case 29:
                         operation = new ActivateAccountOperation(opCode);
                         break;
+                    case 30:
+                        operation = new ForgotPasswordOperation(opCode);
+                        break;
+                    case 31:
+                        operation = new ResetPasswordOperation(opCode);
+                        break;
+                    case 32:
+                        operation = new ForgotPasswordCodeOperation(opCode);
+                        break;
                 }
             }
         }

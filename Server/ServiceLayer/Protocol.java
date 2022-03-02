@@ -333,4 +333,34 @@ public class Protocol implements MessagingProtocol<Operation>{
 
         }
     }
+
+    public void resetPassword(ResetPasswordOperation resetPasswordOperation) {
+        try {
+            userController.resetPassword(resetPasswordOperation.getNewPassword(), resetPasswordOperation.getEmail());
+            connections.send(connectionId, new Response((short) 1, (short) 31, "Password changed successfully"));
+        }
+        catch (Exception e) {
+            connections.send(connectionId, new Response((short) 2, (short) 31, e.getMessage()));
+        }
+    }
+
+    public void forgotPassword(ForgotPasswordOperation forgotPasswordOperation) {
+        try {
+            userController.forgotPassword(forgotPasswordOperation.getEmail());
+            connections.send(connectionId, new Response((short) 1, (short) 30, "Email sent successfully"));
+        }
+        catch (Exception e) {
+            connections.send(connectionId, new Response((short) 2, (short) 30, e.getMessage()));
+        }
+    }
+
+    public void forgotPasswordCode(ForgotPasswordCodeOperation forgotPasswordCodeOperation) {
+        try {
+            userController.forgotPasswordCode(forgotPasswordCodeOperation.getForgotPasswordCode(), forgotPasswordCodeOperation.getEmail());
+            connections.send(connectionId, new Response((short) 1, (short) 32, ""));
+        }
+        catch (Exception e) {
+            connections.send(connectionId, new Response((short) 2, (short) 32, e.getMessage()));
+        }
+    }
 }

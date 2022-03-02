@@ -68,8 +68,13 @@ namespace FacultyManager.ViewModel
         public AccountActivationViewModel(FacultyController facultyController, INavigationService homeNavigationService)
         {
             _controller = facultyController;
-            ActivateCommand = new ActivateCommand(this, homeNavigationService);
+            ActivateCommand = new GenericCommand(this);
             NavigateCommand = new NavigateCommand(homeNavigationService);
+        }
+
+        public override void Execute()
+        {
+            Activate();
         }
     }
 }

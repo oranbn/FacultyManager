@@ -89,7 +89,7 @@ namespace FacultyManager.ViewModel
        }
         public RegisterViewModel(FacultyController facultyController,ModalNavigationStore modalNavigationStore ,INavigationService homeNavigationService, INavigationService closeNavigationService)
         {
-            RegisterCommand = new RegisterCommand(this);
+            RegisterCommand = new GenericCommand(this);
             _facultyController = facultyController;
             _modalNavigationStore = modalNavigationStore;
             _homeNavigationService = homeNavigationService;
@@ -113,5 +113,10 @@ namespace FacultyManager.ViewModel
                     break;
             }
     }
+
+        public override void Execute()
+        {
+            Register();
+        }
     }
 }

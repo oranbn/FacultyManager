@@ -41,3 +41,5 @@ C:\Users\User\Desktop\FacultyManager\Windows Client\FacultyManager\FacultyManage
 C:\Users\User\Desktop\FacultyManager\Windows Client\FacultyManager\FacultyManager\obj\Debug\net5.0-windows\View\AccountActivation.g.cs
 C:\Users\User\Desktop\FacultyManager\Windows Client\FacultyManager\FacultyManager\obj\Debug\net5.0-windows\View\AccountActivation.baml
 C:\Users\User\Desktop\FacultyManager\Windows Client\FacultyManager\FacultyManager\bin\Debug\net5.0-windows\WpfAnimatedGif.dll
+C:\Users\User\Desktop\FacultyManager\Windows Client\FacultyManager\FacultyManager\obj\Debug\net5.0-windows\View\ForgotPassword.g.cs
+C:\Users\User\Desktop\FacultyManager\Windows Client\FacultyManager\FacultyManager\obj\Debug\net5.0-windows\View\ForgotPassword.baml

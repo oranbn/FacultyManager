@@ -90,7 +90,7 @@ public class UserController {
         isLegalEmail(email);
         isUniqueEmail(email);
         isLegalPassword(password);
-        User user = new User(email, password, firstName, lastName, idNumber, phoneNumber, birthday, new DUser(id++, email, password, firstName, lastName, idNumber, phoneNumber,1,false, birthday, -1));
+        User user = new User(email, password, firstName, lastName, idNumber, phoneNumber, birthday, new DUser(id++, email, password, firstName, lastName, idNumber, phoneNumber,1,false, birthday, -1, -1));
         sendEmail(user);
         users.put(email, user);
     }
@@ -196,7 +196,7 @@ public class UserController {
             MimeMessage message = new MimeMessage(session);
             message.setFrom(new InternetAddress(from));
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
-            message.setSubject("Faculty Manager registration verification");
+            message.setSubject("Faculty Manager resetting password code");
             int randomCode = new Random().nextInt(900000) + 100000;
             user.setForgotPassword(randomCode);
             message.setText("Hello "+user.getFirstName()+" "+user.getLastName()+", the code for resetting your password is: "+randomCode);
@@ -220,5 +220,23 @@ public class UserController {
         if(u == null)
             throw new IllegalArgumentException("Invalid email");
         u.activateAccount(activationCode);
+    }
+
+    public void forgotPassword(String email) {
+        if(!users.containsKey(email))
+            throw new IllegalArgumentException("Invalid email");
+        sendEmailForgotPassword(email);
+    }
+
+    public void forgotPasswordCode(String forgotPasswordCode, String email) {
+        if(!users.containsKey(email))
+            throw  new IllegalArgumentException("Invalid email");
+        users.get(email).forgotPasswordCode(forgotPasswordCode);
+    }
+
+    public void resetPassword(String newPassword, String email) throws Exception {
+        if(!users.containsKey(email))
+            throw  new IllegalArgumentException("Invalid email");
+        changePassword(email, newPassword);
     }
 }

@@ -9,18 +9,18 @@ using System.Windows;
 
 namespace FacultyManager.Commands
 {
-    public class RegisterCommand : CommandBase
+    public class GenericCommand : CommandBase
     {
-        private readonly RegisterViewModel _viewModel;
+        private readonly NotifiableObject _viewModel;
 
-        public RegisterCommand(RegisterViewModel viewModel)
+        public GenericCommand(NotifiableObject viewModel)
         {
             _viewModel = viewModel;
         }
 
         public override void Execute(object parameter)
         {
-            _viewModel.Register();
+            _viewModel.Execute();
         }
     }
 }

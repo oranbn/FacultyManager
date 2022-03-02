@@ -44,5 +44,10 @@ namespace FacultyManager.Model
         {
             return new FacultyManagerModel(Controller, this);
         }
+
+        public override void Execute()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

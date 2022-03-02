@@ -11,5 +11,6 @@ namespace FacultyManager
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
         }
         public virtual void Dispose() { }
+        public abstract void Execute();
     }
 }
