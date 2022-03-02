@@ -14,7 +14,7 @@ public class DOldPasswordController extends DalController{
     }
     public boolean insert(DOldPassword password)
     {
-        String sql = "INSERT INTO OldPassword(DTO.IDColumnName,DOldPassword.OldPasswordColumnName) VALUES(?,?)";
+        String sql = "INSERT INTO OldPassword("+DTO.IDColumnName+","+DOldPassword.OldPasswordColumnName+") VALUES(?,?)";
 
         try (Connection conn = connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
