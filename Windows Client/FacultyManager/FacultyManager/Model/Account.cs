@@ -42,6 +42,11 @@ namespace FacultyManager.Model
             get => isApproved;
             set => isApproved = value;
         }
+        public int Permission
+        {
+            get => permission;
+            set => permission = value;
+        }
 
         private string email;
         private string firstName;
@@ -50,7 +55,8 @@ namespace FacultyManager.Model
         private string phoneNumber;
         private string birthday;
         private bool isApproved;
-        public Account(string email, string firstName, string lastName, string idNumber, string phoneNumber, string birthday, bool isApproved)
+        private int permission;
+        public Account(string email, string firstName, string lastName, string idNumber, string phoneNumber, string birthday, int permission, bool isApproved)
         {
             this.email = email;
             this.firstName = firstName;
@@ -58,6 +64,7 @@ namespace FacultyManager.Model
             this.idNumber = idNumber;
             this.phoneNumber = phoneNumber;
             this.birthday = birthday;
+            this.permission = permission;
             this.isApproved = isApproved;
         }
 

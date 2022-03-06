@@ -31,6 +31,7 @@ public class Course {
         this.courseChatCounter = 0;
         this.examCounter = 0;
         this.dCourse = dCourse;
+        dCourse.insert();
     }
     public Course(DCourse dCourse)
     {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace FacultyManager.Model.Operations
 {
@@ -43,8 +44,10 @@ namespace FacultyManager.Model.Operations
             Length = 0;
             return output;
         }
-        public int bytesToInt(){
-            int output = BitConverter.ToInt32(bArr, 0);
+        /*public int bytesToInt()
+        {
+            byte[] bytearray = {bArr[0],bArr[1],bArr[2],bArr[3]};
+            int output = BitConverter.ToInt32(bytearray, 0);
             bArr = new byte[size];
             Length = 0;
             return output;
@@ -55,7 +58,7 @@ namespace FacultyManager.Model.Operations
             bArr = new byte[size];
             Length = 0;
             return output;
-        }
+        }*/
         public bool bytesToBoolean(){
             int temp = Length;
             Length = 0;

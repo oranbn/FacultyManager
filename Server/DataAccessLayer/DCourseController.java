@@ -13,7 +13,7 @@ public class DCourseController extends DalController{
     }
     public boolean insert(DCourse course)
     {
-        String sql = "INSERT INTO Course(DTO.IDColumnName, DCourse.NameColumnName,DCourse.GeneralInfoColumnName) VALUES(?,?,?)";
+        String sql = "INSERT INTO Course("+DTO.IDColumnName+","+DCourse.NameColumnName+","+DCourse.GeneralInfoColumnName+") VALUES(?,?,?)";
 
         try (Connection conn = connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {

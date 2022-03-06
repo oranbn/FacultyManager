@@ -114,7 +114,7 @@ namespace FacultyManager.ViewModel
             }
     }
 
-        public override void Execute()
+        public override void Execute(object parameter)
         {
             Register();
         }

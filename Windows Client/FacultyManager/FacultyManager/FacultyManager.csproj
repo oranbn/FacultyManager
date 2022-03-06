@@ -14,6 +14,8 @@
     <Resource Include="View\BackGround\backgroundcolor.png" />
     <None Remove="View\BackGround\backgroundgif.gif" />
     <Resource Include="View\BackGround\backgroundgif.gif" />
+    <None Remove="View\BackGround\book.jpg" />
+    <Resource Include="View\BackGround\book.jpg" />
   </ItemGroup>
 
   <ItemGroup>

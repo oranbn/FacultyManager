@@ -160,7 +160,7 @@ namespace FacultyManager.ViewModel
             _resetPasswordFrame = false;
         }
 
-        public override void Execute()
+        public override void Execute(object parameter)
         {
             if (_isEmailSent)
                 ForgotPassword();

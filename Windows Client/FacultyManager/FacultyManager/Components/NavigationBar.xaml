@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="450"
     d:DesignWidth="800"
-    Background="Crimson"
+    Background="DodgerBlue"
     mc:Ignorable="d">
     <UserControl.Resources>
         <Style TargetType="Button">
@@ -43,33 +43,44 @@
             <ColumnDefinition Width="auto" />
             <ColumnDefinition Width="auto" />
             <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="auto" />
         </Grid.ColumnDefinitions>
         <Button
-            Grid.Column="1"
+            Grid.Column="4"
+            Margin="10 0 0 0"
+            Command="{Binding NavigateAddCourseCommand}"
+            Content="Add Course"
+            Visibility="{Binding AddCourse, Converter={StaticResource BooleanToVisibilityConverter}}" />
+        
+        <Button
+            Grid.Column="5"
             Margin="10 0 0 0"
             Command="{Binding NavigateHomeCommand}"
             Content="Home" />
 
         <Button
-            Grid.Column="2"
+            Grid.Column="6"
             Margin="10 0 0 0"
             Command="{Binding NavigateLoginCommand}"
             Content="Login"
             Visibility="{Binding IsNotLoggedIn, Converter={StaticResource BooleanToVisibilityConverter}}" />
         <Button
-            Grid.Column="3"
+            Grid.Column="7"
             Margin="10 0 0 0"
             Command="{Binding NavigateRegisterCommand}"
             Content="Register"
             Visibility="{Binding IsNotLoggedIn, Converter={StaticResource BooleanToVisibilityConverter}}" />
         <Button
-            Grid.Column="3"
+            Grid.Column="7"
             Margin="10 0 0 0"
             Command="{Binding NavigateAccountCommand}"
             Content="Account"
             Visibility="{Binding IsLoggedIn, Converter={StaticResource BooleanToVisibilityConverter}}" />
         <Button
-            Grid.Column="4"
+            Grid.Column="8"
             Margin="10 0 0 0"
             Command="{Binding LogoutCommand}"
             Content="Logout"

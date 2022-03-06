@@ -117,6 +117,9 @@ public class EncoderDecoder implements MessageEncoderDecoder<Operation> {
                     case 32:
                         operation = new ForgotPasswordCodeOperation(opCode);
                         break;
+                    case 33:
+                        operation = new GetCoursesOperation(opCode);
+                        break;
                 }
             }
         }

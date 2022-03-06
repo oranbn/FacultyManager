@@ -90,7 +90,7 @@ public class UserController {
         isLegalEmail(email);
         isUniqueEmail(email);
         isLegalPassword(password);
-        User user = new User(email, password, firstName, lastName, idNumber, phoneNumber, birthday, new DUser(id++, email, password, firstName, lastName, idNumber, phoneNumber,1,false, birthday, -1, -1));
+        User user = new User(email, password, firstName, lastName, idNumber, phoneNumber, birthday, new DUser(id++, email, password, firstName, lastName, idNumber, phoneNumber,birthday,1,false, -1, -1));
         sendEmail(user);
         users.put(email, user);
     }

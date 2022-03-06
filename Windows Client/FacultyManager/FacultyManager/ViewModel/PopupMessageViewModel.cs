@@ -28,7 +28,7 @@ namespace FacultyManager.ViewModel
             NavigateCommand = new NavigateCommand(navigationService);
         }
 
-        public override void Execute()
+        public override void Execute(object parameter)
         {
             throw new System.NotImplementedException();
         }

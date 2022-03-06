@@ -19,6 +19,9 @@ namespace FacultyManager.Stores
         }
         public bool IsLoggedIn => CurrentAccount != null;
         public bool IsNotLoggedIn => CurrentAccount == null;
+
+        public bool AddCourse => CurrentAccount is {Permission: 5};
+        
         public event Action CurrentAccountChanged;
         public void Logout()
         {

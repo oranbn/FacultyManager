@@ -1,13 +1,20 @@
 ﻿
 FC:\Users\User\Desktop\FacultyManager\Windows Client\FacultyManager\FacultyManager\App.xaml;;
+FC:\Users\User\Desktop\FacultyManager\Windows Client\FacultyManager\FacultyManager\Components\CourseCard.xaml;;
 FC:\Users\User\Desktop\FacultyManager\Windows Client\FacultyManager\FacultyManager\Components\Layout.xaml;;
 FC:\Users\User\Desktop\FacultyManager\Windows Client\FacultyManager\FacultyManager\Components\NavigationBar.xaml;;
 FC:\Users\User\Desktop\FacultyManager\Windows Client\FacultyManager\FacultyManager\Components\PopupMessage.xaml;;
 FC:\Users\User\Desktop\FacultyManager\Windows Client\FacultyManager\FacultyManager\MainWindow.xaml;;
 FC:\Users\User\Desktop\FacultyManager\Windows Client\FacultyManager\FacultyManager\View\Account.xaml;;
 FC:\Users\User\Desktop\FacultyManager\Windows Client\FacultyManager\FacultyManager\View\AccountActivation.xaml;;
+FC:\Users\User\Desktop\FacultyManager\Windows Client\FacultyManager\FacultyManager\View\AddChat.xaml;;
+FC:\Users\User\Desktop\FacultyManager\Windows Client\FacultyManager\FacultyManager\View\AddCourse.xaml;;
+FC:\Users\User\Desktop\FacultyManager\Windows Client\FacultyManager\FacultyManager\View\AddExam.xaml;;
 FC:\Users\User\Desktop\FacultyManager\Windows Client\FacultyManager\FacultyManager\View\ForgotPassword.xaml;;
 FC:\Users\User\Desktop\FacultyManager\Windows Client\FacultyManager\FacultyManager\View\HomePage.xaml;;
 FC:\Users\User\Desktop\FacultyManager\Windows Client\FacultyManager\FacultyManager\View\Login.xaml;;
 FC:\Users\User\Desktop\FacultyManager\Windows Client\FacultyManager\FacultyManager\View\Register.xaml;;
+FC:\Users\User\Desktop\FacultyManager\Windows Client\FacultyManager\FacultyManager\View\RemoveChat.xaml;;
+FC:\Users\User\Desktop\FacultyManager\Windows Client\FacultyManager\FacultyManager\View\RemoveCourse.xaml;;
+FC:\Users\User\Desktop\FacultyManager\Windows Client\FacultyManager\FacultyManager\View\RemoveExam.xaml;;
 

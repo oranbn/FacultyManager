@@ -125,9 +125,10 @@ namespace FacultyManager.Model
         public ServerOperation GetAllChatMessages(int courseId, int chatId){   
             return SendMessage(encoderDecoder.encode(new GetAllChatMessagesOperation(28, courseId, chatId)));
         }
-        internal IEnumerable<CourseModel> GetAllCourses(UserModel user)
+        internal ServerOperation GetCourses()
         {
-            throw new NotImplementedException();
+            return SendMessage(encoderDecoder.encode(new GetCourseOperation(33)));
+
         }
         public ServerOperation Login(string email, string password)
         {
@@ -194,6 +195,11 @@ namespace FacultyManager.Model
         public ServerOperation ForgotPasswordCode(string forgotPasswordCode, string email)
         {
             return SendMessage(encoderDecoder.encode(new ForgotPasswordCodeOperation(32, forgotPasswordCode, email)));
+        }
+
+        public void RemoveCourse(int yId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

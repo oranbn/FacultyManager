@@ -47,7 +47,7 @@ public class DUserController extends DalController {
     protected DTO ConvertReaderToObject(ResultSet reader) {
         DUser result = null;
         try {
-            result = new DUser(reader.getInt(1), reader.getString(2), reader.getString(3),reader.getString(4),reader.getString(5), reader.getString(6),reader.getString(7), reader.getInt(8),reader.getBoolean(9), reader.getString(10), reader.getInt(11), reader.getInt(12));
+            result = new DUser(reader.getInt(1), reader.getString(2), reader.getString(3),reader.getString(4),reader.getString(5), reader.getString(6),reader.getString(7),reader.getString(8), reader.getInt(9),reader.getBoolean(10), reader.getInt(11), reader.getInt(12));
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }

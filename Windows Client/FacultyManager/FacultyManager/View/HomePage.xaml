@@ -7,24 +7,28 @@
     xmlns:local="clr-namespace:FacultyManager.View"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:gif="http://wpfanimatedgif.codeplex.com"
+    xmlns:controls="clr-namespace:FacultyManager.Components"
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+    </UserControl.Resources>
     <Grid>
         <Grid.Background>
             <VisualBrush>
                 <VisualBrush.Visual>
-                    <Image
-                        gif:ImageBehavior.AnimatedSource="/FacultyManager;component/View/BackGround/backgroundgif.gif"
-                        gif:ImageBehavior.AutoStart="True"
-                        gif:ImageBehavior.RepeatBehavior="1" />
+                    <Image Opacity="0.7"
+                           gif:ImageBehavior.AnimatedSource="/FacultyManager;component/View/BackGround/backgroundgif.gif"
+                           gif:ImageBehavior.AutoStart="True"
+                           gif:ImageBehavior.RepeatBehavior="1" />
                 </VisualBrush.Visual>
             </VisualBrush>
         </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
         <TextBlock
@@ -36,5 +40,49 @@
             Grid.Row="1"
             Margin="0 20 0 0"
             Text="{Binding WelcomeMessage}" />
+        <Grid Grid.Row="2" VerticalAlignment="Bottom" Margin="10" Visibility="{Binding IsLoggedIn, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Rectangle Grid.ColumnSpan="3" Width="750" Opacity="0.5" Height="480" VerticalAlignment="Bottom"
+                       RadiusY="10" RadiusX="10" Fill="White">
+                <Rectangle.Effect>
+                    <DropShadowEffect BlurRadius="15" Direction="0" RenderingBias="Quality" ShadowDepth="1"
+                                      Color="#FFBBBBBB" />
+                </Rectangle.Effect>
+            </Rectangle>
+            <ListView BorderThickness="0" Width="750" Height="480" Padding="0" Background="Transparent" Grid.ColumnSpan="3" x:Name="MyList" ItemsSource="{Binding CoursesModel.Courses}">
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="{x:Type ListViewItem}">
+                        <Setter Property="Background" Value="Transparent" />
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                    <ContentPresenter />
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListView.ItemContainerStyle>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <StackPanel.InputBindings>
+                                <MouseBinding Gesture="RightClick"
+                                              Command="{Binding DataContext.Test, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Mode=OneWay}" 
+                                              CommandParameter="{Binding }" />                            </StackPanel.InputBindings>
+                            <controls:CourseCard Height="220" Width="200" Margin="10"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Columns="3"></UniformGrid>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+            </ListView>
+        </Grid>
     </Grid>
 </UserControl>

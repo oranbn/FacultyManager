@@ -19,8 +19,10 @@ namespace FacultyManager.ViewModel
         
         public ICommand NavigateRegisterCommand { get; }
         public ICommand LogoutCommand { get; }
+        public ICommand NavigateAddCourseCommand { get; }
         public bool IsLoggedIn => _accountStore.IsLoggedIn;
         public bool IsNotLoggedIn => _accountStore.IsNotLoggedIn;
+        public bool AddCourse => _accountStore.AddCourse;
         
 
         public NavigationBarViewModel(AccountStore accountStore,
@@ -28,6 +30,7 @@ namespace FacultyManager.ViewModel
             INavigationService accountNavigationService, 
             INavigationService loginNavigationService,
             INavigationService registerNavigationService,
+            INavigationService addCourseNavigationService,
             FacultyController _controller)
         {
             _accountStore = accountStore;
@@ -36,6 +39,7 @@ namespace FacultyManager.ViewModel
             NavigateLoginCommand = new NavigateCommand(loginNavigationService);
             NavigateRegisterCommand = new NavigateCommand(registerNavigationService);
             LogoutCommand = new LogoutCommand(_accountStore, homeNavigationService, _controller);
+            NavigateAddCourseCommand = new NavigateCommand(addCourseNavigationService);
             _accountStore.CurrentAccountChanged += OnCurrentAccountChanged;
         }
 
@@ -52,7 +56,7 @@ namespace FacultyManager.ViewModel
             base.Dispose();
         }
 
-        public override void Execute()
+        public override void Execute(object parameter)
         {
             throw new NotImplementedException();
         }

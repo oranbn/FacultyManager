@@ -5,7 +5,10 @@ import BusinessLayer.*;
 import ServiceLayer.Objects.Operation;
 import ServiceLayer.Objects.Operations.Client.*;
 import ServiceLayer.Objects.Operations.Server.AccountResponse;
+import ServiceLayer.Objects.Operations.Server.CoursesResponse;
 import ServiceLayer.Objects.Operations.Server.Response;
+
+import java.util.List;
 
 public class Protocol implements MessagingProtocol<Operation>{
     private final UserController userController;
@@ -60,7 +63,7 @@ public class Protocol implements MessagingProtocol<Operation>{
         if(user==null) {
             try {
                 this.user = userController.login(loginOperation.getEmail(), loginOperation.getPassword(), connectionId);
-                connections.send(connectionId, new AccountResponse((short)3, user.getEmail(), user.getFirstName(), user.getLastName(), user.getIdNumber(), user.getPhoneNumber(), user.getBirthday(), user.isEmailApproved()));
+                connections.send(connectionId, new AccountResponse((short)3, user.getEmail(), user.getFirstName(), user.getLastName(), user.getIdNumber(), user.getPhoneNumber(), user.getBirthday(), user.getPermissionLevel(), user.isEmailApproved()));
 
             } catch (Exception e) {
                 connections.send(connectionId, new Response((short) 2, (short) 2, e.getMessage()));
@@ -184,9 +187,10 @@ public class Protocol implements MessagingProtocol<Operation>{
         try{
             isConnected();
             userController.changePassword(user.getEmail(), changePasswordOperation.getPassword());
+            connections.send(connectionId, new Response((short) 1, (short) 21, ""));
         }
         catch (Exception e) {
-
+            connections.send(connectionId, new Response((short) 2, (short) 21, e.getMessage()));
         }
     }
     public void changeUserPermission(ChangeUserPermissionOperation changeUserPermissionOperation)
@@ -194,9 +198,10 @@ public class Protocol implements MessagingProtocol<Operation>{
         try{
             isConnected();
             userController.changeUserPermission(user, changeUserPermissionOperation.getEmail(), changeUserPermissionOperation.getPermission());
+            connections.send(connectionId, new Response((short) 1, (short) 23, ""));
         }
         catch (Exception e) {
-
+            connections.send(connectionId, new Response((short) 2, (short) 23, e.getMessage()));
         }
     }
     public void addChatMessage(ChatMessageOperation chatMessage)
@@ -204,9 +209,10 @@ public class Protocol implements MessagingProtocol<Operation>{
         try{
             isConnected();
             courseController.addChatMessage(user, chatMessage.getCourseId(), chatMessage.getChatId(), chatMessage.getContent(), chatMessage.getTime());
+            connections.send(connectionId, new Response((short) 1, (short) 24, ""));
         }
         catch (Exception e) {
-
+            connections.send(connectionId, new Response((short) 2, (short) 24, e.getMessage()));
         }
     }
     public void createCourse(CreateCourseOperation createCourseOperation)
@@ -214,9 +220,10 @@ public class Protocol implements MessagingProtocol<Operation>{
         try{
             isConnected();
             courseController.addCourse(user, createCourseOperation.getName(), createCourseOperation.getGeneralInfo());
+            connections.send(connectionId, new Response((short) 1, (short) 25, ""));
         }
         catch (Exception e) {
-
+            connections.send(connectionId, new Response((short) 2, (short) 25, e.getMessage()));
         }
     }
     public void createExam(CreateExamOperation createExamOperation)
@@ -243,9 +250,18 @@ public class Protocol implements MessagingProtocol<Operation>{
     {
 
     }
-    public void getCourse(GetCourseOperation getCourseOperation)
+    public void getCourses(GetCoursesOperation getCourseOperation)
     {
+        try{
+            isConnected();
+            List<Course> courseList = courseController.getCourses(user.getEmail(), user.getPermissionLevel());
+            connections.send(connectionId, new CoursesResponse((short) 4, courseList));
+        }
+        catch (Exception e)
+        {
+            connections.send(connectionId, new Response((short) 2, (short) 33, e.getMessage()));
 
+        }
     }
     public void markMessage(MarkMessageOperation markMessageOperation)
     {

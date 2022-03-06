@@ -72,7 +72,7 @@ namespace FacultyManager.ViewModel
             NavigateCommand = new NavigateCommand(homeNavigationService);
         }
 
-        public override void Execute()
+        public override void Execute(object parameter)
         {
             Activate();
         }

@@ -34,7 +34,7 @@ namespace FacultyManager.ViewModel
             RaisePropertyChanged(nameof(IsOpen));
         }
 
-        public override void Execute()
+        public override void Execute(object parameter)
         {
             throw new NotImplementedException();
         }

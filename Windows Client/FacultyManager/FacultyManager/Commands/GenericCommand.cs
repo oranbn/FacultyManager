@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
+using FacultyManager.Model.Operations.ServerResponse;
 
 namespace FacultyManager.Commands
 {
@@ -20,7 +21,7 @@ namespace FacultyManager.Commands
 
         public override void Execute(object parameter)
         {
-            _viewModel.Execute();
+            _viewModel.Execute(parameter);
         }
     }
 }

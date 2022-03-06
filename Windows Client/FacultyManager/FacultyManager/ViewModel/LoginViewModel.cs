@@ -67,7 +67,7 @@ namespace FacultyManager.ViewModel
                     Message = ((MessageResponse)response).getOptional();
                     break;
                 case 3:
-                    _account.CurrentAccount = new Account(((AccountResponse)response).Email,((AccountResponse)response).FirstName,((AccountResponse)response).LastName,((AccountResponse)response).IdNumber,((AccountResponse)response).PhoneNumber,((AccountResponse)response).Birthday, ((AccountResponse)response).IsApproved);
+                    _account.CurrentAccount = new Account(((AccountResponse)response).Email,((AccountResponse)response).FirstName,((AccountResponse)response).LastName,((AccountResponse)response).IdNumber,((AccountResponse)response).PhoneNumber,((AccountResponse)response).Birthday ,((AccountResponse)response).Permission, ((AccountResponse)response).IsApproved);
                     if(_account.CurrentAccount.IsApproved)
                         LoginSuccessCommand.Execute(null);
                     else
@@ -96,7 +96,7 @@ namespace FacultyManager.ViewModel
             ForgotPasswordCommand = new NavigateCommand(forgotPasswordNavigationService);
         }
 
-        public override void Execute()
+        public override void Execute(object parameter)
         {
             Login();
         }

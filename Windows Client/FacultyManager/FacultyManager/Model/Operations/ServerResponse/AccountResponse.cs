@@ -1,3 +1,5 @@
+using System;
+
 namespace FacultyManager.Model.Operations.ServerResponse
 {
     public class AccountResponse : ServerOperation
@@ -14,12 +16,14 @@ namespace FacultyManager.Model.Operations.ServerResponse
         public bool IsApproved => _isApproved;
 
         public string Birthday => _birthday;
+        public int Permission => _permission;
         private string _email;
         private string _firstName;
         private string _lastName;
         private string _idNumber;
         private string _phoneNumber;
         private string _birthday;
+        private int _permission;
         private bool _isApproved;
         public AccountResponse(short opCode) : base(opCode)
         {
@@ -29,6 +33,7 @@ namespace FacultyManager.Model.Operations.ServerResponse
             _idNumber = "";
             _phoneNumber = "";
             _birthday = "";
+            _permission = -1;
             _isApproved = false;
         }
 
@@ -50,6 +55,8 @@ namespace FacultyManager.Model.Operations.ServerResponse
                     _phoneNumber = bytesToString();
                 else if(_birthday.Equals(""))
                     _birthday = bytesToString();
+                else if (_permission == -1)
+                    _permission = Int32.Parse(bytesToString());
                 else
                     _isApproved = bytesToBoolean();
             }

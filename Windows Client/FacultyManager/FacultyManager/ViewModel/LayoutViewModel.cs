@@ -22,7 +22,7 @@ namespace FacultyManager.ViewModel
             base.Dispose();
         }
 
-        public override void Execute()
+        public override void Execute(object parameter)
         {
             throw new NotImplementedException();
         }

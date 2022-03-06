@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET5_0;NETCOREAPP
 C:\Users\User\Desktop\FacultyManager\Windows Client\FacultyManager\FacultyManager\App.xaml
-101640098994
+17-323174126
 
-85327928049
+931314422899
 195-1275837658
-Components\Layout.xaml;Components\NavigationBar.xaml;Components\PopupMessage.xaml;MainWindow.xaml;View\Account.xaml;View\AccountActivation.xaml;View\ForgotPassword.xaml;View\HomePage.xaml;View\Login.xaml;View\Register.xaml;
+Components\CourseCard.xaml;Components\Layout.xaml;Components\NavigationBar.xaml;Components\PopupMessage.xaml;MainWindow.xaml;View\Account.xaml;View\AccountActivation.xaml;View\AddChat.xaml;View\AddCourse.xaml;View\AddExam.xaml;View\ForgotPassword.xaml;View\HomePage.xaml;View\Login.xaml;View\Register.xaml;View\RemoveChat.xaml;View\RemoveCourse.xaml;View\RemoveExam.xaml;
 
 False
 

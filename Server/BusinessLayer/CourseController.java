@@ -1,7 +1,10 @@
 package BusinessLayer;
 
+import DataAccessLayer.DCourseController;
 import DataAccessLayer.DTOs.DCourse;
+import DataAccessLayer.DTOs.DUser;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -9,10 +12,12 @@ public class CourseController {
     private final ConcurrentHashMap<Integer, Course> courses;
     private final GeneralChat generalChat;
     private int courseId = 0;
+    private final DCourseController dCourseController;
 
     public CourseController() {
         this.courses = new ConcurrentHashMap<>();
         generalChat = new GeneralChat();
+        dCourseController = new DCourseController();
     }
 
     private void permissionValidator2(User user) {
@@ -31,10 +36,14 @@ public class CourseController {
             throw new IllegalArgumentException("Course name is illegal");
         courses.put(courseId, new Course(courseId, name, generalInfo, new DCourse(courseId++, name, generalInfo)));
     }
-    public Course getCourse(int courseId) {
-        if(courses.containsKey(courseId))
-            return courses.get(courseId);
-        throw new IllegalArgumentException("invalid course");
+    public List<Course> getCourses(String email, int permission) {
+        if(permission==5)
+            return new ArrayList<Course>(courses.values());
+        List<Course> courses = new ArrayList<>();
+        for(Course course : courses)
+            if(course.getStudents().contains(email))
+                courses.add(course);
+        return courses;
     }
     public void removeCourse(int courseId) {
 
@@ -162,6 +171,12 @@ public class CourseController {
     }
 
     public void loadData() {
+        List<DCourse> dcourses =  (List<DCourse>)(List<?>)dCourseController.select();
+        for(DCourse dcourse : dcourses)
+        {
+            courses.put(dcourse.getId(), new Course(dcourse));
+            courseId++;
+        }
     }
 
     public void changeAnswerContent(User user, int courseId, int examId, int questionId, int answerId, String content) {

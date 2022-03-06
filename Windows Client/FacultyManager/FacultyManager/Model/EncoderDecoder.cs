@@ -35,6 +35,9 @@ namespace FacultyManager.Model
                         case 3:
                             operation = new AccountResponse(opCode);
                             break;
+                        case 4:
+                            operation = new CoursestResponse(opCode);
+                            break;
                     }
                 }
             }
