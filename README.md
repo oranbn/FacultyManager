@@ -1,5 +1,5 @@
 # FacultyManager
-Server Side using java with Bussiness Layer, Data Layer using SQL and Service layer, Client side using C# and WPF based on MVVM patern.
+Server Side using java with Bussiness Layer, Data Layer using SQL and Service layer, Client side using C# and WPF based on MVVM pattern.
 Communication is based on TCP.
 Client application supports navigation, MVVM.
 Register page:
